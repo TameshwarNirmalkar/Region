@@ -46,7 +46,7 @@
 		    hasRotatingPoint: false
 		  });
 
-		  canvas.add(rect).setActiveObject(rect);
+		  
 
 		  function observeBoolean(property) {
 		    document.getElementById(property).onclick = function() {
@@ -87,7 +87,7 @@
 		$scope.cancelReset = CANCELRESET;
 
 		$scope.website = function(){
-			console.log( canvas );
+			canvas.add(rect).setActiveObject(rect);
 		}
 	}
 
