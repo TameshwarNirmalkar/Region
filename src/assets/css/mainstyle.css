@@ -34,8 +34,8 @@
 .next{float: left !important;}
 #jcl-demo a.prev, #jcl-demo a.next, #jcl-demo a.go, .jcl-demo a.prev, .jcl-demo a.next{font-size: 28px;padding: 10px;width: 47px;}
 .toggle-editor{display: none;}
-#jcl-demo{margin: 0 auto;}
-#jcl-demo .mid{margin: 0;width: 400px;height: 400px;}
+/*#jcl-demo{margin: 0 auto;}*/
+#jcl-demo .mid{margin: 0;width: 400px;height: 421px;}
 canvas {
     border: 1px solid #999;
 }
@@ -44,3 +44,4 @@ canvas {
     float: none;    float: left !important;}
 .canvasHolder{margin: 0 auto;}
 .canvasHolder .canvas-container{position: absolute !important;}
+#jcl-demo .custom-container{margin: 0;}
