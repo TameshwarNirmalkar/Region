@@ -1,2 +1,9 @@
 # Region
-this it for Argentina team
+
+##Install dependencies
+### run command npm install
+
+##Run app
+### run command npm start
+
+
