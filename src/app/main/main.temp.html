@@ -1,11 +1,11 @@
 <md-toolbar>
-	<div layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
-	  <md-button class="md-raised md-default" ng-click="website(); activecls = 1" ng-class="{activeCls: activecls === 1}"><i class="fa fa-globe">&nbsp;</i>website</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 2" ng-class="{activeCls: activecls === 2}"><i class="fa fa-envelope">&nbsp;</i>email</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 3" ng-class="{activeCls: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>text</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 4" ng-class="{activeCls: activecls === 4}"><i class="fa fa-link">&nbsp;</i>link</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 5" ng-class="{activeCls: activecls === 5}"><i class="fa fa-film">&nbsp;</i>video</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 6" ng-class="{activeCls: activecls === 6}"><i class="fa fa-image">&nbsp;</i>image</md-button>
+	<div layout="row" layout-sm="row" layout-align="center center" layout-wrap="">
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="website(); activecls = 1" ng-class="{activeCls: activecls === 1}"><i class="fa fa-globe">&nbsp;</i>website</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="activecls = 2" ng-class="{activeCls: activecls === 2}"><i class="fa fa-envelope">&nbsp;</i>email</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="activecls = 3" ng-class="{activeCls: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>text</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="activecls = 4" ng-class="{activeCls: activecls === 4}"><i class="fa fa-link">&nbsp;</i>link</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="activecls = 5" ng-class="{activeCls: activecls === 5}"><i class="fa fa-film">&nbsp;</i>video</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="activecls = 6" ng-class="{activeCls: activecls === 6}"><i class="fa fa-image">&nbsp;</i>image</md-button>
 	 </div>
 </md-toolbar>
 
@@ -71,15 +71,17 @@
 
 </section>
 <!-- <md-divider md-inset ></md-divider> -->
-<section layout="column" class="bottom-bar">
+<section layout="row" layout-padding class="bottom-bar" md-component-id="center"  layout-fill layout-align="bottom center">
 	<div id="jcl-demo">
 		<div class="widget">
-			<div class="controllerButton">
-				<a href="#" class="prev"><i class="fa fa-arrow-circle-o-left"></i> </a>
-				<a href="#" class="next"><i class="fa fa-arrow-circle-o-right"></i></a>
-			</div>
-		    <div class="carousel autoWidth">
-		        <ul>
+			<!-- <div class="controllerButton" layout-sm="column">
+				<a href="#" class="prev" layout-sm="column"><i class="fa fa-arrow-circle-o-left"></i> </a>
+				<a href="#" class="next" layout-sm="column"><i class="fa fa-arrow-circle-o-right"></i></a>
+			</div> -->
+			<a href="#" class="prev" layout-sm="column" flex><i class="fa fa-arrow-circle-o-left"></i> </a>
+		    <div class="carousel autoWidth" layout-sm="column" flex>
+		    	
+		        <ul layout-sm="row">
 			        <li><img src="assets/images/1.jpg"></li>
 			        <li><img src="assets/images/2.jpg"></li>
 			        <li><img src="assets/images/3.jpg"></li>
@@ -87,8 +89,9 @@
 		            <li><img src="assets/images/5.jpg"></li>
 		            <li><img src="assets/images/6.jpg"></li>
 	            </ul>
+	            
 		    </div>
-		    <div class="clear"></div>
+		    <a href="#" class="next" layout-sm="column" flex><i class="fa fa-arrow-circle-o-right"></i></a>
 		 </div>
 	</div>
 </section>
