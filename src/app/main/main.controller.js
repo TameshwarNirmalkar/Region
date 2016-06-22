@@ -26,7 +26,8 @@
 		$(".widget img").click(function() {
 		   $(".widget .mid img").attr("src", $(this).attr("src"));
 		});
-
+		//make actions panels draggable
+	    $('.properties-panel').draggable();
 		var SAVEREGION = function(){
 			console.log($scope.region);
 		};

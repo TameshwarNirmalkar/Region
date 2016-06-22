@@ -1,89 +1,90 @@
-<md-toolbar>
-	<div layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
-	  <md-button class="md-raised md-default" ng-click="activecls = 1" ng-class="{active: activecls === 1}"><i class="fa fa-globe">&nbsp;</i>website</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 2" ng-class="{active: activecls === 2}"><i class="fa fa-envelope">&nbsp;</i>email</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 3" ng-class="{active: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>text</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 4" ng-class="{active: activecls === 4}"><i class="fa fa-link">&nbsp;</i>link</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 5" ng-class="{active: activecls === 5}"><i class="fa fa-film">&nbsp;</i>video</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 6" ng-class="{active: activecls === 6}"><i class="fa fa-image">&nbsp;</i>image</md-button>
-	 </div>
+<md-toolbar layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
+	  <md-button class="md-raised" ng-click="activecls = 1" ng-class="{active: activecls === 1}"><i class="fa fa-globe">&nbsp;</i>website</md-button>
+	  <md-button class="md-raised" ng-click="activecls = 2" ng-class="{active: activecls === 2}"><i class="fa fa-envelope">&nbsp;</i>email</md-button>
+	  <md-button class="md-raised" ng-click="activecls = 3" ng-class="{active: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>text</md-button>
+	  <md-button class="md-raised" ng-click="activecls = 4" ng-class="{active: activecls === 4}"><i class="fa fa-link">&nbsp;</i>link</md-button>
+	  <md-button class="md-raised" ng-click="activecls = 5" ng-class="{active: activecls === 5}"><i class="fa fa-film">&nbsp;</i>video</md-button>
+	  <md-button class="md-raised" ng-click="activecls = 6" ng-class="{active: activecls === 6}"><i class="fa fa-image">&nbsp;</i>image</md-button>
 </md-toolbar>
-<div class="container">
-	
+<section layout="row" flex layout-padding>
+	<div class="md-sidenav-left md-whiteframe-z2 properties-panel" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+		 <md-button class="md-fab md-accent toggle-editor" aria-label="refresh" ng-hide="hide">
+	        <md-tooltip md-direction="left">
+	          Open editor
+	        </md-tooltip>
+	        <md-icon class="fa fa-pencil" style="width: 24px; height: 24px;">
+	        </md-icon>
+	      </md-button>
 
-
-	<section layout="row" flex layout-padding>
-		<md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4">
-			<md-toolbar>
-			    <div class="md-toolbar-tools">Regions Editor</div>
-			 </md-toolbar>
-			<md-content>
-				<md-list>
-					<md-input-container class="md-block">
-						<input required name="one" ng-model="region.one">
-						<div ng-messages="region.one.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
-					</md-input-container>
-					<md-input-container class="md-block" flex>
-						<input required name="two" ng-model="region.two">
-						<div ng-messages="region.tow.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
-					</md-input-container>
-					<md-input-container class="md-block" flex>
-						<input required name="three" ng-model="region.three">
-						<div ng-messages="region.three.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
-					</md-input-container>
-					<md-input-container class="md-block" flex>
-						<input required name="four" ng-model="region.four">
-						<div ng-messages="region.four.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
-					</md-input-container>
-				</md-list>
-				<div>
-					<md-button class="md-raised md-primary" ng-click="saveRegion()">Savae</md-button>
-					<md-button class="md-raised md-primary" ng-click="cancelReset()">Cancel</md-button>
-				</div>
-			</md-content>
-		</md-sidenav>
-
-		<md-content flex layout-padding>
-			<!-- <ng-gallery images="regionsimages"> </ng-gallery> -->
-			<div id="jcl-demo" layout="column" layout-fill layout-align="top center">
-				<div class="custom-container widget">
-				    <div class="mid">
-				        <img src="assets/images/1.jpg" alt="1">
-				    </div>
-				</div>
+		<md-toolbar class="properties-header">
+		    <div class="md-toolbar-tools">Regions Editor</div>
+		 </md-toolbar>
+		<md-content>
+			<md-list>
+				<md-input-container class="md-block">
+					<input required name="one" ng-model="region.one">
+					<div ng-messages="region.one.$error">
+						<div ng-message="required">This is required.</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block" flex>
+					<input required name="two" ng-model="region.two">
+					<div ng-messages="region.tow.$error">
+						<div ng-message="required">This is required.</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block" flex>
+					<input required name="three" ng-model="region.three">
+					<div ng-messages="region.three.$error">
+						<div ng-message="required">This is required.</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block" flex>
+					<input required name="four" ng-model="region.four">
+					<div ng-messages="region.four.$error">
+						<div ng-message="required">This is required.</div>
+					</div>
+				</md-input-container>
+			</md-list>
+			<div>
+				<md-button class="md-raised md-primary" ng-click="saveRegion()">Savae</md-button>
+				<md-button class="md-raised md-primary" ng-click="cancelReset()">Cancel</md-button>
 			</div>
 		</md-content>
+	</div>
 
-	</section>
-	<!-- <md-divider md-inset ></md-divider> -->
-	<section layout="column">
-		<div id="jcl-demo">
-			<div class="widget">
-				<a href="#" class="prev"><i class="glyphicon glyphicon-chevron-left"></i> </a>
-			    <div class="carousel autoWidth">
-			        <ul>
-				        <li><img src="assets/images/1.jpg"></li>
-				        <li><img src="assets/images/2.jpg"></li>
-				        <li><img src="assets/images/3.jpg"></li>
-			            <li><img src="assets/images/4.jpg"></li>
-			            <li><img src="assets/images/5.jpg"></li>
-			            <li><img src="assets/images/6.jpg"></li>
-		            </ul>
+	<md-content flex layout-padding>
+		<!-- <ng-gallery images="regionsimages"> </ng-gallery> -->
+		<div id="jcl-demo" layout="column" layout-fill layout-align="top center">
+			<div class="custom-container widget">
+			    <div class="mid">
+			        <img src="assets/images/1.jpg" alt="1">
 			    </div>
-			    <a href="#" class="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-			    <div class="clear"></div>
-			 </div>
+			</div>
 		</div>
-	</section>
+	</md-content>
 
-</div>
-
+</section>
+<!-- <md-divider md-inset ></md-divider> -->
+<section layout="column" class="bottom-bar">
+	<div id="jcl-demo">
+		<div class="widget">
+			<div class="controllerButton">
+				<a href="#" class="prev"><i class="fa fa-arrow-circle-o-left"></i> </a>
+				<a href="#" class="next"><i class="fa fa-arrow-circle-o-right"></i></a>
+			</div>
+		    <div class="carousel autoWidth">
+		        <ul>
+			        <li><img src="assets/images/1.jpg"></li>
+			        <li><img src="assets/images/2.jpg"></li>
+			        <li><img src="assets/images/3.jpg"></li>
+		            <li><img src="assets/images/4.jpg"></li>
+		            <li><img src="assets/images/5.jpg"></li>
+		            <li><img src="assets/images/6.jpg"></li>
+	            </ul>
+		    </div>
+		    <div class="clear"></div>
+		 </div>
+	</div>
+</section>
 
