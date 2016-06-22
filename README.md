@@ -1,9 +1,9 @@
 # Region
 
 ##Install dependencies
-### npm install
+### run command npm install
 
 ##Run app
-### npm start
+### run command npm start
 
 
