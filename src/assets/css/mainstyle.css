@@ -1,7 +1,51 @@
 .autoWidth{
-	width: 90% !important;
+	width: 92% !important;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    padding: 0;
+    float: none !important;
 }
 .activeCls{
 	background-color: #269abc;
     border-color: #1b6d85;
 }
+.properties-panel{
+	margin: 20px 5px;
+    background-color: #fff;
+    border-radius: 3px;
+    border: none;
+    position: fixed;
+    width: 298px;
+    left: 58px;
+    top: 80px;
+    z-index: 11;
+    overflow: hidden;
+}
+.bottom-bar {
+    position: absolute;
+    z-index: 10;
+    bottom: 30px;
+    right: 0;
+    width: 100%;
+}
+.controllerButton{
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    left: 0;
+    right: 0;
+    display: table;
+}
+.prev{float: left;}
+.next{float: right !important;}
+#jcl-demo a.prev, #jcl-demo a.next, #jcl-demo a.go, .jcl-demo a.prev, .jcl-demo a.next{font-size: 28px;padding: 10px;}
+.toggle-editor{display: none;}
+.cntr{}
+#jcl-demo .mid{margin: 0;width: 400px;height: 400px;}
+canvas {
+    border: 1px solid #999;
+}
+.canvasHolder{margin: 0 auto;}
+.canvasHolder .canvas-container{position: absolute !important;}
