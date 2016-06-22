@@ -38,6 +38,10 @@
 		$scope.saveRegion = SAVEREGION;
 
 		$scope.cancelReset = CANCELRESET;
+
+		$scope.website = function(){
+			console.log( canvas );
+		}
 	}
 
 

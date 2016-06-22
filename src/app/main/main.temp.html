@@ -1,17 +1,15 @@
 <md-toolbar>
 	<div layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
-	  <md-button class="md-raised md-default" ng-click="activecls = 1" ng-class="{active: activecls === 1}"><i class="fa fa-globe">&nbsp;</i>website</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 2" ng-class="{active: activecls === 2}"><i class="fa fa-envelope">&nbsp;</i>email</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 3" ng-class="{active: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>text</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 4" ng-class="{active: activecls === 4}"><i class="fa fa-link">&nbsp;</i>link</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 5" ng-class="{active: activecls === 5}"><i class="fa fa-film">&nbsp;</i>video</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 6" ng-class="{active: activecls === 6}"><i class="fa fa-image">&nbsp;</i>image</md-button>
+	  <md-button class="md-raised md-default" ng-click="website(); activecls = 1" ng-class="{activeCls: activecls === 1}"><i class="fa fa-globe">&nbsp;</i>website</md-button>
+	  <md-button class="md-raised md-default" ng-click="activecls = 2" ng-class="{activeCls: activecls === 2}"><i class="fa fa-envelope">&nbsp;</i>email</md-button>
+	  <md-button class="md-raised md-default" ng-click="activecls = 3" ng-class="{activeCls: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>text</md-button>
+	  <md-button class="md-raised md-default" ng-click="activecls = 4" ng-class="{activeCls: activecls === 4}"><i class="fa fa-link">&nbsp;</i>link</md-button>
+	  <md-button class="md-raised md-default" ng-click="activecls = 5" ng-class="{activeCls: activecls === 5}"><i class="fa fa-film">&nbsp;</i>video</md-button>
+	  <md-button class="md-raised md-default" ng-click="activecls = 6" ng-class="{activeCls: activecls === 6}"><i class="fa fa-image">&nbsp;</i>image</md-button>
 	 </div>
 </md-toolbar>
-<div class="container">
-	
 
-
+<div layout="column">
 	<section layout="row" flex layout-padding>
 		<md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4">
 			<md-toolbar>
