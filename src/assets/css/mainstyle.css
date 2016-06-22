@@ -32,7 +32,9 @@
 }
 .prev{float: left;}
 .next{float: left !important;}
-#jcl-demo a.prev, #jcl-demo a.next, #jcl-demo a.go, .jcl-demo a.prev, .jcl-demo a.next{font-size: 28px;padding: 10px;width: 47px;}
+#jcl-demo a.prev, #jcl-demo a.next, #jcl-demo a.go, .jcl-demo a.prev, .jcl-demo a.next{font-size: 24px;
+    padding: 5px;
+    width: 28px;}
 .toggle-editor{display: none;}
 /*#jcl-demo{margin: 0 auto;}*/
 #jcl-demo .mid{margin: 0;width: 400px;height: 421px;}
