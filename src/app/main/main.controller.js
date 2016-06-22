@@ -40,7 +40,7 @@
 		    originY: 'top',
 		    width: 150,
 		    height: 120,
-		    angle: -1,
+		    angle: -90,
 		    fill: 'rgba(000,000,000,0.8)',
 		    transparentCorners: false,
 		    hasRotatingPoint: false

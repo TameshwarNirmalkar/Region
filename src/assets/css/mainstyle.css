@@ -45,3 +45,4 @@ canvas {
 .canvasHolder{margin: 0 auto;}
 .canvasHolder .canvas-container{position: absolute !important;}
 #jcl-demo .custom-container{margin: 0;}
+.toolbarMng button i{padding-top: 9px;}
