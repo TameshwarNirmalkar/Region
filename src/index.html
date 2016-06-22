@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="regionapp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Region</title>
+	<link rel="shortcut icon" href="https://www.google.com/a/globant.com/images/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="assets/css/angular-material.min.css" type="text/css">
+	<link rel="stylesheet" href="assets/css/fontawesome/css/font-awesome.min.css" type="text/css">
+	<link rel="stylesheet" href="assets/css/ngGallery.css" type="text/css">
+	<link rel="stylesheet" href="assets/css/jquery.jcarousellite.css" type="text/css">
+	<link rel="stylesheet" href="assets/css/mainstyle.css" type="text/css">
+</head>
+<body>
+	<!-- MAIN CONTENT -->
+	<div class="container-fluid">
+	    <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+	    <div class="row">
+	    	<div ui-view></div>
+	    </div>
+	</div>
+
+	<script src="assets/vendor/jquery.min.js"></script>
+	<script src="assets/vendor/angular.min.js"></script>
+	<script src="assets/vendor/angular-animate.min.js"></script>
+	<script src="assets/vendor/angular-aria.min.js"></script>
+	<script src="assets/vendor/angular-material.min.js"></script>
+	<script src="assets/vendor/angular-ui-router.min.js"></script>
+	<script src="assets/vendor/ngGallery.js"></script>
+	<script src="assets/vendor/jquery.jcarousellite.min.js"></script>
+	<script src="assets/vendor/fabric.min.js"></script>
+
+	<script src="app/main/main.js"></script>
+	<script src="app/main/main.controller.js"></script>
+	<script src="app/services/Canvas.js"></script>
+
+</body>
+</html>
