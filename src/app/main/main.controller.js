@@ -26,8 +26,54 @@
 		$(".widget img").click(function() {
 		   $(".widget .mid img").attr("src", $(this).attr("src"));
 		});
+		// monika js code
 		//make actions panels draggable
 	    $('.properties-panel').draggable();
+
+	    // Do some initializing stuff
+		var canvas = this.__canvas = new fabric.Canvas('c');
+
+		  var rect = new fabric.Rect({
+		    left: 150,
+		    top: 200,
+		    originX: 'left',
+		    originY: 'top',
+		    width: 150,
+		    height: 120,
+		    angle: -10,
+		    fill: 'rgba(000,000,000,0.8)',
+		    transparentCorners: false,
+		    hasRotatingPoint: false
+		  });
+
+		  canvas.add(rect).setActiveObject(rect);
+
+		  function observeBoolean(property) {
+		    document.getElementById(property).onclick = function() {
+		      canvas.item(0)[property] = this.checked;
+		      canvas.renderAll();
+		    };
+		  }
+
+		  function observeNumeric(property) {
+		    document.getElementById(property).onchange = function() {
+		      canvas.item(0)[property] = this.value;
+		      canvas.renderAll();
+		    };
+		  }
+
+		  function observeOptionsList(property) {
+		    var list = document.querySelectorAll('#' + property + 
+		    ' [type="checkbox"]');
+		    for (var i = 0, len = list.length; i < len; i++) {
+		      list[i].onchange = function() {
+		        canvas.item(0)[property](this.name, this.checked);
+		        canvas.renderAll();
+		      };
+		    };
+		  }
+	    // monika js code end
+
 		var SAVEREGION = function(){
 			console.log($scope.region);
 		};

@@ -52,14 +52,17 @@
 			</div>
 		</md-content>
 	</div>
-
-	<md-content flex layout-padding>
+	<md-content flex layout-padding layout="row" md-component-id="center"  layout-fill layout-align="top center">
 		<!-- <ng-gallery images="regionsimages"> </ng-gallery> -->
-		<div id="jcl-demo" layout="column" layout-fill layout-align="top center">
-			<div class="custom-container widget">
-			    <div class="mid">
-			        <img src="assets/images/1.jpg" alt="1">
-			    </div>
+		
+		<div class="canvasHolder">
+		<canvas id="c" width="399" height="419">  </canvas>
+			<div id="jcl-demo" class="cntr canvasonImage">
+				<div class="custom-container widget">
+				    <div class="mid">
+				        <img src="assets/images/1.jpg" alt="1">
+				    </div>
+				</div>
 			</div>
 		</div>
 	</md-content>

@@ -32,7 +32,7 @@
 .controllerButton{
     position: absolute;
     top: 0;
-    z-index: 3434;
+    z-index: 1;
     width: 100%;
     left: 0;
     right: 0;
@@ -42,3 +42,10 @@
 .next{float: right !important;}
 #jcl-demo a.prev, #jcl-demo a.next, #jcl-demo a.go, .jcl-demo a.prev, .jcl-demo a.next{font-size: 28px;padding: 10px;}
 .toggle-editor{display: none;}
+.cntr{}
+#jcl-demo .mid{margin: 0;width: 400px;height: 400px;}
+canvas {
+    border: 1px solid #999;
+}
+.canvasHolder{margin: 0 auto;}
+.canvasHolder .canvas-container{position: absolute !important;}
