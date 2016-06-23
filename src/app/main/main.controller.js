@@ -1,11 +1,11 @@
 (function() {
 	'use strict';
 	angular
-		.module('main.controller', [])
-		.controller('MainController', ['$scope', 'canvas', '$mdDialog',MainController]);
+		.module('main.controller', ['image.shapes'])
+		.controller('MainController', ['$scope', 'canvas', '$mdDialog', MainController]);
 
 
-	function MainController($scope, canvas) {
+	function MainController($scope, canvas, $mdDialog, imageshapes) {
 		console.log('controller initialize', canvas);
 		var self = this;
 		$scope.region = {};
@@ -34,44 +34,17 @@
 		var canvas = this.__canvas = new fabric.Canvas('c');
 
 		  var rect = new fabric.Rect({
-		    left: 150,
-		    top: 200,
+		    left: 75,
+		    top: 60,
 		    originX: 'left',
 		    originY: 'top',
 		    width: 150,
 		    height: 120,
-		    angle: -10,
 		    fill: 'rgba(000,000,000,0.8)',
 		    transparentCorners: false,
 		    hasRotatingPoint: false
 		  });
 
-		  
-
-		  function observeBoolean(property) {
-		    document.getElementById(property).onclick = function() {
-		      canvas.item(0)[property] = this.checked;
-		      canvas.renderAll();
-		    };
-		  }
-
-		  function observeNumeric(property) {
-		    document.getElementById(property).onchange = function() {
-		      canvas.item(0)[property] = this.value;
-		      canvas.renderAll();
-		    };
-		  }
-
-		  function observeOptionsList(property) {
-		    var list = document.querySelectorAll('#' + property + 
-		    ' [type="checkbox"]');
-		    for (var i = 0, len = list.length; i < len; i++) {
-		      list[i].onchange = function() {
-		        canvas.item(0)[property](this.name, this.checked);
-		        canvas.renderAll();
-		      };
-		    };
-		  }
 	    // monika js code end
 
 		var SAVEREGION = function(){
@@ -87,6 +60,9 @@
 		$scope.cancelReset = CANCELRESET;
 
 		$scope.website = function(){
+			canvas.add(rect).setActiveObject(rect);
+		}
+		$scope.email = function(){
 			canvas.add(rect).setActiveObject(rect);
 		}
 	}
