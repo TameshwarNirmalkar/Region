@@ -1,17 +1,17 @@
-<md-toolbar>
-	<div layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
-	  <md-button class="md-raised md-default" ng-click="website(); activecls = 1" ng-class="{activeCls: activecls === 1}"><i class="fa fa-globe">&nbsp;</i>website</md-button>
+<md-toolbar layout="column" layout-padding class="toolbarMng">
+	<div layout="row" layout-sm="row" layout-align="center center" layout-wrap="">
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="website(); activecls = 1" ng-class="{activeCls: activecls === 1}"><i class="fa fa-globe">&nbsp;</i>website</md-button>
 	  <md-button class="md-raised md-default" ng-click="email(); activecls = 2" ng-class="{activeCls: activecls === 2}"><i class="fa fa-envelope">&nbsp;</i>email</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 3" ng-class="{activeCls: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>text</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 4" ng-class="{activeCls: activecls === 4}"><i class="fa fa-link">&nbsp;</i>link</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 5" ng-class="{activeCls: activecls === 5}"><i class="fa fa-film">&nbsp;</i>video</md-button>
-	  <md-button class="md-raised md-default" ng-click="activecls = 6" ng-class="{activeCls: activecls === 6}"><i class="fa fa-image">&nbsp;</i>image</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="activecls = 3" ng-class="{activeCls: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>text</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="activecls = 4" ng-class="{activeCls: activecls === 4}"><i class="fa fa-link">&nbsp;</i>link</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="activecls = 5" ng-class="{activeCls: activecls === 5}"><i class="fa fa-film">&nbsp;</i>video</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="activecls = 6" ng-class="{activeCls: activecls === 6}"><i class="fa fa-image">&nbsp;</i>image</md-button>
 	 </div>
 </md-toolbar>
 
-<div layout="column">
+
 	<section layout="row" flex layout-padding>
-		<div class="md-sidenav-left md-whiteframe-z2 properties-panel" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+		<div class="md-sidenav-left md-whiteframe-z2 properties-panel" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" layout="column">
 			<md-button class="md-fab md-accent toggle-editor" aria-label="refresh" ng-hide="hide">
 				<md-tooltip md-direction="left">
 				Open editor
@@ -104,11 +104,11 @@
 			        </ul>
 			    </div>
 			    <div layout="column" layout-align="center center" class="sm-padding">
-			    <span id="right"><a href="#" class="next"><i class="fa fa-arrow-circle-o-right"></i></a></span>
-			  </div>
+			    	<span id="right"><a href="#" class="next"><i class="fa fa-arrow-circle-o-right"></i></a></span>
+			  	</div>
 			    
 			 </div>
 		</div>
 	</section>
-</div>
+
 
