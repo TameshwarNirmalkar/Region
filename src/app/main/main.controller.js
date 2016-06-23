@@ -1,12 +1,12 @@
 (function() {
 	'use strict';
 	angular
-		.module('main.controller', ['image.shapes'])
-		.controller('MainController', ['$scope', 'canvas', '$mdDialog', MainController]);
+		.module('main.controller', [])
+		.controller('MainController', ['$scope', MainController]);
 
 
 	function MainController($scope, canvas, $mdDialog, imageshapes) {
-		console.log('controller initialize', canvas);
+		console.log('controller initialize');
 		var self = this;
 		$scope.region = {};
 	    $scope.regionsimages = [
@@ -38,6 +38,8 @@
 
 		var SAVEREGION = function(){
 			console.log($scope.region);
+			var group = canvas.getActiveGroup();
+			console.log(canvas);
 		};
 
 		var CANCELRESET = function(){
