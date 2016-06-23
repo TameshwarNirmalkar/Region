@@ -34,18 +34,6 @@
 	    // Do some initializing stuff
 		var canvas = this.__canvas = new fabric.Canvas('c');
 
-		  var rect = new fabric.Rect({
-		    left: 75,
-		    top: 60,
-		    originX: 'left',
-		    originY: 'top',
-		    width: 150,
-		    height: 120,
-		    fill: 'rgba(000,000,000,0.8)',
-		    transparentCorners: false,
-		    hasRotatingPoint: false
-		  });
-
 	    // monika js code end
 
 		var SAVEREGION = function(){
@@ -61,9 +49,31 @@
 		$scope.cancelReset = CANCELRESET;
 
 		$scope.website = function(){
+			var rect = new fabric.Rect({
+			    left: 75,
+			    top: 60,
+			    originX: 'left',
+			    originY: 'top',
+			    width: 150,
+			    height: 120,
+			    fill: 'rgba(000,000,000,0.8)',
+			    transparentCorners: false,
+			    hasRotatingPoint: false
+			  });
 			canvas.add(rect).setActiveObject(rect);
 		}
 		$scope.email = function(){
+			var rect = new fabric.Rect({
+			    left: 75,
+			    top: 60,
+			    originX: 'left',
+			    originY: 'top',
+			    width: 150,
+			    height: 120,
+			    fill: 'rgba(000,000,000,0.8)',
+			    transparentCorners: false,
+			    hasRotatingPoint: false
+			  });
 			canvas.add(rect).setActiveObject(rect);
 		}
 	}
