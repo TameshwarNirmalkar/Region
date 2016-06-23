@@ -19,8 +19,9 @@
 	    $(".widget .carousel").jCarouselLite({
 		    btnNext: ".widget .next",
 		    btnPrev: ".widget .prev",
-		    speed: 800,
-		    circular: false
+		    speed: 200,
+		    circular: false,
+		    visible: 16
 		});
 
 		$(".widget img").click(function() {

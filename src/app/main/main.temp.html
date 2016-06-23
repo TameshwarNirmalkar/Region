@@ -12,14 +12,13 @@
 <div layout="column">
 	<section layout="row" flex layout-padding>
 		<div class="md-sidenav-left md-whiteframe-z2 properties-panel" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-			 <md-button class="md-fab md-accent toggle-editor" aria-label="refresh" ng-hide="hide">
-		        <md-tooltip md-direction="left">
-		          Open editor
-		        </md-tooltip>
-		        <md-icon class="fa fa-pencil" style="width: 24px; height: 24px;">
-		        </md-icon>
-		      </md-button>
-
+			<md-button class="md-fab md-accent toggle-editor" aria-label="refresh" ng-hide="hide">
+				<md-tooltip md-direction="left">
+				Open editor
+				</md-tooltip>
+				<md-icon class="fa fa-pencil" style="width: 24px; height: 24px;">
+				</md-icon>
+			</md-button>
 			<md-toolbar class="properties-header">
 			    <div class="md-toolbar-tools">Regions Editor</div>
 			 </md-toolbar>
@@ -69,26 +68,47 @@
 			</div>
 		</md-content>
 	</section>
+	<section>
+		<div id="jcl-demo" layout="column" layout-padding class="bottom-bar" sm-component-id="center"  layout-fill layout-align="bottom center">
+			<div class="widget" layout="row">
+				<div layout="column" layout-align="center center" class="sm-padding">
+			   	 <span id="left"><a href="#" class="prev"><i class="fa fa-arrow-circle-o-left"></i> </a></span>
+			  </div>
+				
+			    <div class="carousel" layout="column" layout-align="center start" layout-padding flex>
+			        <ul>
+				        <li><img src="assets/images/1.jpg"></li>
+				        <li><img src="assets/images/2.jpg"></li>
+				        <li><img src="assets/images/3.jpg"></li>
+			            <li><img src="assets/images/4.jpg"></li>
+			            <li><img src="assets/images/5.jpg"></li>
+			            <li><img src="assets/images/6.jpg"></li>
+			            <li><img src="assets/images/1.jpg"></li>
+				        <li><img src="assets/images/2.jpg"></li>
+				        <li><img src="assets/images/3.jpg"></li>
+			            <li><img src="assets/images/4.jpg"></li>
+			            <li><img src="assets/images/5.jpg"></li>
+			            <li><img src="assets/images/6.jpg"></li>
+			            <li><img src="assets/images/1.jpg"></li>
+				        <li><img src="assets/images/2.jpg"></li>
+				        <li><img src="assets/images/3.jpg"></li>
+			            <li><img src="assets/images/4.jpg"></li>
+			            <li><img src="assets/images/5.jpg"></li>
+			            <li><img src="assets/images/6.jpg"></li>
+			            <li><img src="assets/images/1.jpg"></li>
+				        <li><img src="assets/images/2.jpg"></li>
+				        <li><img src="assets/images/3.jpg"></li>
+			            <li><img src="assets/images/4.jpg"></li>
+			            <li><img src="assets/images/5.jpg"></li>
+			            <li><img src="assets/images/6.jpg"></li>
+			        </ul>
+			    </div>
+			    <div layout="column" layout-align="center center" class="sm-padding">
+			    <span id="right"><a href="#" class="next"><i class="fa fa-arrow-circle-o-right"></i></a></span>
+			  </div>
+			    
+			 </div>
+		</div>
+	</section>
 </div>
-<section layout="column" class="bottom-bar">
-	<div id="jcl-demo">
-		<div class="widget">
-			<div class="controllerButton">
-				<a href="#" class="prev"><i class="fa fa-arrow-circle-o-left"></i> </a>
-				<a href="#" class="next"><i class="fa fa-arrow-circle-o-right"></i></a>
-			</div>
-		    <div class="carousel autoWidth">
-		        <ul>
-			        <li><img src="assets/images/1.jpg"></li>
-			        <li><img src="assets/images/2.jpg"></li>
-			        <li><img src="assets/images/3.jpg"></li>
-		            <li><img src="assets/images/4.jpg"></li>
-		            <li><img src="assets/images/5.jpg"></li>
-		            <li><img src="assets/images/6.jpg"></li>
-	            </ul>
-		    </div>
-		    <div class="clear"></div>
-		 </div>
-	</div>
-</section>
 
