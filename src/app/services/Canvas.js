@@ -3,7 +3,7 @@
 	'use strict';
 	
 	angular.module('regionapp')
-	.service('canvas', ['$rootScope', '$mdDialog', function($rootScope, $mdDialog) {
+	.service('canvasservice', ['$rootScope', '$mdDialog', function($rootScope) {
 
 		var canvas = {
 
@@ -56,12 +56,12 @@
 	            $(window).off('resize');
 	        },
 
-			start: function(url) {
-	            this.element = document.getElementById('canvas');
-	            this.fabric = new fabric.Canvas('canvas');
+			start: function() {
+	            this.element = document.getElementById('canvasid');
+	            this.fabric = new fabric.Canvas('canvasid');
 	            this.ctx = this.fabric.getContext('2d');
 	            this.container = $('.canvas-container');
-	            this.viewport = document.getElementById('viewport');
+	            //this.viewport = document.getElementById('viewport');
 	            $rootScope.editorCustomActions = {};
 
 	            this.fabric.selection = false;
@@ -71,18 +71,10 @@
 	            fabric.Object.prototype.cornerColor = '#2196F3';
 	            fabric.Object.prototype.transparentCorners = false;
 
-	            if (url) {
-	                this.loadMainImage(url);
-	                $rootScope.started = true;
-	            }
-
-	            if ( ! $rootScope.started && ! $rootScope.isIntegrationMode() && ! $rootScope.delayEditorStart) {
-	                $mdDialog.show({
-	                    template: $('#main-image-upload-dialog-template').html(),
-	                    controller: 'TopPanelController',
-	                    clickOutsideToClose: false
-	                });
-	            }
+	            // if (url) {
+	            //     this.loadMainImage(url);
+	            //     $rootScope.started = true;
+	            // }
 
 	            $(window).off('resize').on('resize', function(e) {
 	                if (canvas.oldWindowDimensions.height !== e.target.innerHeight ||
@@ -138,7 +130,7 @@
 
 	                    obj.top = Math.min(obj.top, obj.canvas.height-obj.getBoundingRect().height+obj.top-obj.getBoundingRect().top - obj.cornerSize / 2);
 	                    obj.left = Math.min(obj.left, obj.canvas.width-obj.getBoundingRect().width+obj.left-obj.getBoundingRect().left - obj.cornerSize /2);
-	                }
+		                }
 	            });
 
 	            $rootScope.$emit('canvas.init');
@@ -154,38 +146,6 @@
 	            var data = this.fabric.toDataURL();
 	            this.fabric.clear();
 	            this.loadMainImage(data);
-	        },
-
-	        loadFromJSON: function(design, callback) {
-
-	            canvas.fabric.loadFromJSON(design.serialized_editor_state || design.state, function() {
-
-	                canvas.fabric.forEachObject(function(obj) {
-	                    //reapply any filters object used to have
-	                    if (obj.applyFilters && obj.filters.length) {
-	                        obj.applyFilters(canvas.fabric.renderAll.bind(canvas.fabric));
-	                    }
-
-	                    //assign new reference to mainImage property
-	                    if (obj.name == 'mainImage') {
-	                        canvas.mainImage = obj;
-	                    }
-	                });
-
-	                if (design.width && design.height) {
-	                    canvas.fabric.setWidth(design.width);
-	                    canvas.fabric.setHeight(design.height);
-	                    canvas.original.height = design.height;
-	                    canvas.original.width = design.width;
-	                }
-
-	                canvas.fabric.renderAll();
-	                canvas.fabric.calcOffset();
-	                canvas.fitToScreen();
-	                $rootScope.$emit('history.loaded');
-
-	                callback && callback(design);
-	            });
 	        },
 
 	        /**
@@ -234,94 +194,6 @@
 	            // remove all selections
 	            this.fabric.deactivateAll();
 	            return this.fabric.toJSON(['selectable', 'name']);
-	        },
-
-			loadMainImage: function(url, height, width, dontFit, callback) {
-				var object;
-
-				fabric.util.loadImage(url, function (img) {
-	                //img.crossOrigin = 'anonymous';
-
-				    object = new fabric.Image(img, canvas.imageStatic);
-				    object.name = 'mainImage';
-
-	                if (width && height) {
-	                    object.width = width;
-	                    object.height = height;
-	                }
-
-				    canvas.mainImage = object;
-
-	                canvas.fabric.forEachObject(function(obj) {
-	                    if (obj.name == 'mainImage') {
-	                        canvas.fabric.remove(obj);
-	                    }
-	                });
-				    canvas.fabric.add(object);
-				   	object.top = -0.5;
-				   	object.left = -0.5;
-				    object.moveTo(0);
-
-				    canvas.fabric.setHeight(object.height);
-				    canvas.fabric.setWidth(object.width);
-
-	                canvas.original.height = object.height;
-	                canvas.original.width = object.width;
-
-					if ( ! dontFit) {
-	                    canvas.fitToScreen();
-	                }
-
-					$rootScope.$apply(function() {
-						$rootScope.$emit('editor.mainImage.loaded');
-					});
-
-	                if (callback) {
-	                    callback();
-	                }
-				});
-			},
-
-	        /**
-	         * Open image at given url in canvas.
-	         *
-	         * @param {string} url
-	         */
-	        openImage: function(url) {
-	            canvas.zoom(1);
-	            fabric.util.loadImage(url, function(image) {
-	                if ( ! image) return;
-
-	                var object = new fabric.Image(image);
-	                object.name = 'image';
-
-	                //use either main image or canvas dimensions as outter boundaries for scaling new image
-	                var maxWidth  = canvas.mainImage ? canvas.mainImage.getWidth() : canvas.fabric.getWidth(),
-	                    maxHeight = canvas.mainImage ? canvas.mainImage.getHeight() : canvas.fabric.getHeight();
-
-	                //if image is wider or heigher then the current canvas, we'll scale id down
-	                if (object.width >= maxWidth || object.height >= maxHeight) {
-
-	                    //calc new image dimensions (main image height - 10% and width - 10%)
-	                    var newWidth  = maxWidth - (0.1 * maxWidth),
-	                        newHeight = maxHeight - (0.1 * maxHeight),
-	                        scale     = 1 / (Math.min(newHeight / object.getHeight(), newWidth / object.getWidth()));
-
-	                    //scale newly uploaded image to the above dimesnsions
-	                    object.scaleX = object.scaleX * (1 / scale);
-	                    object.scaleY = object.scaleY * (1 / scale);
-	                }
-
-	                //center and render newly uploaded image on the canvas
-	                canvas.fabric.add(object);
-	                object.left = (canvas.fabric.getWidth() - object.getWidth()) / 2;
-	                object.top = (canvas.fabric.getHeight() - object.getHeight()) / 2;
-	                object.setCoords();
-	                canvas.fabric.setActiveObject(object);
-	                canvas.fabric.renderAll();
-
-	                canvas.fitToScreen();
-	            });
 	        },
 
 	        getActiveObject:function() {

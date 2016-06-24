@@ -2,10 +2,10 @@
 	'use strict';
 	angular
 		.module('main.controller', [])
-		.controller('MainController', ['$scope', MainController]);
+		.controller('MainController', ['$scope', 'canvasservice', MainController]);
 
 
-	function MainController($scope, canvas, $mdDialog, imageshapes) {
+	function MainController($scope, canvasservice) {
 		console.log('controller initialize');
 		var self = this;
 		$scope.region = {};
@@ -15,6 +15,8 @@
 	        {thumb: 'assets/images/3.jpg', img: 'assets/images/3.jpg', description: 'Image 3'},
 	        {thumb: 'assets/images/3.jpg', img: 'assets/images/4.jpg', description: 'Image 4'}
 	    ];
+
+	    //canvasservice.start();
 
 	    $(".widget .carousel").jCarouselLite({
 		    btnNext: ".widget .next",
@@ -32,14 +34,19 @@
 	    $('.properties-panel').draggable();
 
 	    // Do some initializing stuff
-		var canvas = this.__canvas = new fabric.Canvas('c');
+		var canvas = new fabric.Canvas('canvasid');
 
+		canvas.on('object:selected', function(e){
+			console.log( e.target.get('type') );
+		});
 	    // monika js code end
 
 		var SAVEREGION = function(){
-			console.log($scope.region);
+			//console.log($scope.region);
 			var group = canvas.getActiveGroup();
-			console.log(canvas);
+			var tostring = canvas.getObjects();
+			console.log( tostring );
+			//console.log(canvas.getActiveObject().get('type'));
 		};
 
 		var CANCELRESET = function(){
@@ -65,7 +72,30 @@
 			canvas.add(rect).setActiveObject(rect);
 		}
 		$scope.email = function(){
-			var rect = new fabric.Rect({
+			var email = new fabric.Rect({
+				    left: 75,
+				    top: 60,
+				    originX: 'left',
+				    originY: 'top',
+				    width: 150,
+				    height: 120,
+				    fill: 'rgba(000,000,000,0.8)',
+				    transparentCorners: false,
+				    hasRotatingPoint: false
+			  });
+			canvas.add(email).setActiveObject(email);
+		}
+		$scope.text = function(){
+			var text = new fabric.IText('hello world',{
+			    left: 75,
+			    top: 60,
+			    fontFamily: 'Courier',
+				fill: '#333'
+			  });
+			canvas.add(text).setActiveObject(text);
+		}
+		$scope.link = function(){
+			var link = new fabric.Rect({
 			    left: 75,
 			    top: 60,
 			    originX: 'left',
@@ -76,8 +106,37 @@
 			    transparentCorners: false,
 			    hasRotatingPoint: false
 			  });
-			canvas.add(rect).setActiveObject(rect);
+			canvas.add(link).setActiveObject(link);
 		}
+		$scope.video = function(){
+			var video = new fabric.Rect({
+			    left: 75,
+			    top: 60,
+			    originX: 'left',
+			    originY: 'top',
+			    width: 150,
+			    height: 120,
+			    fill: 'rgba(000,000,000,0.8)',
+			    transparentCorners: false,
+			    hasRotatingPoint: false
+			  });
+			canvas.add(video).setActiveObject(video);
+		}
+		$scope.image = function(){
+			var image = new fabric.Image($('#jcl-demo img')[0],{
+			    left: 75,
+			    top: 60,
+			    originX: 'left',
+			    originY: 'top',
+			    width: 150,
+			    height: 120,
+			    fill: 'rgba(000,000,000,0.8)',
+			    transparentCorners: false,
+			    hasRotatingPoint: false
+			  });
+			canvas.add(image).setActiveObject(image);
+		}
+
 	}
 
 
