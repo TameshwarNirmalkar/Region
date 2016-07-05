@@ -1,0 +1,66 @@
+{"region_data": [
+    {
+        "x":190,
+        "y":690,
+        "width":240,
+        "height":125,
+        "pageWidth":1280,
+        "pageHeight":1645,
+        "type":"internal",
+        "target":16
+    },
+    {
+        "x":290,
+        "y":690,
+        "width":240,
+        "height":125,
+        "pageWidth":1280,
+        "pageHeight":1645,
+        "type":"website",
+        "target":"http://logostudio.papionne.com/?p=1363",
+        "options": {
+            "target": "_self"
+        }
+    },
+    {
+        "x":190,
+        "y":300,
+        "width":240,
+        "height":125,
+        "pageWidth":1280,
+        "pageHeight":1645,
+        "type":"email",
+        "target":"test@testing.com"
+    },
+    {
+        "x":55,
+        "y":454,
+        "width":240,
+        "height":125,
+        "pageWidth":1280,
+        "pageHeight":1645,
+        "type":"phone",
+        "target":"http://logostudio.papionne.com/?p=1363"
+    },
+    {
+        "x":878,
+        "y":558,
+        "width":240,
+        "height":125,
+        "pageWidth":1280,
+        "pageHeight":1645,
+        "type":"video",
+        "target": "<iframe width=\"640\" height=\"360\" src=\"https:\/\/www.youtube.com\/embed\/hI42askNUFM\" frameborder=\"0\" allowfullscreen><\/iframe>"
+    },
+    {
+        "x":878,
+        "y":558,
+        "width":240,
+        "height":125,
+        "pageWidth":1280,
+        "pageHeight":1645,
+        "type":"iframe",
+        "target":"http://logostudio.papionne.com/?p=1363"
+    }
+]
+}

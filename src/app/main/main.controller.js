@@ -6,7 +6,7 @@
 
 
 	function MainController($scope, canvasservice) {
-		console.log('controller initialize');
+		console.log('controller initialize' );
 		var self = this;
 		$scope.region = {
 			"x":0,
@@ -18,6 +18,7 @@
 			"type": "",
 			"target": ""
 		};
+		
 		$scope.regionsimages = [
 			{thumb: 'assets/images/1.jpg', img: 'assets/images/1.jpg', description: 'Image 1'},
 			{thumb: 'assets/images/2.jpg', img: 'assets/images/2.jpg', description: 'Image 2'},
@@ -25,7 +26,7 @@
 			{thumb: 'assets/images/3.jpg', img: 'assets/images/4.jpg', description: 'Image 4'}
 		];
 
-		//canvasservice.start();
+		$scope.regiontype = 'Region Editor';
 
 		$(".widget .carousel").jCarouselLite({
 			btnNext: ".widget .next",
@@ -46,24 +47,29 @@
 		var canvas = new fabric.Canvas('canvasid');
 
 		canvas.on('object:selected', function(e){
-			console.log( e.target.get('type') );
+			//e.target.setOptions({"internal": true, "target": "blank" });
+			console.log( e.target.get('type'), e.target );
 		});
 		// monika js code end
 
 		var SAVEREGION = function(){
-			console.log($scope.region);
 			var group = canvas.getActiveGroup();
 			var canvasObject = canvas.getObjects();
 			var jsonArray = []
 			angular.forEach(canvasObject, function(v,k){
-				//console.log(v, k);
 				$scope.region = {
 					"x": v.left,
 					"y": v.top,
 					"width": v.width,
 					"height": v.height,
 					"pageWidth": window.innerWidth,
-					"pageHeight": window.innerHeight
+					"pageHeight": window.innerHeight,
+					"type": v.type,
+					"target": v.extraoptions.target,
+					"options": {
+					    "target": v.extraoptions.options 
+					}
+
 				};
 				jsonArray.push($scope.region);
 						
@@ -80,84 +86,47 @@
 
 		$scope.cancelReset = CANCELRESET;
 
-		$scope.website = function(){
-			var rect = new fabric.Rect({
-				left: 75,
-				top: 60,
-				originX: 'left',
-				originY: 'top',
-				width: 150,
-				height: 120,
-				fill: 'rgba(000,000,000,0.8)',
-				transparentCorners: false,
-				hasRotatingPoint: false
-			  });
-			canvas.add(rect).setActiveObject(rect);
-		}
-		$scope.email = function(){
-			var email = new fabric.Rect({
+		function addRegion(type, options){
+			var region = new fabric.Rect({
 					left: 75,
 					top: 60,
 					originX: 'left',
 					originY: 'top',
 					width: 150,
 					height: 120,
-					fill: 'rgba(000,000,000,0.8)',
+					fill: 'rgba(0,0,255,0.4)',
 					transparentCorners: false,
-					hasRotatingPoint: false
+					hasRotatingPoint: false,
+					type: type
 			  });
-			canvas.add(email).setActiveObject(email);
+			region.setOptions(options);
+			canvas.add(region).setActiveObject(region);
+			$scope.regiontype = type;
 		}
-		$scope.text = function(){
-			var text = new fabric.IText('hello world',{
-				left: 75,
-				top: 60,
-				fontFamily: 'Courier',
-				fill: '#333'
-			  });
-			canvas.add(text).setActiveObject(text);
+
+		$scope.website = function(){
+			var options = {"extraoptions": {"target": "http://logostudio.papionne.com/?p=1363", "options": "blank"} };
+			addRegion('website', options);
 		}
-		$scope.link = function(){
-			var link = new fabric.Rect({
-				left: 75,
-				top: 60,
-				originX: 'left',
-				originY: 'top',
-				width: 150,
-				height: 120,
-				fill: 'rgba(000,000,000,0.8)',
-				transparentCorners: false,
-				hasRotatingPoint: false
-			  });
-			canvas.add(link).setActiveObject(link);
+		$scope.email = function(){
+			var options = { "extraoptions": {"target": "tameshwar.nirmalkar@gmail.com"} };
+			addRegion('email', options);
+		}
+		$scope.internal = function(){
+			var options = { "extraoptions": {"target": "8"} };
+			addRegion('internal', options);
+		}
+		$scope.phone = function(){
+			var options = { "extraoptions": {"target": "000-000-0000"} };
+			addRegion('phone', options);
 		}
 		$scope.video = function(){
-			var video = new fabric.Rect({
-				left: 75,
-				top: 60,
-				originX: 'left',
-				originY: 'top',
-				width: 150,
-				height: 120,
-				fill: 'rgba(000,000,000,0.8)',
-				transparentCorners: false,
-				hasRotatingPoint: false
-			  });
-			canvas.add(video).setActiveObject(video);
+			var options = { "extraoptions": {"target": "<iframe></iframe>"} };
+			addRegion('video', options);
 		}
-		$scope.image = function(){
-			var image = new fabric.Image($('#jcl-demo img')[0],{
-				left: 75,
-				top: 60,
-				originX: 'left',
-				originY: 'top',
-				width: 150,
-				height: 120,
-				fill: 'rgba(000,000,000,0.8)',
-				transparentCorners: false,
-				hasRotatingPoint: false
-			  });
-			canvas.add(image).setActiveObject(image);
+		$scope.iframe = function(){
+			var options = { "extraoptions": {"target": "http://logostudio.papionne.com/?p=1363"} };
+			addRegion('iframe', options);
 		}
 
 	}

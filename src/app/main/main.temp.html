@@ -1,11 +1,11 @@
 <md-toolbar layout="column" layout-padding class="toolbarMng">
 	<div layout="row" layout-sm="row" layout-align="center center" layout-wrap="">
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="internal(); activecls = 3" ng-class="{activeCls: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>internal</md-button>
 	  <md-button layout-sm="column" class="md-raised md-default" ng-click="website(); activecls = 1" ng-class="{activeCls: activecls === 1}"><i class="fa fa-globe">&nbsp;</i>website</md-button>
 	  <md-button layout-sm="column" class="md-raised md-default" ng-click="email(); activecls = 2" ng-class="{activeCls: activecls === 2}"><i class="fa fa-envelope">&nbsp;</i>email</md-button>
-	  <md-button layout-sm="column" class="md-raised md-default" ng-click="text(); activecls = 3" ng-class="{activeCls: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>text</md-button>
-	  <md-button layout-sm="column" class="md-raised md-default" ng-click="link(); activecls = 4" ng-class="{activeCls: activecls === 4}"><i class="fa fa-link">&nbsp;</i>link</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="phone(); activecls = 4" ng-class="{activeCls: activecls === 4}"><i class="fa fa-link">&nbsp;</i>phone</md-button>
 	  <md-button layout-sm="column" class="md-raised md-default" ng-click="video(); activecls = 5" ng-class="{activeCls: activecls === 5}"><i class="fa fa-film">&nbsp;</i>video</md-button>
-	  <md-button layout-sm="column" class="md-raised md-default" ng-click=" image();activecls = 6" ng-class="{activeCls: activecls === 6}"><i class="fa fa-image">&nbsp;</i>image</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click=" iframe();activecls = 6" ng-class="{activeCls: activecls === 6}"><i class="fa fa-image">&nbsp;</i>iframe</md-button>
 	 </div>
 </md-toolbar>
 
@@ -20,11 +20,12 @@
 				</md-icon>
 			</md-button>
 			<md-toolbar class="properties-header">
-			    <div class="md-toolbar-tools">Regions Editor</div>
+			    <div class="md-toolbar-tools">{{ regiontype }}</div>
 			 </md-toolbar>
 			<md-content>
 				<md-list>
 					<md-input-container class="md-block">
+						<label></label>
 						<input required name="one" ng-model="region.one">
 						<div ng-messages="region.one.$error">
 							<div ng-message="required">This is required.</div>
@@ -36,13 +37,13 @@
 							<div ng-message="required">This is required.</div>
 						</div>
 					</md-input-container>
-					<md-input-container class="md-block" flex>
+					<md-input-container class="md-block hidden" flex>
 						<input required name="three" ng-model="region.three">
 						<div ng-messages="region.three.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
 					</md-input-container>
-					<md-input-container class="md-block" flex>
+					<md-input-container class="md-block hidden" flex>
 						<input required name="four" ng-model="region.four">
 						<div ng-messages="region.four.$error">
 							<div ng-message="required">This is required.</div>

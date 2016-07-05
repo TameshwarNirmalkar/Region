@@ -1,5 +1,4 @@
 (function(){
-	console.log('test');
 	'use strict';
 	
 	angular.module('regionapp')
