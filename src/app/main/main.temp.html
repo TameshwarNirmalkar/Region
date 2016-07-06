@@ -26,7 +26,7 @@
 				<md-list>
 					<md-input-container class="md-block" ng-if="regiontypeLabel !='video'">
 						<label>{{ elementlabel }}</label>
-						<input name="one" ng-model="region.target" aria-label="true">
+						<input name="one" ng-model="region.target" aria-label="true" ng-blur="changeall(region.target)">
 						<div ng-messages="region.one.$error">
 							<div ng-message="required">This is required.</div>
 						</div>

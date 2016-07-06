@@ -79,7 +79,7 @@
 					console.log('beforeStart');
 				},
 				afterEnd: function(item){
-					console.log('afterEnd', item);
+					console.log('afterEnd');
 				}
 			});
 
@@ -90,7 +90,6 @@
 		$timeout(function(){
 			sliderInitialize();
 		})
-		// monika js code
 		//make actions panels draggable
 		$('.properties-panel').draggable();
 
@@ -99,19 +98,18 @@
 
 		canvas.on('object:selected', function(e){
 			//e.target.setOptions({"internal": true, "target": "blank" });
-			// console.log( e.target.get('type'), e.target );
+			console.log( e.target.get('type'), e.target );
 			$timeout(function(){
 				$scope.regiontypeLabel = e.target.type;
-				$scope.region["target"] = e.target.target;
+				$scope.region.target = e.target.target;
 				$scope.elementlabel = e.target.elementlabel;
 			})
 		});
-		// monika js code end
 
 		var SAVEREGION = function(){
 			var group = canvas.getActiveGroup();
 			var canvasObject = canvas.getObjects();
-			var jsonArray = []
+			var jsonArray = [];
 			angular.forEach(canvasObject, function(v,k){
 				$scope.region = {
 					"x": v.left,
@@ -136,7 +134,7 @@
 		var CANCELRESET = function(){
 			$scope.region = {};
 			//canvas.getActiveGroup().each(function(o){ canvas.remove(o) });
-			console.log( canvas.getObjects().length );
+			//console.log( canvas.getObjects().length );
 			var curSelectedObjects = canvas.getObjects();
 			// for (var i = 0; i < curSelectedObjects.length; i++)
 			// {
@@ -151,7 +149,7 @@
 
 		$scope.cancelReset = CANCELRESET;
 
-		function addRegion(type, options){
+		function addRegion(options){
 			var region = new fabric.Rect({
 					left: 75,
 					top: 60,
@@ -160,44 +158,58 @@
 					fill: 'rgba(63,81,181,0.8)',
 					transparentCorners: false,
 					hasRotatingPoint: false,
-					type: type,
+					type: options.extraoptions.type,
 					target: options.extraoptions.target,
 					elementlabel: options.extraoptions.elementlabel
 			  });
-			region.setOptions(options);
-			canvas.add(region).setActiveObject(region);
-			$scope.regiontypeLabel = type;
+			$timeout(function(){
+				region.setOptions(options);
+				canvas.add(region).setActiveObject(region);
+				$scope.regiontypeLabel = options.extraoptions.type;
+			})
 		}
 		$scope.internal = function(){
-			var options = { "extraoptions": {"target": 1, "elementlabel": "Page Number"} };
+			var options = { "extraoptions": {"type": "internal","target": 1, "elementlabel": "Page Number"} };
 			$scope.region["target"] = options.extraoptions.target;
-			addRegion('internal', options);
-		}
+			$scope.region["type"] = options.extraoptions.type;
+			addRegion(options);
+		};
 		$scope.website = function(){
-			var options = {"extraoptions": {"target": "http://logostudio.papionne.com/?p=1363", "options": "blank", "elementlabel": "Url"} };
+			var options = {"extraoptions": {"type":"website", "target": "http://logostudio.papionne.com/?p=1363", "options": "blank", "elementlabel": "Url"} };
 			$scope.region["target"] = options.extraoptions.target;
-			addRegion('website', options);
-		}
+			$scope.region["type"] = options.extraoptions.type;
+			addRegion(options);
+		};
 		$scope.email = function(){
-			var options = { "extraoptions": {"target": "tameshwar.nirmalkar@gmail.com", "elementlabel": "Email Address"} };
+			var options = { "extraoptions": {"type":"email", "target": "tameshwar.nirmalkar@gmail.com", "elementlabel": "Email Address"} };
 			$scope.region["target"] = options.extraoptions.target;
-			addRegion('email', options);
-		}
+			$scope.region["type"] = options.extraoptions.type;
+			addRegion(options);
+		};
 		$scope.phone = function(){
-			var options = { "extraoptions": {"target": "000-000-0000", "elementlabel": "Phone Number"} };
+			var options = { "extraoptions": {"type":"phone","target": "000-000-0000", "elementlabel": "Phone Number"} };
 			$scope.region["target"] = options.extraoptions.target;
-			addRegion('phone', options);
-		}
+			$scope.region["type"] = options.extraoptions.type;
+			addRegion(options);
+		};
 		$scope.video = function(){
-			var options = { "extraoptions": {"target": "<iframe></iframe>", "elementlabel": "Video Embded Code"} };
+			var options = { "extraoptions": {"type":"video","target": "<iframe></iframe>", "elementlabel": "Video Embded Code"} };
 			$scope.region["target"] = options.extraoptions.target;
-			addRegion('video', options);
-		}
+			$scope.region["type"] = options.extraoptions.type;
+			addRegion(options);
+		};
 		$scope.iframe = function(){
 			var options = { "extraoptions": {"target": "http://logostudio.papionne.com/?p=1363", "elementlabel": "Iframe URL"} };
 			$scope.region["target"] = options.extraoptions.target;
+			$scope.region["type"] = options.extraoptions.type;
 			addRegion('iframe', options);
-		}
+		};
+
+		$scope.changeall = function(val){ 
+			if(canvas.getActiveObject()){
+				canvas.getActiveObject().setOptions({"target": val})
+			}
+		};
 
 	}
 
