@@ -92,10 +92,11 @@
 			//canvas.getActiveGroup().each(function(o){ canvas.remove(o) });
 			console.log( canvas.getObjects().length );
 			var curSelectedObjects = canvas.getObjects();
-			for (var i = 0; i < curSelectedObjects.length; i++)
-		    {
-		        canvas.remove(curSelectedObjects[i]);
-		    }
+			// for (var i = 0; i < curSelectedObjects.length; i++)
+			// {
+			// 	canvas.remove(curSelectedObjects[i]);
+			// }
+		 	canvas.clear();
 		    $scope.regiontypeLabel = 'Region Editor';
 		};
 
