@@ -25,22 +25,22 @@
 			<md-content>
 				<md-list>
 					<md-input-container class="md-block">
-						<label>Page number</label>
-						<input required name="one" ng-model="region.one" aria-label="true">
+						<label>{{ elementlabel }}</label>
+						<input name="one" ng-model="region.target" aria-label="true">
 						<div ng-messages="region.one.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
 					</md-input-container>
-					<md-input-container class="md-block" flex>
+					<!-- <md-input-container class="md-block" flex>
 						<label>Target</label>
 						<input required name="two" ng-model="region.two">
 						<div ng-messages="region.tow.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
-					</md-input-container>
+					</md-input-container> -->
 					<md-input-container class="md-block hidden" flex ng-if="regiontypeLabel ==='website'">
 						<label>Target</label>
-						<md-select ng-model="userOpt">
+						<md-select ng-model="region.options.target">
 				          <md-option ng-repeat="opt in targetopt" value="{{opt.abbrev}}" ng-disabled="$index === -1">
 				            {{opt.abbrev}}
 				          </md-option>

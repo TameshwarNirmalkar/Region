@@ -17,10 +17,12 @@
 			"type": "",
 			"target": "",
 			"options": {
-				"target": ""
+				"target": "blank"
 			}
 		};
-		
+		$scope.elementlabel = '';
+		$scope.regiontypeLabel = 'Region Editor';
+		$scope.targetopt = ('blank self').split(' ').map(function (op) { return { abbrev: op }; });
 		$scope.regionsimages = [
 			{img: 'assets/images/1.jpg', description: 'Image 1'},
 			{img: 'assets/images/2.jpg', description: 'Image 2'},
@@ -64,10 +66,7 @@
 			{img: 'assets/images/10.jpg', description: 'Image 10'}
 		];
 
-		$scope.userOpt = '';
-		$scope.targetopt = ('blank self').split(' ').map(function (op) { return { abbrev: op }; });
 
-		$scope.regiontypeLabel = 'Region Editor';
 
 		function sliderInitialize(){
 			$(".widget .carousel").jCarouselLite({
@@ -100,9 +99,11 @@
 
 		canvas.on('object:selected', function(e){
 			//e.target.setOptions({"internal": true, "target": "blank" });
-			//console.log( e.target.get('type'), e.target );
+			// console.log( e.target.get('type'), e.target );
 			$timeout(function(){
 				$scope.regiontypeLabel = e.target.type;
+				$scope.region["target"] = e.target.target;
+				$scope.elementlabel = e.target.elementlabel;
 			})
 		});
 		// monika js code end
@@ -122,9 +123,8 @@
 					"type": v.type,
 					"target": v.extraoptions.target,
 					"options": {
-					    "target": v.extraoptions.options 
+						"target": v.extraoptions.options 
 					}
-
 				};
 				jsonArray.push($scope.region);
 						
@@ -144,6 +144,7 @@
 			// }
 		 	canvas.clear();
 		    $scope.regiontypeLabel = 'Region Editor';
+		    $scope.elementlabel = '';
 		};
 
 		$scope.saveRegion = SAVEREGION;
@@ -154,42 +155,47 @@
 			var region = new fabric.Rect({
 					left: 75,
 					top: 60,
-					originX: 'left',
-					originY: 'top',
-					width: 150,
-					height: 120,
-					fill: 'rgba(0,0,255,0.4)',
+					width: 250,
+					height: 60,
+					fill: 'rgba(63,81,181,0.8)',
 					transparentCorners: false,
 					hasRotatingPoint: false,
-					type: type
+					type: type,
+					target: options.extraoptions.target,
+					elementlabel: options.extraoptions.elementlabel
 			  });
 			region.setOptions(options);
 			canvas.add(region).setActiveObject(region);
 			$scope.regiontypeLabel = type;
 		}
-
+		$scope.internal = function(){
+			var options = { "extraoptions": {"target": 1, "elementlabel": "Page number"} };
+			$scope.region["target"] = options.extraoptions.target;
+			addRegion('internal', options);
+		}
 		$scope.website = function(){
-			var options = {"extraoptions": {"target": "http://logostudio.papionne.com/?p=1363", "options": "blank"} };
+			var options = {"extraoptions": {"target": "http://logostudio.papionne.com/?p=1363", "options": "blank", "elementlabel": "Url"} };
+			$scope.region["target"] = options.extraoptions.target;
 			addRegion('website', options);
 		}
 		$scope.email = function(){
-			var options = { "extraoptions": {"target": "tameshwar.nirmalkar@gmail.com"} };
+			var options = { "extraoptions": {"target": "tameshwar.nirmalkar@gmail.com", "elementlabel": "Email"} };
+			$scope.region["target"] = options.extraoptions.target;
 			addRegion('email', options);
 		}
-		$scope.internal = function(){
-			var options = { "extraoptions": {"target": "8"} };
-			addRegion('internal', options);
-		}
 		$scope.phone = function(){
-			var options = { "extraoptions": {"target": "000-000-0000"} };
+			var options = { "extraoptions": {"target": "000-000-0000", "elementlabel": "Phone number"} };
+			$scope.region["target"] = options.extraoptions.target;
 			addRegion('phone', options);
 		}
 		$scope.video = function(){
-			var options = { "extraoptions": {"target": "<iframe></iframe>"} };
+			var options = { "extraoptions": {"target": "<iframe></iframe>", "elementlabel": "Iframe"} };
+			$scope.region["target"] = options.extraoptions.target;
 			addRegion('video', options);
 		}
 		$scope.iframe = function(){
-			var options = { "extraoptions": {"target": "http://logostudio.papionne.com/?p=1363"} };
+			var options = { "extraoptions": {"target": "http://logostudio.papionne.com/?p=1363", "elementlabel": "Iframe source"} };
+			$scope.region["target"] = options.extraoptions.target;
 			addRegion('iframe', options);
 		}
 
