@@ -6,7 +6,6 @@
 
 
 	function MainController($scope, canvasservice, $timeout) {
-		console.log('controller initialize' );
 		var self = this;
 		$scope.region = {
 			"x":0,
@@ -23,10 +22,46 @@
 		};
 		
 		$scope.regionsimages = [
-			{thumb: 'assets/images/1.jpg', img: 'assets/images/1.jpg', description: 'Image 1'},
-			{thumb: 'assets/images/2.jpg', img: 'assets/images/2.jpg', description: 'Image 2'},
-			{thumb: 'assets/images/3.jpg', img: 'assets/images/3.jpg', description: 'Image 3'},
-			{thumb: 'assets/images/3.jpg', img: 'assets/images/4.jpg', description: 'Image 4'}
+			{img: 'assets/images/1.jpg', description: 'Image 1'},
+			{img: 'assets/images/2.jpg', description: 'Image 2'},
+			{img: 'assets/images/3.jpg', description: 'Image 3'},
+			{img: 'assets/images/4.jpg', description: 'Image 4'},
+			{img: 'assets/images/5.jpg', description: 'Image 5'},
+			{img: 'assets/images/6.jpg', description: 'Image 6'},
+			{img: 'assets/images/7.jpg', description: 'Image 7'},
+			{img: 'assets/images/8.jpg', description: 'Image 8'},
+			{img: 'assets/images/9.jpg', description: 'Image 9'},
+			{img: 'assets/images/10.jpg', description: 'Image 10'},
+			{img: 'assets/images/1.jpg', description: 'Image 1'},
+			{img: 'assets/images/2.jpg', description: 'Image 2'},
+			{img: 'assets/images/3.jpg', description: 'Image 3'},
+			{img: 'assets/images/4.jpg', description: 'Image 4'},
+			{img: 'assets/images/5.jpg', description: 'Image 5'},
+			{img: 'assets/images/6.jpg', description: 'Image 6'},
+			{img: 'assets/images/7.jpg', description: 'Image 7'},
+			{img: 'assets/images/8.jpg', description: 'Image 8'},
+			{img: 'assets/images/9.jpg', description: 'Image 9'},
+			{img: 'assets/images/10.jpg', description: 'Image 10'},
+			{img: 'assets/images/1.jpg', description: 'Image 1'},
+			{img: 'assets/images/2.jpg', description: 'Image 2'},
+			{img: 'assets/images/3.jpg', description: 'Image 3'},
+			{img: 'assets/images/4.jpg', description: 'Image 4'},
+			{img: 'assets/images/5.jpg', description: 'Image 5'},
+			{img: 'assets/images/6.jpg', description: 'Image 6'},
+			{img: 'assets/images/7.jpg', description: 'Image 7'},
+			{img: 'assets/images/8.jpg', description: 'Image 8'},
+			{img: 'assets/images/9.jpg', description: 'Image 9'},
+			{img: 'assets/images/10.jpg', description: 'Image 10'},
+			{img: 'assets/images/1.jpg', description: 'Image 1'},
+			{img: 'assets/images/2.jpg', description: 'Image 2'},
+			{img: 'assets/images/3.jpg', description: 'Image 3'},
+			{img: 'assets/images/4.jpg', description: 'Image 4'},
+			{img: 'assets/images/5.jpg', description: 'Image 5'},
+			{img: 'assets/images/6.jpg', description: 'Image 6'},
+			{img: 'assets/images/7.jpg', description: 'Image 7'},
+			{img: 'assets/images/8.jpg', description: 'Image 8'},
+			{img: 'assets/images/9.jpg', description: 'Image 9'},
+			{img: 'assets/images/10.jpg', description: 'Image 10'}
 		];
 
 		$scope.userOpt = '';
@@ -34,17 +69,28 @@
 
 		$scope.regiontypeLabel = 'Region Editor';
 
-		$(".widget .carousel").jCarouselLite({
-			btnNext: ".widget .next",
-			btnPrev: ".widget .prev",
-			speed: 200,
-			circular: false,
-			visible: 16
-		});
+		function sliderInitialize(){
+			$(".widget .carousel").jCarouselLite({
+				btnNext: ".widget .next",
+				btnPrev: ".widget .prev",
+				speed: 200,
+				circular: false,
+				visible: 16,
+				beforeStart: function(item){
+					console.log('beforeStart');
+				},
+				afterEnd: function(item){
+					console.log('afterEnd', item);
+				}
+			});
 
-		$(".widget img").click(function() {
-		   $(".widget .mid img").attr("src", $(this).attr("src"));
-		});
+			$(".widget img").click(function() {
+			   $(".widget .mid img").attr("src", $(this).attr("src"));
+			});
+		}
+		$timeout(function(){
+			sliderInitialize();
+		})
 		// monika js code
 		//make actions panels draggable
 		$('.properties-panel').draggable();
