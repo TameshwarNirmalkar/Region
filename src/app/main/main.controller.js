@@ -2,10 +2,10 @@
 	'use strict';
 	angular
 		.module('main.controller', [])
-		.controller('MainController', ['$scope', 'canvasservice', MainController]);
+		.controller('MainController', ['$scope', 'canvasservice', '$timeout', MainController]);
 
 
-	function MainController($scope, canvasservice) {
+	function MainController($scope, canvasservice, $timeout) {
 		console.log('controller initialize' );
 		var self = this;
 		$scope.region = {
@@ -16,7 +16,10 @@
 			"pageWidth":1024,
 			"pageHeight":768,
 			"type": "",
-			"target": ""
+			"target": "",
+			"options": {
+				"target": ""
+			}
 		};
 		
 		$scope.regionsimages = [
@@ -26,7 +29,10 @@
 			{thumb: 'assets/images/3.jpg', img: 'assets/images/4.jpg', description: 'Image 4'}
 		];
 
-		$scope.regiontype = 'Region Editor';
+		$scope.userOpt = '';
+		$scope.targetopt = ('blank self').split(' ').map(function (op) { return { abbrev: op }; });
+
+		$scope.regiontypeLabel = 'Region Editor';
 
 		$(".widget .carousel").jCarouselLite({
 			btnNext: ".widget .next",
@@ -48,7 +54,10 @@
 
 		canvas.on('object:selected', function(e){
 			//e.target.setOptions({"internal": true, "target": "blank" });
-			console.log( e.target.get('type'), e.target );
+			//console.log( e.target.get('type'), e.target );
+			$timeout(function(){
+				$scope.regiontypeLabel = e.target.type;
+			})
 		});
 		// monika js code end
 
@@ -80,6 +89,14 @@
 
 		var CANCELRESET = function(){
 			$scope.region = {};
+			//canvas.getActiveGroup().each(function(o){ canvas.remove(o) });
+			console.log( canvas.getObjects().length );
+			var curSelectedObjects = canvas.getObjects();
+			for (var i = 0; i < curSelectedObjects.length; i++)
+		    {
+		        canvas.remove(curSelectedObjects[i]);
+		    }
+		    $scope.regiontypeLabel = 'Region Editor';
 		};
 
 		$scope.saveRegion = SAVEREGION;
@@ -101,7 +118,7 @@
 			  });
 			region.setOptions(options);
 			canvas.add(region).setActiveObject(region);
-			$scope.regiontype = type;
+			$scope.regiontypeLabel = type;
 		}
 
 		$scope.website = function(){

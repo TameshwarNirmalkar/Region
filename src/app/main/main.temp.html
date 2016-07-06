@@ -20,34 +20,31 @@
 				</md-icon>
 			</md-button>
 			<md-toolbar class="properties-header">
-			    <div class="md-toolbar-tools">{{ regiontype }}</div>
+			    <div class="md-toolbar-tools text-uppercase">{{ regiontypeLabel | uppercase }}</div>
 			 </md-toolbar>
 			<md-content>
 				<md-list>
 					<md-input-container class="md-block">
-						<label></label>
-						<input required name="one" ng-model="region.one">
+						<label>Internal</label>
+						<input required name="one" ng-model="region.one" aria-label="true">
 						<div ng-messages="region.one.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
 					</md-input-container>
 					<md-input-container class="md-block" flex>
+						<label>Target</label>
 						<input required name="two" ng-model="region.two">
 						<div ng-messages="region.tow.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
 					</md-input-container>
-					<md-input-container class="md-block hidden" flex>
-						<input required name="three" ng-model="region.three">
-						<div ng-messages="region.three.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
-					</md-input-container>
-					<md-input-container class="md-block hidden" flex>
-						<input required name="four" ng-model="region.four">
-						<div ng-messages="region.four.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
+					<md-input-container class="md-block hidden" flex ng-if="regiontypeLabel ==='website'">
+						<label>Target</label>
+						<md-select ng-model="userOpt">
+				          <md-option ng-repeat="opt in targetopt" value="{{opt.abbrev}}" ng-disabled="$index === -1">
+				            {{opt.abbrev}}
+				          </md-option>
+				        </md-select>
 					</md-input-container>
 				</md-list>
 				<div>
