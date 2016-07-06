@@ -169,7 +169,7 @@
 			$scope.regiontypeLabel = type;
 		}
 		$scope.internal = function(){
-			var options = { "extraoptions": {"target": 1, "elementlabel": "Page number"} };
+			var options = { "extraoptions": {"target": 1, "elementlabel": "Page Number"} };
 			$scope.region["target"] = options.extraoptions.target;
 			addRegion('internal', options);
 		}
@@ -179,22 +179,22 @@
 			addRegion('website', options);
 		}
 		$scope.email = function(){
-			var options = { "extraoptions": {"target": "tameshwar.nirmalkar@gmail.com", "elementlabel": "Email"} };
+			var options = { "extraoptions": {"target": "tameshwar.nirmalkar@gmail.com", "elementlabel": "Email Address"} };
 			$scope.region["target"] = options.extraoptions.target;
 			addRegion('email', options);
 		}
 		$scope.phone = function(){
-			var options = { "extraoptions": {"target": "000-000-0000", "elementlabel": "Phone number"} };
+			var options = { "extraoptions": {"target": "000-000-0000", "elementlabel": "Phone Number"} };
 			$scope.region["target"] = options.extraoptions.target;
 			addRegion('phone', options);
 		}
 		$scope.video = function(){
-			var options = { "extraoptions": {"target": "<iframe></iframe>", "elementlabel": "Iframe"} };
+			var options = { "extraoptions": {"target": "<iframe></iframe>", "elementlabel": "Video Embded Code"} };
 			$scope.region["target"] = options.extraoptions.target;
 			addRegion('video', options);
 		}
 		$scope.iframe = function(){
-			var options = { "extraoptions": {"target": "http://logostudio.papionne.com/?p=1363", "elementlabel": "Iframe source"} };
+			var options = { "extraoptions": {"target": "http://logostudio.papionne.com/?p=1363", "elementlabel": "Iframe URL"} };
 			$scope.region["target"] = options.extraoptions.target;
 			addRegion('iframe', options);
 		}

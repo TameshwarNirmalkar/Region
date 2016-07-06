@@ -24,9 +24,16 @@
 			 </md-toolbar>
 			<md-content>
 				<md-list>
-					<md-input-container class="md-block">
+					<md-input-container class="md-block" ng-if="regiontypeLabel !='video'">
 						<label>{{ elementlabel }}</label>
 						<input name="one" ng-model="region.target" aria-label="true">
+						<div ng-messages="region.one.$error">
+							<div ng-message="required">This is required.</div>
+						</div>
+					</md-input-container>
+					<md-input-container class="md-block" ng-if="regiontypeLabel ==='video'">
+						<label>{{ elementlabel }}</label>
+						<textarea ng-model="region.target" md-rows="200" md-maxlength="300" aria-label="true"></textarea>
 						<div ng-messages="region.one.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
