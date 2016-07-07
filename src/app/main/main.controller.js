@@ -2,10 +2,10 @@
 	'use strict';
 	angular
 		.module('main.controller', [])
-		.controller('MainController', ['$scope', 'canvasservice', '$timeout', MainController]);
+		.controller('MainController', ['$scope', '$timeout', 'CanvasService', MainController]);
 
 
-	function MainController($scope, canvasservice, $timeout) {
+	function MainController($scope, $timeout, CanvasService) {
 		var self = this;
 		$scope.region = {
 			"x":0,
@@ -22,73 +22,27 @@
 		};
 		$scope.elementlabel = '';
 		$scope.regiontypeLabel = 'Region Editor';
-		$scope.targetopt = ('blank self').split(' ').map(function (op) { return { abbrev: op }; });
-		$scope.regionsimages = [
-			{img: 'assets/images/1.jpg', description: 'Image 1'},
-			{img: 'assets/images/2.jpg', description: 'Image 2'},
-			{img: 'assets/images/3.jpg', description: 'Image 3'},
-			{img: 'assets/images/4.jpg', description: 'Image 4'},
-			{img: 'assets/images/5.jpg', description: 'Image 5'},
-			{img: 'assets/images/6.jpg', description: 'Image 6'},
-			{img: 'assets/images/7.jpg', description: 'Image 7'},
-			{img: 'assets/images/8.jpg', description: 'Image 8'},
-			{img: 'assets/images/9.jpg', description: 'Image 9'},
-			{img: 'assets/images/10.jpg', description: 'Image 10'},
-			{img: 'assets/images/1.jpg', description: 'Image 1'},
-			{img: 'assets/images/2.jpg', description: 'Image 2'},
-			{img: 'assets/images/3.jpg', description: 'Image 3'},
-			{img: 'assets/images/4.jpg', description: 'Image 4'},
-			{img: 'assets/images/5.jpg', description: 'Image 5'},
-			{img: 'assets/images/6.jpg', description: 'Image 6'},
-			{img: 'assets/images/7.jpg', description: 'Image 7'},
-			{img: 'assets/images/8.jpg', description: 'Image 8'},
-			{img: 'assets/images/9.jpg', description: 'Image 9'},
-			{img: 'assets/images/10.jpg', description: 'Image 10'},
-			{img: 'assets/images/1.jpg', description: 'Image 1'},
-			{img: 'assets/images/2.jpg', description: 'Image 2'},
-			{img: 'assets/images/3.jpg', description: 'Image 3'},
-			{img: 'assets/images/4.jpg', description: 'Image 4'},
-			{img: 'assets/images/5.jpg', description: 'Image 5'},
-			{img: 'assets/images/6.jpg', description: 'Image 6'},
-			{img: 'assets/images/7.jpg', description: 'Image 7'},
-			{img: 'assets/images/8.jpg', description: 'Image 8'},
-			{img: 'assets/images/9.jpg', description: 'Image 9'},
-			{img: 'assets/images/10.jpg', description: 'Image 10'},
-			{img: 'assets/images/1.jpg', description: 'Image 1'},
-			{img: 'assets/images/2.jpg', description: 'Image 2'},
-			{img: 'assets/images/3.jpg', description: 'Image 3'},
-			{img: 'assets/images/4.jpg', description: 'Image 4'},
-			{img: 'assets/images/5.jpg', description: 'Image 5'},
-			{img: 'assets/images/6.jpg', description: 'Image 6'},
-			{img: 'assets/images/7.jpg', description: 'Image 7'},
-			{img: 'assets/images/8.jpg', description: 'Image 8'},
-			{img: 'assets/images/9.jpg', description: 'Image 9'},
-			{img: 'assets/images/10.jpg', description: 'Image 10'}
-		];
-
-
-
-		function sliderInitialize(){
+		$scope.targetopt = CanvasService.getOptions();
+		$scope.regionsimages = CanvasService.getImages();
+		
+		$timeout(function(){
 			$(".widget .carousel").jCarouselLite({
 				btnNext: ".widget .next",
 				btnPrev: ".widget .prev",
-				speed: 200,
+				speed: 300,
 				circular: false,
-				visible: 16,
+				visible: 1,
 				beforeStart: function(item){
-					console.log('beforeStart');
+					CanvasService.beforeStart(item);
 				},
 				afterEnd: function(item){
-					console.log('afterEnd');
+					CanvasService.afterEnd(item);
 				}
 			});
 
 			$(".widget img").click(function() {
 			   $(".widget .mid img").attr("src", $(this).attr("src"));
 			});
-		}
-		$timeout(function(){
-			sliderInitialize();
 		})
 		//make actions panels draggable
 		$('.properties-panel').draggable();
@@ -98,7 +52,7 @@
 
 		canvas.on('object:selected', function(e){
 			//e.target.setOptions({"internal": true, "target": "blank" });
-			console.log( e.target.get('type'), e.target );
+			console.log( e.target.get('type'), e.target.target );
 			$timeout(function(){
 				$scope.regiontypeLabel = e.target.type;
 				$scope.region.target = e.target.target;
@@ -119,9 +73,9 @@
 					"pageWidth": window.innerWidth,
 					"pageHeight": window.innerHeight,
 					"type": v.type,
-					"target": v.extraoptions.target,
+					"target": v.target,
 					"options": {
-						"target": v.extraoptions.options 
+						"target": v.options 
 					}
 				};
 				jsonArray.push($scope.region);
@@ -169,40 +123,40 @@
 			})
 		}
 		$scope.internal = function(){
-			var options = { "extraoptions": {"type": "internal","target": 1, "elementlabel": "Page Number"} };
+			var options = CanvasService.getRegionOptions().internal;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
 			addRegion(options);
 		};
 		$scope.website = function(){
-			var options = {"extraoptions": {"type":"website", "target": "http://logostudio.papionne.com/?p=1363", "options": "blank", "elementlabel": "Url"} };
+			var options = CanvasService.getRegionOptions().website;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
 			addRegion(options);
 		};
 		$scope.email = function(){
-			var options = { "extraoptions": {"type":"email", "target": "tameshwar.nirmalkar@gmail.com", "elementlabel": "Email Address"} };
+			var options = CanvasService.getRegionOptions().email;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
 			addRegion(options);
 		};
 		$scope.phone = function(){
-			var options = { "extraoptions": {"type":"phone","target": "000-000-0000", "elementlabel": "Phone Number"} };
+			var options = CanvasService.getRegionOptions().phone;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
 			addRegion(options);
 		};
 		$scope.video = function(){
-			var options = { "extraoptions": {"type":"video","target": "<iframe></iframe>", "elementlabel": "Video Embded Code"} };
+			var options = CanvasService.getRegionOptions().video;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
 			addRegion(options);
 		};
 		$scope.iframe = function(){
-			var options = { "extraoptions": {"target": "http://logostudio.papionne.com/?p=1363", "elementlabel": "Iframe URL"} };
+			var options = CanvasService.getRegionOptions().iframe;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
-			addRegion('iframe', options);
+			addRegion(options);
 		};
 
 		$scope.changeall = function(val){ 

@@ -33,7 +33,7 @@
 					</md-input-container>
 					<md-input-container class="md-block" ng-if="regiontypeLabel ==='video'">
 						<label>{{ elementlabel }}</label>
-						<textarea class="video-textarea" ng-model="region.target" md-rows="200" md-maxlength="600" aria-label="true"></textarea>
+						<textarea class="video-textarea" ng-model="region.target" md-rows="200" md-maxlength="600" aria-label="true" ng-blur="changeall(region.target)"></textarea>
 						<div ng-messages="region.one.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
@@ -53,7 +53,7 @@
 				</div>
 			</md-content>
 		</div>
-		<md-content flex layout-padding layout="row" md-component-id="center"  layout-fill layout-align="top center">
+		<md-content flex layout-padding layout="row" md-component-id="center" layout-fill layout-align="top center">
 			<div class="canvasHolder">
 			<canvas id="canvasid" width="450" height="471">  </canvas>
 				<div id="jcl-demo" class="cntr canvasonImage">
@@ -67,7 +67,7 @@
 		</md-content>
 	</section>
 	<section class="bottom-bar">
-		<div id="jcl-demo" layout="column" layout-padding sm-component-id="center"  layout-fill layout-align="bottom center">
+		<div id="jcl-demo" layout="column" layout-padding sm-component-id="center" layout-fill layout-align="bottom center">
 			<div class="widget" layout="row">
 				<div layout="column" layout-align="center center" class="sm-padding">
 			   	 <span id="left"><a href="#" class="prev"><i class="fa fa-arrow-circle-o-left"></i> </a></span>

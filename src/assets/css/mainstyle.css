@@ -36,23 +36,15 @@
 }
 .prev{float: left;}
 .next{float: left !important;}
-#jcl-demo a.prev, #jcl-demo a.next, #jcl-demo a.go, .jcl-demo a.prev, .jcl-demo a.next{font-size: 24px;
-    padding: 5px;
-    width: 28px;}
+#jcl-demo a.prev, #jcl-demo a.next, #jcl-demo a.go, .jcl-demo a.prev, .jcl-demo a.next{font-size: 24px; padding: 5px; width: 28px;}
 .toggle-editor{display: none;}
 /*#jcl-demo{margin: 0 auto;}*/
 #jcl-demo .mid{margin: 0;width: 450px;height: 471px;}
-canvas {
-    border: 1px solid #999;
-}
-.carousel{    max-width: 90%;padding: 0 !important;
-    margin: 0 auto;
-    float: none;    float: left !important;}
+canvas {border: 1px solid #999;}
+.carousel{max-width: 90%;padding: 0 !important; margin: 0 auto; float: none; float: left !important;}
 .canvasHolder{margin: 0 auto;}
 .canvasHolder .canvas-container{position: absolute !important;}
 #jcl-demo .custom-container{margin: 0;}
 .toolbarMng button i{padding-top: 9px;}
-md-input-container textarea.md-input{
-    min-height: 90px !important;
-    border:1px solid #ddd;
-}
+md-input-container textarea.md-input{ min-height: 90px !important; border:1px solid #ddd;}
+#jcl-demo .carousel{width: 100% !important;}
