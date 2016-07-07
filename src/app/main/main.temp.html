@@ -11,7 +11,7 @@
 
 
 	<section layout="row" flex layout-padding>
-		<div class="md-sidenav-left md-whiteframe-z2 properties-panel" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" layout="column">
+		<div class="md-sidenav-left md-whiteframe-z2 properties-panel" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" layout="column" ng-show="isCanvasVisible">
 			<md-button class="md-fab md-accent toggle-editor" aria-label="refresh" ng-hide="hide">
 				<md-tooltip md-direction="left">
 				Open editor
@@ -26,7 +26,7 @@
 				<md-list>
 					<md-input-container class="md-block" ng-if="regiontypeLabel !='video'">
 						<label>{{ elementlabel }}</label>
-						<input name="one" ng-model="region.target" aria-label="true" ng-blur="changeall(region.target)">
+						<input name="one" ng-model="region.target" aria-label="true" ng-keyup="changeall(region.target)">
 						<div ng-messages="region.one.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
@@ -41,7 +41,7 @@
 					<md-input-container class="md-block hidden" flex ng-if="regiontypeLabel ==='website'">
 						<label>Target</label>
 						<md-select ng-model="region.options.target">
-				          <md-option ng-repeat="opt in targetopt" value="{{opt.abbrev}}" ng-disabled="$index === -1">
+				          <md-option ng-repeat="opt in targetopt" value="{{opt.abbrev}}">
 				            {{opt.abbrev}}
 				          </md-option>
 				        </md-select>

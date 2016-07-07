@@ -57,7 +57,7 @@
 			return ('blank self').split(' ').map(function (op) { return { abbrev: op }; });
 		}
 
-		function addRegion(options){
+		function addRegion(canvas, options){
 			// var canvas new fabric.Canvas('canvasid');
 			var region = new fabric.Rect({
 					left: 75,
@@ -74,7 +74,7 @@
 			$timeout(function(){
 				region.setOptions(options);
 				canvas.add(region).setActiveObject(region);
-				$scope.regiontypeLabel = options.extraoptions.type;
+				//$scope.regiontypeLabel = options.extraoptions.type;
 			})
 		}
 
@@ -90,12 +90,12 @@
 			return obj;
 		}
 
-		function beforeStart(item){
-			$(".widget .mid img").attr("src", $(angular.element(item).find('img')[0]).attr('src') );
+		function beforeStart(item, canvas){
+			angular.element(".widget .mid img").attr("src", angular.element(item).attr('src') );
 		}
 
-		function afterEnd(item){
-			$(".widget .mid img").attr("src", $(angular.element(item).find('img')[0]).attr('src') );
+		function afterEnd(item, canvas){
+			angular.element(".widget .mid img").attr("src", angular.element(item).attr('src') );
 		}
 
 		return {

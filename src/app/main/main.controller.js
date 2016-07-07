@@ -7,6 +7,7 @@
 
 	function MainController($scope, $timeout, CanvasService) {
 		var self = this;
+		var canvas = new fabric.Canvas('canvasid');
 		$scope.region = {
 			"x":0,
 			"y":0,
@@ -24,7 +25,8 @@
 		$scope.regiontypeLabel = 'Region Editor';
 		$scope.targetopt = CanvasService.getOptions();
 		$scope.regionsimages = CanvasService.getImages();
-		
+		$scope.isCanvasVisible = false;
+
 		$timeout(function(){
 			$(".widget .carousel").jCarouselLite({
 				btnNext: ".widget .next",
@@ -32,31 +34,39 @@
 				speed: 300,
 				circular: false,
 				visible: 1,
-				beforeStart: function(item){
-					CanvasService.beforeStart(item);
+				easing: "easeOutBounce",
+				beforeStart: function(item, canvas){
+					console.log( item.length );
+					CanvasService.beforeStart(angular.element(item).find('img')[0], canvas);
 				},
-				afterEnd: function(item){
-					CanvasService.afterEnd(item);
+				afterEnd: function(item, canvas){
+					console.log( item.length );
+					CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
 				}
 			});
 
 			$(".widget img").click(function() {
 			   $(".widget .mid img").attr("src", $(this).attr("src"));
 			});
+			
+			//make actions panels draggable
+			$('.properties-panel').draggable();
 		})
-		//make actions panels draggable
-		$('.properties-panel').draggable();
-
-		// Do some initializing stuff
-		var canvas = new fabric.Canvas('canvasid');
 
 		canvas.on('object:selected', function(e){
 			//e.target.setOptions({"internal": true, "target": "blank" });
-			console.log( e.target.get('type'), e.target.target );
+			// console.log( e.target.get('type'), e.target.target );
 			$timeout(function(){
 				$scope.regiontypeLabel = e.target.type;
 				$scope.region.target = e.target.target;
 				$scope.elementlabel = e.target.elementlabel;
+				$scope.isCanvasVisible = true;
+			})
+		});
+
+		canvas.on('before:selection:cleared', function(e){
+			$timeout(function(){
+				$scope.isCanvasVisible = false;
 			})
 		});
 
@@ -65,7 +75,7 @@
 			var canvasObject = canvas.getObjects();
 			var jsonArray = [];
 			angular.forEach(canvasObject, function(v,k){
-				$scope.region = {
+				var region = {
 					"x": v.left,
 					"y": v.top,
 					"width": v.width,
@@ -75,10 +85,10 @@
 					"type": v.type,
 					"target": v.target,
 					"options": {
-						"target": v.options 
+						"target": (v.type === 'website') ? $scope.region.options.target : null 
 					}
 				};
-				jsonArray.push($scope.region);
+				jsonArray.push(region);
 						
 			});
 			console.log( jsonArray );
@@ -97,69 +107,51 @@
 		 	canvas.clear();
 		    $scope.regiontypeLabel = 'Region Editor';
 		    $scope.elementlabel = '';
+		    $scope.isCanvasVisible = false;
 		};
 
 		$scope.saveRegion = SAVEREGION;
 
 		$scope.cancelReset = CANCELRESET;
-
-		function addRegion(options){
-			var region = new fabric.Rect({
-					left: 75,
-					top: 60,
-					width: 250,
-					height: 60,
-					fill: 'rgba(63,81,181,0.8)',
-					transparentCorners: false,
-					hasRotatingPoint: false,
-					type: options.extraoptions.type,
-					target: options.extraoptions.target,
-					elementlabel: options.extraoptions.elementlabel
-			  });
-			$timeout(function(){
-				region.setOptions(options);
-				canvas.add(region).setActiveObject(region);
-				$scope.regiontypeLabel = options.extraoptions.type;
-			})
-		}
+		
 		$scope.internal = function(){
 			var options = CanvasService.getRegionOptions().internal;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
-			addRegion(options);
+			CanvasService.addRegion(canvas, options);
 		};
 		$scope.website = function(){
 			var options = CanvasService.getRegionOptions().website;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
-			addRegion(options);
+			CanvasService.addRegion(canvas, options);
 		};
 		$scope.email = function(){
 			var options = CanvasService.getRegionOptions().email;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
-			addRegion(options);
+			CanvasService.addRegion(canvas, options);
 		};
 		$scope.phone = function(){
 			var options = CanvasService.getRegionOptions().phone;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
-			addRegion(options);
+			CanvasService.addRegion(canvas, options);
 		};
 		$scope.video = function(){
 			var options = CanvasService.getRegionOptions().video;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
-			addRegion(options);
+			CanvasService.addRegion(canvas, options);
 		};
 		$scope.iframe = function(){
 			var options = CanvasService.getRegionOptions().iframe;
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
-			addRegion(options);
+			CanvasService.addRegion(canvas, options);
 		};
 
-		$scope.changeall = function(val){ 
+		$scope.changeall = function(val){
 			if(canvas.getActiveObject()){
 				canvas.getActiveObject().setOptions({"target": val})
 			}

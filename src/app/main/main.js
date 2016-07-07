@@ -2,13 +2,12 @@
 
 	'use strict';
 
-	angular.module('regionapp',['ngMaterial','ui.router', 'jkuri.gallery', 'main.controller'])
+	angular.module('regionapp',['ngMaterial','ui.router', 'main.controller'])
 		.config(['$stateProvider','$urlRouterProvider', routeConfig])
 		.run(['$templateRequest', runConfig]);
 		//.controller('MainCntrl' ['$scope', MainCntrl]);
 
 		function routeConfig($stateProvider, $urlRouterProvider) {
-			console.log('reoute start');
 			$urlRouterProvider.otherwise('/');
 			$stateProvider
 		        .state('home', {
