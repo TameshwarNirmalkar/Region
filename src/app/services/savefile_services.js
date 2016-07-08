@@ -2,8 +2,8 @@
 	'use strict';
 	//'SavefileResourceGateway', 
 	angular.module('regionapp')
-	.factory('CanvasService', ['$timeout', function($timeout) {
-		console.log('services ready');
+	.factory('CanvasService', ['$timeout', '$window', function($timeout, $window) {
+		console.log('services ready', $window);
 		function getRegionData() {
             return '';//SavefileResourceGateway.getAnalysisDetails();
         }
@@ -74,11 +74,10 @@
 			$timeout(function(){
 				region.setOptions(options);
 				canvas.add(region).setActiveObject(region);
-				//$scope.regiontypeLabel = options.extraoptions.type;
 			})
 		}
 
-		function getRegionOptions(){
+		function getRegionOptions(type){
 			var obj = {
 				"internal": { "extraoptions": {"type": "internal","target": 1, "elementlabel": "Page Number"} },
 				"website" : {"extraoptions": {"type":"website", "target": "http://logostudio.papionne.com/?p=1363", "options": "blank", "elementlabel": "Url"} },
@@ -87,7 +86,7 @@
 				"video": { "extraoptions": {"type":"video","target": "<iframe></iframe>", "elementlabel": "Video Embded Code"} },
 				"iframe" : { "extraoptions": {"type":"iframe","target": "http://logostudio.papionne.com/?p=1363", "elementlabel": "Iframe URL"} }
 			}
-			return obj;
+			return obj[type];
 		}
 
 		function beforeStart(item, canvas){
@@ -98,6 +97,33 @@
 			angular.element(".widget .mid img").attr("src", angular.element(item).attr('src') );
 		}
 
+		function formateJson(canvas, model){
+			//var group = canvas.getActiveGroup();
+			var canvasObject = canvas.getObjects();
+			var jsonArray = [];
+			angular.forEach(canvasObject, function(v,k){
+				var region = {
+					"x": v.left,
+					"y": v.top,
+					"width": v.width,
+					"height": v.height,
+					"pageWidth": $window.innerWidth,
+					"pageHeight": $window.innerHeight,
+					"type": v.type,
+					"target": v.target,
+					"options": {
+						"target": (v.type === 'website') ? model : null 
+					}
+				};
+				jsonArray.push(region);
+				//console.log(canvas.getActiveObject().get('type'));				
+			});
+			return jsonArray;
+		}
+
+		function getCanvas(id){
+			return new fabric.Canvas(id);
+		}
 		return {
 			getRegionData: getRegionData,
 			getImages: getImages,
@@ -105,7 +131,9 @@
 			addRegion: addRegion,
 			getRegionOptions: getRegionOptions,
 			beforeStart: beforeStart,
-			afterEnd: afterEnd
+			afterEnd: afterEnd,
+			formateJson: formateJson,
+			getCanvas: getCanvas
 		};
 	}])
 

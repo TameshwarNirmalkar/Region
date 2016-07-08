@@ -7,7 +7,7 @@
 
 	function MainController($scope, $timeout, CanvasService) {
 		var self = this;
-		var canvas = new fabric.Canvas('canvasid');
+		var canvas = CanvasService.getCanvas('canvasid');
 		$scope.region = {
 			"x":0,
 			"y":0,
@@ -36,11 +36,9 @@
 				visible: 1,
 				easing: "easeOutBounce",
 				beforeStart: function(item, canvas){
-					console.log( item.length );
 					CanvasService.beforeStart(angular.element(item).find('img')[0], canvas);
 				},
 				afterEnd: function(item, canvas){
-					console.log( item.length );
 					CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
 				}
 			});
@@ -71,85 +69,28 @@
 		});
 
 		var SAVEREGION = function(){
-			var group = canvas.getActiveGroup();
-			var canvasObject = canvas.getObjects();
-			var jsonArray = [];
-			angular.forEach(canvasObject, function(v,k){
-				var region = {
-					"x": v.left,
-					"y": v.top,
-					"width": v.width,
-					"height": v.height,
-					"pageWidth": window.innerWidth,
-					"pageHeight": window.innerHeight,
-					"type": v.type,
-					"target": v.target,
-					"options": {
-						"target": (v.type === 'website') ? $scope.region.options.target : null 
-					}
-				};
-				jsonArray.push(region);
-						
-			});
-			console.log( jsonArray );
-			//console.log(canvas.getActiveObject().get('type'));
+			var json = CanvasService.formateJson(canvas, $scope.region.options.target);
+			console.log(json);
 		};
 
 		var CANCELRESET = function(){
-			$scope.region = {};
-			//canvas.getActiveGroup().each(function(o){ canvas.remove(o) });
-			//console.log( canvas.getObjects().length );
-			var curSelectedObjects = canvas.getObjects();
-			// for (var i = 0; i < curSelectedObjects.length; i++)
-			// {
-			// 	canvas.remove(curSelectedObjects[i]);
-			// }
 		 	canvas.clear();
-		    $scope.regiontypeLabel = 'Region Editor';
-		    $scope.elementlabel = '';
 		    $scope.isCanvasVisible = false;
+			// $scope.region = {};
+			// $scope.regiontypeLabel = 'Region Editor';
+			// $scope.elementlabel = '';
 		};
 
 		$scope.saveRegion = SAVEREGION;
 
 		$scope.cancelReset = CANCELRESET;
 		
-		$scope.internal = function(){
-			var options = CanvasService.getRegionOptions().internal;
+		$scope.setOptionsObject = function(type){
+			var options = CanvasService.getRegionOptions(type);
 			$scope.region["target"] = options.extraoptions.target;
 			$scope.region["type"] = options.extraoptions.type;
 			CanvasService.addRegion(canvas, options);
-		};
-		$scope.website = function(){
-			var options = CanvasService.getRegionOptions().website;
-			$scope.region["target"] = options.extraoptions.target;
-			$scope.region["type"] = options.extraoptions.type;
-			CanvasService.addRegion(canvas, options);
-		};
-		$scope.email = function(){
-			var options = CanvasService.getRegionOptions().email;
-			$scope.region["target"] = options.extraoptions.target;
-			$scope.region["type"] = options.extraoptions.type;
-			CanvasService.addRegion(canvas, options);
-		};
-		$scope.phone = function(){
-			var options = CanvasService.getRegionOptions().phone;
-			$scope.region["target"] = options.extraoptions.target;
-			$scope.region["type"] = options.extraoptions.type;
-			CanvasService.addRegion(canvas, options);
-		};
-		$scope.video = function(){
-			var options = CanvasService.getRegionOptions().video;
-			$scope.region["target"] = options.extraoptions.target;
-			$scope.region["type"] = options.extraoptions.type;
-			CanvasService.addRegion(canvas, options);
-		};
-		$scope.iframe = function(){
-			var options = CanvasService.getRegionOptions().iframe;
-			$scope.region["target"] = options.extraoptions.target;
-			$scope.region["type"] = options.extraoptions.type;
-			CanvasService.addRegion(canvas, options);
-		};
+		}
 
 		$scope.changeall = function(val){
 			if(canvas.getActiveObject()){

@@ -1,11 +1,11 @@
 <md-toolbar layout="column" layout-padding class="toolbarMng">
 	<div layout="row" layout-sm="row" layout-align="center center" layout-wrap="">
-	  <md-button layout-sm="column" class="md-raised md-default" ng-click="internal(); activecls = 3" ng-class="{activeCls: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>internal</md-button>
-	  <md-button layout-sm="column" class="md-raised md-default" ng-click="website(); activecls = 1" ng-class="{activeCls: activecls === 1}"><i class="fa fa-globe">&nbsp;</i>website</md-button>
-	  <md-button layout-sm="column" class="md-raised md-default" ng-click="email(); activecls = 2" ng-class="{activeCls: activecls === 2}"><i class="fa fa-envelope">&nbsp;</i>email</md-button>
-	  <md-button layout-sm="column" class="md-raised md-default" ng-click="phone(); activecls = 4" ng-class="{activeCls: activecls === 4}"><i class="fa fa-phone">&nbsp;</i>phone</md-button>
-	  <md-button layout-sm="column" class="md-raised md-default" ng-click="video(); activecls = 5" ng-class="{activeCls: activecls === 5}"><i class="fa fa-film">&nbsp;</i>video</md-button>
-	  <md-button layout-sm="column" class="md-raised md-default" ng-click=" iframe();activecls = 6" ng-class="{activeCls: activecls === 6}"><i class="fa fa-image">&nbsp;</i>iframe</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="setOptionsObject('internal'); activecls = 3" ng-class="{activeCls: activecls === 3}"><i class="fa fa-file-text">&nbsp;</i>internal</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="setOptionsObject('website'); activecls = 1" ng-class="{activeCls: activecls === 1}"><i class="fa fa-globe">&nbsp;</i>website</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="setOptionsObject('email'); activecls = 2" ng-class="{activeCls: activecls === 2}"><i class="fa fa-envelope">&nbsp;</i>email</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="setOptionsObject('phone'); activecls = 4" ng-class="{activeCls: activecls === 4}"><i class="fa fa-phone">&nbsp;</i>phone</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click="setOptionsObject('video'); activecls = 5" ng-class="{activeCls: activecls === 5}"><i class="fa fa-film">&nbsp;</i>video</md-button>
+	  <md-button layout-sm="column" class="md-raised md-default" ng-click=" setOptionsObject('iframe'); activecls = 6" ng-class="{activeCls: activecls === 6}"><i class="fa fa-image">&nbsp;</i>iframe</md-button>
 	 </div>
 </md-toolbar>
 
