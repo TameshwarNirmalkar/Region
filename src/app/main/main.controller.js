@@ -8,6 +8,9 @@
 	function MainController($scope, $timeout, CanvasService) {
 		var self = this;
 		var canvas = CanvasService.getCanvas('canvasid');
+
+		CanvasService.loadJson(canvas);
+
 		$scope.region = {
 			"x":0,
 			"y":0,
@@ -16,6 +19,7 @@
 			"pageWidth":1024,
 			"pageHeight":768,
 			"type": "",
+			"regiontype": "",
 			"target": "",
 			"options": {
 				"target": "blank"
@@ -55,7 +59,7 @@
 			//e.target.setOptions({"internal": true, "target": "blank" });
 			// console.log( e.target.get('type'), e.target.target );
 			$timeout(function(){
-				$scope.regiontypeLabel = e.target.type;
+				$scope.regiontypeLabel = e.target.regiontype;
 				$scope.region.target = e.target.target;
 				$scope.elementlabel = e.target.elementlabel;
 				$scope.isCanvasVisible = true;
@@ -66,6 +70,11 @@
 			$timeout(function(){
 				$scope.isCanvasVisible = false;
 			})
+		});
+
+		canvas.on('object:scaling', function(){
+			var obj = canvas.getActiveObject();
+			obj.setWidth( obj.getWidth() );
 		});
 
 		var SAVEREGION = function(){

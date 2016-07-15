@@ -67,6 +67,7 @@
 					fill: 'rgba(63,81,181,0.8)',
 					transparentCorners: false,
 					hasRotatingPoint: false,
+					centeredScaling: false,
 					type: options.extraoptions.type,
 					target: options.extraoptions.target,
 					elementlabel: options.extraoptions.elementlabel
@@ -79,12 +80,12 @@
 
 		function getRegionOptions(type){
 			var obj = {
-				"internal": { "extraoptions": {"type": "internal","target": 1, "elementlabel": "Page Number"} },
-				"website" : {"extraoptions": {"type":"website", "target": "http://logostudio.papionne.com/?p=1363", "options": "blank", "elementlabel": "Url"} },
-				"email" : { "extraoptions": {"type":"email", "target": "tameshwar.nirmalkar@gmail.com", "elementlabel": "Email Address"} },
-				"phone" : { "extraoptions": {"type":"phone","target": "000-000-0000", "elementlabel": "Phone Number"} },
-				"video": { "extraoptions": {"type":"video","target": "<iframe></iframe>", "elementlabel": "Video Embded Code"} },
-				"iframe" : { "extraoptions": {"type":"iframe","target": "http://logostudio.papionne.com/?p=1363", "elementlabel": "Iframe URL"} }
+				"internal": { "extraoptions": {"type": "internal","target": 1, "regiontype": "internal" , "elementlabel": "Page Number"} },
+				"website" : {"extraoptions": {"type":"website", "target": "http://logostudio.papionne.com/?p=1363" , "regiontype": "website", "options": "blank", "elementlabel": "Url"} },
+				"email" : { "extraoptions": {"type":"email", "target": "tameshwar.nirmalkar@gmail.com", "regiontype": "email", "elementlabel": "Email Address"} },
+				"phone" : { "extraoptions": {"type":"phone","target": "000-000-0000", "regiontype": "phone", "elementlabel": "Phone Number"} },
+				"video": { "extraoptions": {"type":"video","target": "<iframe></iframe>", "regiontype": "iframe", "elementlabel": "Video Embded Code"} },
+				"iframe" : { "extraoptions": {"type":"iframe","target": "http://logostudio.papionne.com/?p=1363", "regiontype": "iframe", "elementlabel": "Iframe URL"} }
 			}
 			return obj[type];
 		}
@@ -124,6 +125,63 @@
 		function getCanvas(id){
 			return new fabric.Canvas(id);
 		}
+
+		function loadJson(canvas){
+			var json = {"objects":[{
+							"type":"rect",
+							"regiontype":"internal",
+							"left":100,
+							"top":0,
+							"width":80,
+							"height":80,
+							"fill":"#29477F",
+							"target":16,
+							"transparentCorners": false,
+							"hasRotatingPoint": false,
+							"target":"http://logostudio.papionne.com/?p=1363",
+							"options": {
+								"target": "_self"
+							}
+						},{
+							"type":"rect",
+							"regiontype":"website",
+							"left":10,
+							"top":0,
+							"width":50,
+							"height":50,
+							"transparentCorners": false,
+							"hasRotatingPoint": false,
+							"fill":"rgb(166,111,213)",
+							"target":20,
+							"target":"http://google.com",
+							"options": {
+								"target": "_self"
+							}
+						}]
+					};
+			console.log(json);
+			// var objectsAr = [];
+			// angular.forEach(json.objects, function(v,i){
+			// 	objectsAr.push(new fabric.Rect({
+			// 		left: v.left,
+			// 		top: v.top,
+			// 		width: v.width,
+			// 		height: v.height,
+			// 		fill: 'rgba(63,81,181,0.8)',
+			// 		transparentCorners: false,
+			// 		hasRotatingPoint: false,
+			// 		type: v.type,
+			// 		target: v.target,
+			// 		options: {
+			// 			target: "_self"
+			// 		}
+			// 	}));
+			// });
+			// json.objects = objectsAr;
+			// console.log(json);
+			canvas.loadFromJSON(json, canvas.renderAll.bind(canvas), function(o, object) {});
+		}
+
 		return {
 			getRegionData: getRegionData,
 			getImages: getImages,
@@ -133,7 +191,8 @@
 			beforeStart: beforeStart,
 			afterEnd: afterEnd,
 			formateJson: formateJson,
-			getCanvas: getCanvas
+			getCanvas: getCanvas,
+			loadJson: loadJson
 		};
 	}])
 
