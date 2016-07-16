@@ -58,7 +58,6 @@
 		}
 
 		function addRegion(canvas, options){
-			// var canvas new fabric.Canvas('canvasid');
 			var region = new fabric.Rect({
 					left: 75,
 					top: 60,
@@ -69,6 +68,7 @@
 					hasRotatingPoint: false,
 					centeredScaling: false,
 					type: options.extraoptions.type,
+					regiontype: options.extraoptions.type,
 					target: options.extraoptions.target,
 					elementlabel: options.extraoptions.elementlabel
 			  });
@@ -159,26 +159,7 @@
 							}
 						}]
 					};
-			console.log(json);
-			// var objectsAr = [];
-			// angular.forEach(json.objects, function(v,i){
-			// 	objectsAr.push(new fabric.Rect({
-			// 		left: v.left,
-			// 		top: v.top,
-			// 		width: v.width,
-			// 		height: v.height,
-			// 		fill: 'rgba(63,81,181,0.8)',
-			// 		transparentCorners: false,
-			// 		hasRotatingPoint: false,
-			// 		type: v.type,
-			// 		target: v.target,
-			// 		options: {
-			// 			target: "_self"
-			// 		}
-			// 	}));
-			// });
-			// json.objects = objectsAr;
-			// console.log(json);
+			
 			canvas.loadFromJSON(json, canvas.renderAll.bind(canvas), function(o, object) {});
 		}
 

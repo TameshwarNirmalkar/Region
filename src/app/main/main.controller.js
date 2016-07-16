@@ -72,9 +72,14 @@
 			})
 		});
 
-		canvas.on('object:scaling', function(){
-			var obj = canvas.getActiveObject();
-			obj.setWidth( obj.getWidth() );
+		canvas.on('object:scaling', function(e){
+			var target = e.target;
+			var sX = target.scaleX;
+			var sY = target.scaleY;
+			target.width =  Math.floor(target.width*=sX);
+			target.height = Math.floor(target.height*= sY);
+			target.scaleX = 1;
+			target.scaleY = 1;
 		});
 
 		var SAVEREGION = function(){
