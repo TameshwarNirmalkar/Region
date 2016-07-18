@@ -52,6 +52,10 @@
 
 			$(document).on('click', ".widget img", function() {
 				$(".widget .mid img").attr("src", $(this).attr("src"));
+				canvas.clear();
+				$timeout(function(){
+					$scope.isCanvasVisible = false;
+				});
 			});
 			
 			//make actions panels draggable
@@ -80,7 +84,7 @@
 			var sX = target.scaleX;
 			var sY = target.scaleY;
 			target.width =  Math.floor(target.width*=sX);
-			target.height = Math.floor(target.height*= sY);
+			target.height = Math.floor(target.height*=sY);
 			target.scaleX = 1;
 			target.scaleY = 1;
 		});
