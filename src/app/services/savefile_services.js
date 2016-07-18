@@ -4,8 +4,8 @@
 	angular.module('regionapp')
 	.factory('CanvasService', ['$timeout', '$window', 'SavefileResourceGateway', function($timeout, $window, SavefileResourceGateway) {
 		function getRegionData() {
-            return SavefileResourceGateway.getRegionData();
-        }
+			return SavefileResourceGateway.getRegionData();
+		}
 
 		function getImages(){
 			return [
@@ -134,6 +134,27 @@
 			});
 		}
 
+		function saveRegion(data) {
+			SavefileResourceGateway.postRegionData(data);
+		}
+
+		function scopeRegion(){
+			return {
+				"left":0,
+				"top":0,
+				"width":100,
+				"height":100,
+				"pageWidth": $window.innerWidth,
+				"pageHeight": $window.innerHeight,
+				"type": "rect",
+				"regiontype": "",
+				"target": "",
+				"options": {
+					"target": "blank"
+				}
+			};
+		}
+
 		return {
 			getRegionData: getRegionData,
 			getImages: getImages,
@@ -144,7 +165,9 @@
 			afterEnd: afterEnd,
 			formateJson: formateJson,
 			getCanvas: getCanvas,
-			loadJson: loadJson
+			loadJson: loadJson,
+			getScopeRegion: scopeRegion,
+			saveRegion: saveRegion
 		};
 	}])
 

@@ -14,21 +14,8 @@
 		*/
 		CanvasService.loadJson(canvas);
 
-		$scope.region = {
-			"x":0,
-			"y":0,
-			"width":100,
-			"height":100,
-			"pageWidth":1024,
-			"pageHeight":768,
-			"type": "",
-			"regiontype": "",
-			"target": "",
-			"options": {
-				"target": "blank"
-			}
-		};
-		$scope.elementlabel = '';
+		$scope.region = CanvasService.getScopeRegion();
+		
 		$scope.regiontypeLabel = 'Region Editor';
 		$scope.targetopt = CanvasService.getOptions();
 		$scope.regionsimages = CanvasService.getImages();
@@ -68,7 +55,6 @@
 			$timeout(function(){
 				$scope.regiontypeLabel = e.target.regiontype;
 				$scope.region.target = e.target.target;
-				$scope.elementlabel = e.target.elementlabel;
 				$scope.isCanvasVisible = true;
 			})
 		});
@@ -92,6 +78,7 @@
 		var SAVEREGION = function(){
 			var json = CanvasService.formateJson(canvas, $scope.region.options.target);
 			console.log(json);
+			CanvasService.saveRegion(json);
 		};
 
 		var CANCELRESET = function(){
@@ -99,7 +86,6 @@
 		    $scope.isCanvasVisible = false;
 			// $scope.region = {};
 			// $scope.regiontypeLabel = 'Region Editor';
-			// $scope.elementlabel = '';
 		};
 
 		$scope.saveRegion = SAVEREGION;

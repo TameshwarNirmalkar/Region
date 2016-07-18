@@ -9,7 +9,7 @@
 				getRegionData: {method: 'GET'}
 			});
 			
-			var regionpostRegionData = $resource('../../server_script/save_json.php', {}, {
+			var regionpostRegionData = $resource('../../server_script/save_json.php', {param: '@myParam'}, {
 				postRegionData: {method: 'POST'}
 			});
 
