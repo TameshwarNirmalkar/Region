@@ -50,6 +50,7 @@
 		})
 
 		canvas.on('object:selected', function(e){
+			e.target.bringToFront();
 			//e.target.setOptions({"internal": true, "target": "blank" });
 			// console.log( e.target.get('type'), e.target.target );
 			$timeout(function(){
@@ -77,7 +78,6 @@
 
 		var SAVEREGION = function(){
 			var json = CanvasService.formateJson(canvas, $scope.region.options.target);
-			console.log(json);
 			CanvasService.saveRegion(json);
 		};
 

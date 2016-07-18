@@ -2,7 +2,7 @@
 	'use strict';
 	//'SavefileResourceGateway', 
 	angular.module('regionapp')
-	.factory('CanvasService', ['$timeout', '$window', 'SavefileResourceGateway', function($timeout, $window, SavefileResourceGateway) {
+	.factory('CanvasService', ['$timeout', '$window', '$http', 'SavefileResourceGateway', function($timeout, $window, $http, SavefileResourceGateway) {
 		function getRegionData() {
 			return SavefileResourceGateway.getRegionData();
 		}
@@ -105,14 +105,14 @@
 			var jsonArray = [];
 			angular.forEach(canvasObject, function(v,k){
 				var region = {
-					"x": v.left,
-					"y": v.top,
+					"left": Math.floor(v.left),
+					"top": Math.floor(v.top),
 					"width": v.width,
 					"height": v.height,
 					"pageWidth": $window.innerWidth,
 					"pageHeight": $window.innerHeight,
 					"type": v.type,
-					"regiontype": v.type,
+					"regiontype": v.regiontype,
 					"target": v.target,
 					"options": {
 						"target": (v.type === 'website') ? model : null 
@@ -135,7 +135,13 @@
 		}
 
 		function saveRegion(data) {
-			SavefileResourceGateway.postRegionData(data);
+			var objects = {"objects": data};
+			console.log( JSON.stringify(objects) );
+			// SavefileResourceGateway.postRegionData( JSON.stringify(objects) );
+			var aggregatedData = { content: objects, filename: '1.json' };
+			$http.post('../../server_script/save_json.php', aggregatedData, { headers: { "Content-Type": "application/json" }}).then(function (result) {
+				console.log(result);
+			});
 		}
 
 		function scopeRegion(){
