@@ -9,6 +9,9 @@
 		var self = this;
 		var canvas = CanvasService.getCanvas('canvasid');
 
+		/*
+		* load regions from json.
+		*/
 		CanvasService.loadJson(canvas);
 
 		$scope.region = {
@@ -37,18 +40,18 @@
 				btnPrev: ".widget .prev",
 				speed: 300,
 				circular: false,
-				visible: 1,
+				visible: 20,
 				easing: "easeOutBounce",
-				beforeStart: function(item, canvas){
+				beforeStart: function(item){
 					CanvasService.beforeStart(angular.element(item).find('img')[0], canvas);
 				},
-				afterEnd: function(item, canvas){
+				afterEnd: function(item){
 					CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
 				}
 			});
 
-			$(".widget img").click(function() {
-			   $(".widget .mid img").attr("src", $(this).attr("src"));
+			$(document).on('click', ".widget img", function() {
+				$(".widget .mid img").attr("src", $(this).attr("src"));
 			});
 			
 			//make actions panels draggable

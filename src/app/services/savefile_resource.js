@@ -1,19 +1,22 @@
 (function(){
 	'use strict';
-	
 	angular.module('regionapp')
-	.factory('SavefileResourceGateway', ['$resource', SavefileResourceGateway]);
+		.factory('SavefileResourceGateway', ['$resource', SavefileResourceGateway]);
 
-	function SavefileResourceGateway($resource) {
-		//../../server_script/save_json.php
-		var regionDataResource = $resource('../services/mockupdata.json', {}, {
-			getRegionData: {method: 'GET'}
-		});
+		function SavefileResourceGateway($resource) {
+			
+			var regiongetDataResource = $resource('../app/services/mockupdata.json', {}, {
+				getRegionData: {method: 'GET'}
+			});
+			
+			var regionpostRegionData = $resource('../../server_script/save_json.php', {}, {
+				postRegionData: {method: 'POST'}
+			});
 
-		return {
-			getRegionData: regionDataResource.getRegionData
-		};
-	}
+			return {
+				getRegionData: regiongetDataResource.getRegionData,
+				postRegionData: regionpostRegionData.postRegionData
+			};
+		}
 
-	
 })();

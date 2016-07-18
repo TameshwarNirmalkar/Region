@@ -2,10 +2,9 @@
 	'use strict';
 	//'SavefileResourceGateway', 
 	angular.module('regionapp')
-	.factory('CanvasService', ['$timeout', '$window', function($timeout, $window) {
-		console.log('services ready', $window);
+	.factory('CanvasService', ['$timeout', '$window', 'SavefileResourceGateway', function($timeout, $window, SavefileResourceGateway) {
 		function getRegionData() {
-            return '';//SavefileResourceGateway.getAnalysisDetails();
+            return SavefileResourceGateway.getRegionData();
         }
 
 		function getImages(){
@@ -91,10 +90,12 @@
 		}
 
 		function beforeStart(item, canvas){
-			angular.element(".widget .mid img").attr("src", angular.element(item).attr('src') );
+			canvas.clear();
+			angular.element(".widget .mid img").attr("src", angular.element(item).find('img').attr('src') );
 		}
 
 		function afterEnd(item, canvas){
+			canvas.clear();
 			angular.element(".widget .mid img").attr("src", angular.element(item).attr('src') );
 		}
 
@@ -111,6 +112,7 @@
 					"pageWidth": $window.innerWidth,
 					"pageHeight": $window.innerHeight,
 					"type": v.type,
+					"regiontype": v.type,
 					"target": v.target,
 					"options": {
 						"target": (v.type === 'website') ? model : null 
@@ -127,40 +129,9 @@
 		}
 
 		function loadJson(canvas){
-			var json = {"objects":[{
-							"type":"rect",
-							"regiontype":"internal",
-							"left":100,
-							"top":0,
-							"width":80,
-							"height":80,
-							"fill":"#29477F",
-							"target":16,
-							"transparentCorners": false,
-							"hasRotatingPoint": false,
-							"target":"http://logostudio.papionne.com/?p=1363",
-							"options": {
-								"target": "_self"
-							}
-						},{
-							"type":"rect",
-							"regiontype":"website",
-							"left":10,
-							"top":0,
-							"width":50,
-							"height":50,
-							"transparentCorners": false,
-							"hasRotatingPoint": false,
-							"fill":"rgb(166,111,213)",
-							"target":20,
-							"target":"http://google.com",
-							"options": {
-								"target": "_self"
-							}
-						}]
-					};
-			
-			canvas.loadFromJSON(json, canvas.renderAll.bind(canvas), function(o, object) {});
+			SavefileResourceGateway.getRegionData().$promise.then(function(res) {
+				canvas.loadFromJSON(res, canvas.renderAll.bind(canvas), function(o, object) {});
+			});
 		}
 
 		return {
