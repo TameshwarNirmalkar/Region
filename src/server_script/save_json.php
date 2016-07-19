@@ -1,7 +1,7 @@
 <?php
 
-	$jsondata = $_POST['objects'];
-	echo file_get_contents('php://input');
+	// $jsondata = $_POST['objects'];
+	// echo file_get_contents('php://input');
 	// $file = fopen('general.json','w+');
 	// fwrite($file, $json);
 	// fclose($file);
@@ -10,4 +10,6 @@
 	$file = fopen('general.json','w+');
 	fwrite($file, $json);
 	fclose($file);
+
+	echo "Success";
 ?>

@@ -5,11 +5,11 @@
 
 		function SavefileResourceGateway($resource) {
 			
-			var regiongetDataResource = $resource('../app/services/mockupdata.json', {}, {
+			var regiongetDataResource = $resource('./app/services/mockupdata.json', {}, {
 				getRegionData: {method: 'GET'}
 			});
 			
-			var regionpostRegionData = $resource('../../server_script/save_json.php', {param: '@myParam'}, {
+			var regionpostRegionData = $resource('./server_script/save_json.php', {param: '@myParam'}, {
 				postRegionData: {method: 'POST'}
 			});
 

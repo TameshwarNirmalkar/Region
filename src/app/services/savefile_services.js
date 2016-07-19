@@ -18,36 +18,6 @@
 					{img: 'assets/images/7.jpg', description: 'Image 7'},
 					{img: 'assets/images/8.jpg', description: 'Image 8'},
 					{img: 'assets/images/9.jpg', description: 'Image 9'},
-					{img: 'assets/images/10.jpg', description: 'Image 10'},
-					{img: 'assets/images/1.jpg', description: 'Image 1'},
-					{img: 'assets/images/2.jpg', description: 'Image 2'},
-					{img: 'assets/images/3.jpg', description: 'Image 3'},
-					{img: 'assets/images/4.jpg', description: 'Image 4'},
-					{img: 'assets/images/5.jpg', description: 'Image 5'},
-					{img: 'assets/images/6.jpg', description: 'Image 6'},
-					{img: 'assets/images/7.jpg', description: 'Image 7'},
-					{img: 'assets/images/8.jpg', description: 'Image 8'},
-					{img: 'assets/images/9.jpg', description: 'Image 9'},
-					{img: 'assets/images/10.jpg', description: 'Image 10'},
-					{img: 'assets/images/1.jpg', description: 'Image 1'},
-					{img: 'assets/images/2.jpg', description: 'Image 2'},
-					{img: 'assets/images/3.jpg', description: 'Image 3'},
-					{img: 'assets/images/4.jpg', description: 'Image 4'},
-					{img: 'assets/images/5.jpg', description: 'Image 5'},
-					{img: 'assets/images/6.jpg', description: 'Image 6'},
-					{img: 'assets/images/7.jpg', description: 'Image 7'},
-					{img: 'assets/images/8.jpg', description: 'Image 8'},
-					{img: 'assets/images/9.jpg', description: 'Image 9'},
-					{img: 'assets/images/10.jpg', description: 'Image 10'},
-					{img: 'assets/images/1.jpg', description: 'Image 1'},
-					{img: 'assets/images/2.jpg', description: 'Image 2'},
-					{img: 'assets/images/3.jpg', description: 'Image 3'},
-					{img: 'assets/images/4.jpg', description: 'Image 4'},
-					{img: 'assets/images/5.jpg', description: 'Image 5'},
-					{img: 'assets/images/6.jpg', description: 'Image 6'},
-					{img: 'assets/images/7.jpg', description: 'Image 7'},
-					{img: 'assets/images/8.jpg', description: 'Image 8'},
-					{img: 'assets/images/9.jpg', description: 'Image 9'},
 					{img: 'assets/images/10.jpg', description: 'Image 10'}
 			];
 		}
@@ -136,14 +106,13 @@
 
 		function saveRegion(data) {
 			var objects = {"objects": data};
-			console.log( JSON.stringify(objects) );
-			// SavefileResourceGateway.postRegionData( JSON.stringify(objects) );
-			// var aggregatedData = { content: objects, filename: '1.json' };
-			// $http.post('../../server_script/save_json.php', aggregatedData, { headers: { "Content-Type": "application/json" }}).then(function (result) {
-			// 	console.log(result);
+			// console.log( JSON.stringify(objects) );
+			// SavefileResourceGateway.postRegionData( JSON.stringify(objects) ).then(function(data){
+			// 	console.log(data);
 			// });
+			
 			$http({
-					url: "../../server_script/save_json.php",
+					url: "./server_script/save_json.php",
 					method: "POST",
 					headers: {'Content-Type': 'application/json; charset=UTF-8'},
 					data: objects

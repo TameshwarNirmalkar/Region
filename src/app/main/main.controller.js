@@ -12,7 +12,7 @@
 		/*
 		* load regions from json.
 		*/
-		CanvasService.loadJson(canvas);
+		// CanvasService.loadJson(canvas);
 
 		$scope.region = CanvasService.getScopeRegion();
 		
