@@ -2,7 +2,7 @@
 	'use strict';
 	//'SavefileResourceGateway', 
 	angular.module('regionapp')
-	.factory('CanvasService', ['$timeout', '$window', '$http', 'SavefileResourceGateway', function($timeout, $window, $http, SavefileResourceGateway) {
+	.factory('CanvasService', ['$timeout', '$window', '$http', '$mdToast', 'SavefileResourceGateway', function($timeout, $window, $http, $mdToast, SavefileResourceGateway) {
 		function getRegionData() {
 			return SavefileResourceGateway.getRegionData();
 		}
@@ -105,7 +105,9 @@
 		}
 
 		function saveRegion(data) {
-			var objects = {"objects": data};
+			
+			
+			var objects = {"objects": data,"filename":"1"};
 			// console.log( JSON.stringify(objects) );
 			// SavefileResourceGateway.postRegionData( JSON.stringify(objects) ).then(function(data){
 			// 	console.log(data);
@@ -117,9 +119,9 @@
 					headers: {'Content-Type': 'application/json; charset=UTF-8'},
 					data: objects
 				}).success(function(data, status, headers, config) {
-					console.log(data);
+					$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Save successfull').position('top right') );
 				}).error(function(data, status, headers, config) {
-					console.log( status );
+					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Save successfull').position('top right') );
 			});
 		}
 

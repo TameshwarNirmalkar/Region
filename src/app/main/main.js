@@ -3,11 +3,13 @@
 	'use strict';
 
 	angular.module('regionapp', ['ngMaterial', 'ui.router', 'ngResource', 'main.controller'])
-		.config(['$stateProvider','$urlRouterProvider', routeConfig])
+		.config(['$stateProvider','$urlRouterProvider', '$mdThemingProvider', routeConfig])
 		.run(['$templateRequest', runConfig]);
 		//.controller('MainCntrl' ['$scope', MainCntrl]);
 
-		function routeConfig($stateProvider, $urlRouterProvider) {
+		function routeConfig($stateProvider, $urlRouterProvider, $mdThemingProvider) {
+			$mdThemingProvider.theme('success-toast');
+			$mdThemingProvider.theme('error-toast');
 			$urlRouterProvider.otherwise('/');
 			$stateProvider
 		        .state('home', {
