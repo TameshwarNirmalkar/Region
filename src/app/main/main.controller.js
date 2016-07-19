@@ -82,7 +82,7 @@
 		};
 
 		var CANCELRESET = function(){
-		 	canvas.clear();
+		 	// canvas.clear();
 		    $scope.isCanvasVisible = false;
 			// $scope.region = {};
 			// $scope.regiontypeLabel = 'Region Editor';

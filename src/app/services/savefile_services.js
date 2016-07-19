@@ -138,9 +138,19 @@
 			var objects = {"objects": data};
 			console.log( JSON.stringify(objects) );
 			// SavefileResourceGateway.postRegionData( JSON.stringify(objects) );
-			var aggregatedData = { content: objects, filename: '1.json' };
-			$http.post('../../server_script/save_json.php', aggregatedData, { headers: { "Content-Type": "application/json" }}).then(function (result) {
-				console.log(result);
+			// var aggregatedData = { content: objects, filename: '1.json' };
+			// $http.post('../../server_script/save_json.php', aggregatedData, { headers: { "Content-Type": "application/json" }}).then(function (result) {
+			// 	console.log(result);
+			// });
+			$http({
+					url: "../../server_script/save_json.php",
+					method: "POST",
+					headers: {'Content-Type': 'application/json; charset=UTF-8'},
+					data: objects
+				}).success(function(data, status, headers, config) {
+					console.log(data);
+				}).error(function(data, status, headers, config) {
+					console.log( status );
 			});
 		}
 
