@@ -10,8 +10,8 @@
 	$obj = json_decode($json);
 	$getfilename = $obj->{'filename'};
 	$createfile = $getfilename+$ext;
-	// echo $json;
-	$file = fopen('../stored_files/'+$getfilename+'.json','w') or die("can't open file");
+	//echo "$getfilename";
+	$file = fopen("../stored_files/". $getfilename ."-regions.json","w") or die("can't open file");
 	fwrite($file, $json);
 	fclose($file);
 	$sucessObject = '{"status": "200", "message":"Sucessfull Saved"}';
