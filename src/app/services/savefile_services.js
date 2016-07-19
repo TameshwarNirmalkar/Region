@@ -107,7 +107,7 @@
 		function saveRegion(data) {
 			
 			
-			var objects = {"objects": data,"filename":"1"};
+			var objects = {"objects": data,"filename":"12-regions"};
 			// console.log( JSON.stringify(objects) );
 			// SavefileResourceGateway.postRegionData( JSON.stringify(objects) ).then(function(data){
 			// 	console.log(data);
