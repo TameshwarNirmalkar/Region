@@ -43,7 +43,7 @@
 			$(document).on('click', ".widget img", function() {
 				$(".widget .mid img").attr("src", $(this).attr("src"));
 				var fn = $(this).closest('li').data('pageid');
-				var actualfn = fn.match(/\d+/)[0]
+				var actualfn = fn.match(/\d+/)[0];
 				canvas.clear();
 				$timeout(function(){
 					$scope.filename = actualfn+"-regions";
@@ -52,7 +52,7 @@
 						CanvasService.loadJson(canvas, res.data);
 						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Regions Found').position('top right').hideDelay(3000) );
 					}, function (err) {
-						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Regions '+err.statusText).position('top right').hideDelay(3000) );
+						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Regions').position('top right').hideDelay(3000) );
 					});
 				});
 			});
