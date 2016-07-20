@@ -48,6 +48,7 @@
 				$timeout(function(){
 					$scope.filename = actualfn+"-regions";
 					$scope.isCanvasVisible = false;
+					CanvasService.getRegion($scope.filename);
 				});
 			});
 			

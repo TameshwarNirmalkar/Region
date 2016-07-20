@@ -125,6 +125,20 @@
 			});
 		}
 
+		function getRegion(filename) {
+			$http({
+					url: "./server_script/get_json.php",
+					method: "GET",
+					headers: {'Content-Type': 'application/json; charset=UTF-8'}
+					
+				}).success(function(data, status, headers, config) {
+					console.log(data);
+					// $mdToast.show( $mdToast.simple().theme("success-toast").textContent('Save successfull').position('top right') );
+				}).error(function(data, status, headers, config) {
+					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Save successfull').position('top right') );
+			});
+		}
+
 		function scopeRegion(){
 			return {
 				"left":0,
@@ -154,7 +168,8 @@
 			getCanvas: getCanvas,
 			loadJson: loadJson,
 			getScopeRegion: scopeRegion,
-			saveRegion: saveRegion
+			saveRegion: saveRegion,
+			getRegion: getRegion
 		};
 	}])
 
