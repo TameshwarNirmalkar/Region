@@ -79,6 +79,8 @@
 					"pageWidth": $window.innerWidth,
 					"pageHeight": $window.innerHeight,
 					"fill": "rgba(63,81,181,0.8)",
+					transparentCorners: false,
+					hasRotatingPoint: false,
 					"type": 'rect',
 					"regiontype": v.regiontype,
 					"target": v.target,
