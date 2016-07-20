@@ -2,17 +2,12 @@
 	'use strict';
 	angular
 		.module('main.controller', [])
-		.controller('MainController', ['$scope', '$timeout', 'CanvasService', MainController]);
+		.controller('MainController', ['$scope', '$timeout', '$mdToast', 'CanvasService', MainController]);
 
 
-	function MainController($scope, $timeout, CanvasService) {
+	function MainController($scope, $timeout, $mdToast, CanvasService) {
 		var self = this;
 		var canvas = CanvasService.getCanvas('canvasid');
-
-		/*
-		* load regions from json.
-		*/
-		// CanvasService.loadJson(canvas);
 
 		$scope.region = CanvasService.getScopeRegion();
 		
@@ -21,6 +16,13 @@
 		$scope.regionsimages = CanvasService.getImages();
 		$scope.isCanvasVisible = false;
 		$scope.filename = "1-regions";
+
+		/*
+		* load regions from json.
+		*/
+		CanvasService.getRegionData($scope.filename).then(function(res){
+			CanvasService.loadJson(canvas, res.data);
+		});
 
 		$timeout(function(){
 			$(".widget .carousel").jCarouselLite({
@@ -34,7 +36,6 @@
 					CanvasService.beforeStart(angular.element(item).find('img')[0], canvas);
 				},
 				afterEnd: function(item){
-					console.log(item);
 					CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
 				}
 			});
@@ -43,12 +44,16 @@
 				$(".widget .mid img").attr("src", $(this).attr("src"));
 				var fn = $(this).closest('li').data('pageid');
 				var actualfn = fn.match(/\d+/)[0]
-				console.log( actualfn );
 				canvas.clear();
 				$timeout(function(){
 					$scope.filename = actualfn+"-regions";
 					$scope.isCanvasVisible = false;
-					CanvasService.getRegion($scope.filename);
+					CanvasService.getRegionData($scope.filename).then(function(res){
+						CanvasService.loadJson(canvas, res.data);
+						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Regions Found').position('top right').hideDelay(3000) );
+					}, function (err) {
+						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Regions '+err.statusText).position('top right').hideDelay(3000) );
+					});
 				});
 			});
 			
@@ -83,7 +88,8 @@
 
 		var SAVEREGION = function(){
 			var json = CanvasService.formateJson(canvas, $scope.region.options.target);
-			CanvasService.saveRegion(json, $scope.filename);
+			console.log( json );
+			// CanvasService.saveRegion(json, $scope.filename);
 		};
 
 		var CANCELRESET = function(){
@@ -98,7 +104,7 @@
 		$scope.setOptionsObject = function(type){
 			var options = CanvasService.getRegionOptions(type);
 			$scope.region["target"] = options.extraoptions.target;
-			$scope.region["type"] = options.extraoptions.type;
+			$scope.region["regiontype"] = options.extraoptions.regiontype;
 			CanvasService.addRegion(canvas, options);
 		}
 

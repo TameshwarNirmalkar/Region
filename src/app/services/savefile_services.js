@@ -36,8 +36,8 @@
 					transparentCorners: false,
 					hasRotatingPoint: false,
 					centeredScaling: false,
-					type: options.extraoptions.type,
-					regiontype: options.extraoptions.type,
+					type: 'rect',
+					regiontype: options.extraoptions.regiontype,
 					target: options.extraoptions.target,
 					elementlabel: options.extraoptions.elementlabel
 			  });
@@ -49,12 +49,12 @@
 
 		function getRegionOptions(type){
 			var obj = {
-				"internal": { "extraoptions": {"type": "internal","target": 1, "regiontype": "internal" , "elementlabel": "Page Number"} },
-				"website" : {"extraoptions": {"type":"website", "target": "http://logostudio.papionne.com/?p=1363" , "regiontype": "website", "options": "blank", "elementlabel": "Url"} },
-				"email" : { "extraoptions": {"type":"email", "target": "tameshwar.nirmalkar@gmail.com", "regiontype": "email", "elementlabel": "Email Address"} },
-				"phone" : { "extraoptions": {"type":"phone","target": "000-000-0000", "regiontype": "phone", "elementlabel": "Phone Number"} },
-				"video": { "extraoptions": {"type":"video","target": "<iframe></iframe>", "regiontype": "iframe", "elementlabel": "Video Embded Code"} },
-				"iframe" : { "extraoptions": {"type":"iframe","target": "http://logostudio.papionne.com/?p=1363", "regiontype": "iframe", "elementlabel": "Iframe URL"} }
+				"internal": { "extraoptions": {"target": 1, "regiontype": "internal" , "elementlabel": "Page Number"} },
+				"website" : {"extraoptions": { "target": "http://logostudio.papionne.com/?p=1363" , "regiontype": "website", "options": "blank", "elementlabel": "Url"} },
+				"email" : { "extraoptions": { "target": "tameshwar.nirmalkar@gmail.com", "regiontype": "email", "elementlabel": "Email Address"} },
+				"phone" : { "extraoptions": {"target": "000-000-0000", "regiontype": "phone", "elementlabel": "Phone Number"} },
+				"video": { "extraoptions": {"target": "<iframe></iframe>", "regiontype": "video", "elementlabel": "Video Embded Code"} },
+				"iframe" : { "extraoptions": {"target": "http://logostudio.papionne.com/?p=1363", "regiontype": "iframe", "elementlabel": "Iframe URL"} }
 			}
 			return obj[type];
 		}
@@ -81,7 +81,8 @@
 					"height": v.height,
 					"pageWidth": $window.innerWidth,
 					"pageHeight": $window.innerHeight,
-					"type": v.type,
+					"fill": "rgba(63,81,181,0.8)",
+					"type": 'rect',
 					"regiontype": v.regiontype,
 					"target": v.target,
 					"options": {
@@ -98,21 +99,14 @@
 			return new fabric.Canvas(id);
 		}
 
-		function loadJson(canvas){
-			SavefileResourceGateway.getRegionData().$promise.then(function(res) {
-				canvas.loadFromJSON(res, canvas.renderAll.bind(canvas), function(o, object) {});
-			});
+		function loadJson(canvas, data){
+			// SavefileResourceGateway.getRegionData().$promise.then(function(res) {
+				canvas.loadFromJSON(data, canvas.renderAll.bind(canvas), function(o, object) {});
+			// });
 		}
 
 		function saveRegion(data, filename) {
-			
-			
 			var objects = {"objects": data,"filename": filename};
-			// console.log( objects );
-			// SavefileResourceGateway.postRegionData( JSON.stringify(objects) ).then(function(data){
-			// 	console.log(data);
-			// });
-			
 			$http({
 					url: "./server_script/save_json.php",
 					method: "POST",
@@ -125,18 +119,8 @@
 			});
 		}
 
-		function getRegion(filename) {
-			$http({
-					url: "./server_script/get_json.php",
-					method: "GET",
-					headers: {'Content-Type': 'application/json; charset=UTF-8'}
-					
-				}).success(function(data, status, headers, config) {
-					console.log(data);
-					// $mdToast.show( $mdToast.simple().theme("success-toast").textContent('Save successfull').position('top right') );
-				}).error(function(data, status, headers, config) {
-					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Save successfull').position('top right') );
-			});
+		function getRegionData(filename) {
+			return $http.get('./stored_files/'+filename+'.json');
 		}
 
 		function scopeRegion(){
@@ -169,7 +153,7 @@
 			loadJson: loadJson,
 			getScopeRegion: scopeRegion,
 			saveRegion: saveRegion,
-			getRegion: getRegion
+			getRegionData: getRegionData
 		};
 	}])
 

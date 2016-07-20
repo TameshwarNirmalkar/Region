@@ -52,5 +52,5 @@ md-toast.md-success-toast-theme .md-toast-content{
     background-color: green;
 }
 md-toast.md-error-toast-theme .md-toast-content{
-    background-color: "#c00";
+    background-color: #e60000;
 }
