@@ -16,10 +16,11 @@
 
 		$scope.region = CanvasService.getScopeRegion();
 		
-		$scope.regiontypeLabel = 'Region Editor';
+		$scope.regiontypeLabel = "Region Editor";
 		$scope.targetopt = CanvasService.getOptions();
 		$scope.regionsimages = CanvasService.getImages();
 		$scope.isCanvasVisible = false;
+		$scope.filename = "1-regions";
 
 		$timeout(function(){
 			$(".widget .carousel").jCarouselLite({
@@ -33,14 +34,19 @@
 					CanvasService.beforeStart(angular.element(item).find('img')[0], canvas);
 				},
 				afterEnd: function(item){
+					console.log(item);
 					CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
 				}
 			});
 
 			$(document).on('click', ".widget img", function() {
 				$(".widget .mid img").attr("src", $(this).attr("src"));
+				var fn = $(this).closest('li').data('pageid');
+				var actualfn = fn.match(/\d+/)[0]
+				console.log( actualfn );
 				canvas.clear();
 				$timeout(function(){
+					$scope.filename = actualfn+"-regions";
 					$scope.isCanvasVisible = false;
 				});
 			});
@@ -51,8 +57,6 @@
 
 		canvas.on('object:selected', function(e){
 			e.target.bringToFront();
-			//e.target.setOptions({"internal": true, "target": "blank" });
-			// console.log( e.target.get('type'), e.target.target );
 			$timeout(function(){
 				$scope.regiontypeLabel = e.target.regiontype;
 				$scope.region.target = e.target.target;
@@ -78,14 +82,12 @@
 
 		var SAVEREGION = function(){
 			var json = CanvasService.formateJson(canvas, $scope.region.options.target);
-			CanvasService.saveRegion(json);
+			CanvasService.saveRegion(json, $scope.filename);
 		};
 
 		var CANCELRESET = function(){
 		 	// canvas.clear();
 		    $scope.isCanvasVisible = false;
-			// $scope.region = {};
-			// $scope.regiontypeLabel = 'Region Editor';
 		};
 
 		$scope.saveRegion = SAVEREGION;

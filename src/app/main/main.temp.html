@@ -75,7 +75,7 @@
 				
 			    <div class="carousel" layout="column" layout-align="center start" layout-padding flex>
 			        <ul>
-				        <li ng-repeat="imgs in regionsimages" id="{{ $index+1 }}" class="{{ $index+1 }}"><img ng-src="{{ imgs.img }}"></li>
+				        <li ng-repeat="imgs in regionsimages" data-pageid="page{{ $index+1 }}" class="{{ $index+1 }}"><img ng-src="{{ imgs.img }}"></li>
 			        </ul>
 			    </div>
 			    <div layout="column" layout-align="center center" class="sm-padding">

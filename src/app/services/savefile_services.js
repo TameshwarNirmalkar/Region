@@ -104,11 +104,11 @@
 			});
 		}
 
-		function saveRegion(data) {
+		function saveRegion(data, filename) {
 			
 			
-			var objects = {"objects": data,"filename":"12"};
-			// console.log( JSON.stringify(objects) );
+			var objects = {"objects": data,"filename": filename};
+			// console.log( objects );
 			// SavefileResourceGateway.postRegionData( JSON.stringify(objects) ).then(function(data){
 			// 	console.log(data);
 			// });
