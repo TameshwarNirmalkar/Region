@@ -15,6 +15,7 @@
 		$scope.targetopt = CanvasService.getOptions();
 		$scope.regionsimages = CanvasService.getImages();
 		$scope.isCanvasVisible = false;
+		$scope.activated = true;
 		$scope.filename = "1-regions";
 
 		/*
@@ -22,6 +23,7 @@
 		*/
 		CanvasService.getRegionData($scope.filename).then(function(res){
 			CanvasService.loadJson(canvas, res.data);
+			$scope.activated = false;
 		});
 
 		$timeout(function(){
@@ -41,6 +43,7 @@
 			});
 
 			$(document).on('click', ".widget img", function() {
+				$scope.activated = true;
 				$(".widget .mid img").attr("src", $(this).attr("src"));
 				var fn = $(this).closest('li').data('pageid');
 				var actualfn = fn.match(/\d+/)[0];
@@ -50,9 +53,11 @@
 					$scope.isCanvasVisible = false;
 					CanvasService.getRegionData($scope.filename).then(function(res){
 						CanvasService.loadJson(canvas, res.data);
-						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Regions Found').position('top right').hideDelay(3000) );
+						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+						$scope.activated = false;
 					}, function (err) {
-						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Regions').position('top right').hideDelay(3000) );
+						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+						$scope.activated = false;
 					});
 				});
 			});

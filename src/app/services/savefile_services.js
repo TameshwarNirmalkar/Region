@@ -3,10 +3,7 @@
 	//'SavefileResourceGateway', 
 	angular.module('regionapp')
 	.factory('CanvasService', ['$timeout', '$window', '$http', '$mdToast', 'SavefileResourceGateway', function($timeout, $window, $http, $mdToast, SavefileResourceGateway) {
-		function getRegionData() {
-			return SavefileResourceGateway.getRegionData();
-		}
-
+		
 		function getImages(){
 			return [
 					{img: 'assets/images/1.jpg', description: 'Image 1'},

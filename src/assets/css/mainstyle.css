@@ -54,3 +54,9 @@ md-toast.md-success-toast-theme .md-toast-content{
 md-toast.md-error-toast-theme .md-toast-content{
     background-color: #e60000;
 }
+.loadercontainer{
+    position:absolute; top:0; left:50; right: 0; bottom: 0; height:100%; width:100%; z-index: 5; background-color:rgba(225, 225, 225, 0.5);
+}
+.loadercls{
+    position:absolute; top:50%; left:50%; height:50px; width:100px; margin-top:-25px; margin-left:-50px;
+}
