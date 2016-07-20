@@ -32,7 +32,7 @@
 				btnPrev: ".widget .prev",
 				speed: 300,
 				circular: false,
-				visible: 20,
+				visible: 1,
 				easing: "easeOutBounce",
 				beforeStart: function(item){
 					CanvasService.beforeStart(angular.element(item).find('img')[0], canvas);
