@@ -17,6 +17,7 @@
 		$scope.isCanvasVisible = false;
 		$scope.activated = true;
 		$scope.filename = "1-regions";
+		$scope.imgpath = './assets/images/1.jpg';
 
 		/*
 		* load regions from json.
@@ -42,26 +43,6 @@
 				}
 			});
 
-			$(document).on('click', ".widget img", function() {
-				$scope.activated = true;
-				$(".widget .mid img").attr("src", $(this).attr("src"));
-				var fn = $(this).closest('li').data('pageid');
-				var actualfn = fn.match(/\d+/)[0];
-				canvas.clear();
-				$timeout(function(){
-					$scope.filename = actualfn+"-regions";
-					$scope.isCanvasVisible = false;
-					CanvasService.getRegionData($scope.filename).then(function(res){
-						CanvasService.loadJson(canvas, res.data);
-						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
-						$scope.activated = false;
-					}, function (err) {
-						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-						$scope.activated = false;
-					});
-				});
-			});
-			
 			//make actions panels draggable
 			$('.properties-panel').draggable();
 		})
@@ -117,6 +98,22 @@
 				canvas.getActiveObject().setOptions({"target": val})
 			}
 		};
+
+		$scope.loadregion = function(ind){
+			$scope.activated = true;
+			canvas.clear();
+			$scope.imgpath = this.imgs.img;
+			$scope.filename = ind+"-regions";
+			$scope.isCanvasVisible = false;
+			CanvasService.getRegionData($scope.filename).then(function(res){
+				CanvasService.loadJson(canvas, res.data);
+				$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+				$scope.activated = false;
+			}, function (err) {
+				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+				$scope.activated = false;
+			});
+		}
 
 	}
 

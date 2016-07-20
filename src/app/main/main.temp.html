@@ -59,7 +59,7 @@
 				<div id="jcl-demo" class="cntr canvasonImage">
 					<div class="custom-container widget">
 					    <div class="mid">
-					        <img src="assets/images/1.jpg" alt="1">
+					        <img ng-src="{{ imgpath }}" alt="1">
 					    </div>
 					</div>
 				</div>
@@ -75,7 +75,7 @@
 				
 			    <div class="carousel" layout="column" layout-align="center start" layout-padding flex>
 			        <ul>
-				        <li ng-repeat="imgs in regionsimages" data-pageid="page{{ $index+1 }}" class="{{ $index+1 }}"><img ng-src="{{ imgs.img }}"></li>
+				        <li ng-repeat="imgs in regionsimages" data-pageid="page{{ $index+1 }}" ng-click="loadregion($index+1)"><img ng-src="{{ imgs.img }}"></li>
 			        </ul>
 			    </div>
 			    <div layout="column" layout-align="center center" class="sm-padding">
