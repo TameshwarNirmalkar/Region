@@ -42,9 +42,6 @@
 					CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
 				}
 			});
-
-			//make actions panels draggable
-			$('.properties-panel').draggable();
 		})
 
 		canvas.on('object:selected', function(e){
@@ -72,19 +69,15 @@
 			target.scaleY = 1;
 		});
 
-		var SAVEREGION = function(){
+		$scope.saveRegion = function(){
 			var json = CanvasService.formateJson(canvas, $scope.region.options.target);
 			CanvasService.saveRegion(json, $scope.filename);
 		};
 
-		var CANCELRESET = function(){
-		 	// canvas.clear();
-		    $scope.isCanvasVisible = false;
+		$scope.cancelReset = function(){
+			// canvas.clear();
+			$scope.isCanvasVisible = false;
 		};
-
-		$scope.saveRegion = SAVEREGION;
-
-		$scope.cancelReset = CANCELRESET;
 		
 		$scope.setOptionsObject = function(type){
 			var options = CanvasService.getRegionOptions(type);
@@ -100,8 +93,8 @@
 		};
 
 		$scope.loadregion = function(ind){
-			$scope.activated = true;
 			canvas.clear();
+			$scope.activated = true;
 			$scope.imgpath = this.imgs.img;
 			$scope.filename = ind+"-regions";
 			$scope.isCanvasVisible = false;
