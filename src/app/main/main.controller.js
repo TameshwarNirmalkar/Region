@@ -18,12 +18,16 @@
 		$scope.activated = true;
 		$scope.filename = "1-regions";
 		$scope.imgpath = './assets/images/1.jpg';
-
+		console.log( $scope.regionsimages );
 		/*
 		* load regions from json.
 		*/
 		CanvasService.getRegionData($scope.filename).then(function(res){
 			CanvasService.loadJson(canvas, res.data);
+			$scope.activated = false;
+			$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+		}, function (err) {
+			$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
 			$scope.activated = false;
 		});
 
@@ -36,9 +40,15 @@
 				visible: 1,
 				easing: "easeOutBounce",
 				beforeStart: function(item){
+					// console.log( item.closest('ul').find('li').size() );
+					// console.log('before: ',item.data('pageid') );
 					CanvasService.beforeStart(angular.element(item).find('img')[0], canvas);
 				},
 				afterEnd: function(item){
+					console.log('after: ',item.data('pageid') );
+					$timeout(function(){
+						$scope.imgpath = item.find('img').attr('src');
+					})
 					CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
 				}
 			});
