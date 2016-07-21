@@ -8,8 +8,21 @@
 			return [
 					{img: 'assets/images/1.jpg', description: 'Image 1'},
 					{img: 'assets/images/2.jpg', description: 'Image 2'},
-					{img: 'assets/images/3.jpg', description: 'Image 3'},
-					{img: 'assets/images/7.jpg', description: 'Image 7'},
+					{img: 'assets/images/2.jpg', description: 'Image 3'},
+					{img: 'assets/images/3.jpg', description: 'Image 4'},
+					{img: 'assets/images/3.jpg', description: 'Image 5'},
+					{img: 'assets/images/7.jpg', description: 'Image 6'},
+					{img: 'assets/images/8.jpg', description: 'Image 7'},
+					{img: 'assets/images/8.jpg', description: 'Image 8'},
+					{img: 'assets/images/9.jpg', description: 'Image 9'},
+					{img: 'assets/images/10.jpg', description: 'Image 10'},
+					{img: 'assets/images/1.jpg', description: 'Image 1'},
+					{img: 'assets/images/2.jpg', description: 'Image 2'},
+					{img: 'assets/images/2.jpg', description: 'Image 3'},
+					{img: 'assets/images/3.jpg', description: 'Image 4'},
+					{img: 'assets/images/3.jpg', description: 'Image 5'},
+					{img: 'assets/images/7.jpg', description: 'Image 6'},
+					{img: 'assets/images/8.jpg', description: 'Image 7'},
 					{img: 'assets/images/8.jpg', description: 'Image 8'},
 					{img: 'assets/images/9.jpg', description: 'Image 9'},
 					{img: 'assets/images/10.jpg', description: 'Image 10'}
@@ -43,12 +56,12 @@
 
 		function getRegionOptions(type){
 			var obj = {
-				"internal": { "extraoptions": {"target": 1, "regiontype": "internal" , "elementlabel": "Page Number"} },
-				"website" : {"extraoptions": { "target": "http://logostudio.papionne.com/?p=1363" , "regiontype": "website", "options": "blank", "elementlabel": "Url"} },
-				"email" : { "extraoptions": { "target": "tameshwar.nirmalkar@gmail.com", "regiontype": "email", "elementlabel": "Email Address"} },
-				"phone" : { "extraoptions": {"target": "000-000-0000", "regiontype": "phone", "elementlabel": "Phone Number"} },
-				"video": { "extraoptions": {"target": "<iframe></iframe>", "regiontype": "video", "elementlabel": "Video Embded Code"} },
-				"iframe" : { "extraoptions": {"target": "http://logostudio.papionne.com/?p=1363", "regiontype": "iframe", "elementlabel": "Iframe URL"} }
+				"internal": { "extraoptions": {"target": "", "regiontype": "internal" , "elementlabel": "Page Number"} },
+				"website" : {"extraoptions": { "target": "" , "regiontype": "website", "options": "blank", "elementlabel": "Url"} },
+				"email" : { "extraoptions": { "target": "", "regiontype": "email", "elementlabel": "Email Address"} },
+				"phone" : { "extraoptions": {"target": "", "regiontype": "phone", "elementlabel": "Phone Number"} },
+				"video": { "extraoptions": {"target": "", "regiontype": "video", "elementlabel": "Video Embded Code"} },
+				"iframe" : { "extraoptions": {"target": "", "regiontype": "iframe", "elementlabel": "Iframe URL"} }
 			}
 			return obj[type];
 		}

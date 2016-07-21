@@ -18,7 +18,6 @@
 		$scope.activated = true;
 		$scope.filename = "1-regions";
 		$scope.imgpath = './assets/images/1.jpg';
-		console.log( $scope.regionsimages );
 		/*
 		* load regions from json.
 		*/
@@ -37,19 +36,29 @@
 				btnPrev: ".widget .prev",
 				speed: 300,
 				circular: false,
-				visible: 1,
+				visible: 10,
+				scroll:10,
 				easing: "easeOutBounce",
 				beforeStart: function(item){
-					// console.log( item.closest('ul').find('li').size() );
-					// console.log('before: ',item.data('pageid') );
-					CanvasService.beforeStart(angular.element(item).find('img')[0], canvas);
+					$scope.activated = true;
+					canvas.clear();
 				},
 				afterEnd: function(item){
-					console.log('after: ',item.data('pageid') );
+					// console.log('after: ',item.data('pageid') );
 					$timeout(function(){
 						$scope.imgpath = item.find('img').attr('src');
 					})
-					CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
+					// CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
+					var pageid = item.data('pageid');
+					$scope.filename = pageid.match(/\d+/)[0]+'-regions';
+					CanvasService.getRegionData($scope.filename).then(function(res){
+						CanvasService.loadJson(canvas, res.data);
+						$scope.activated = false;
+						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+					}, function (err) {
+						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+						$scope.activated = false;
+					});
 				}
 			});
 		})
@@ -73,8 +82,10 @@
 			var target = e.target;
 			var sX = target.scaleX;
 			var sY = target.scaleY;
-			target.width =  Math.floor(target.width*=sX);
-			target.height = Math.floor(target.height*=sY);
+			// target.width =  Math.floor(target.width*=sX);
+			// target.height = Math.floor(target.height*=sY);
+			target.width =  target.width*=sX;
+			target.height = target.height*=sY;
 			target.scaleX = 1;
 			target.scaleY = 1;
 		});
