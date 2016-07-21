@@ -6,7 +6,8 @@
 	$createfilename 	= $getfilename.$ext;
 	$sucessObject 		= '{"status": "200", "message":"Sucessfull Saved."}';
 	$file 				= fopen("../stored_files/". $createfilename ,"w+") or die("can't open file");
-	fwrite($file, $json);
+	$encrypted = json_encode($json);
+	fwrite($file, $encrypted);
 	fclose($file);
 	echo $sucessObject;
 ?>
