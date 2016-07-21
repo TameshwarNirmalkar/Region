@@ -82,17 +82,13 @@
 			var jsonArray = [];
 			angular.forEach(canvasObject, function(v,k){
 				var region = {
-					"left": Math.floor(v.left),
-					"top": Math.floor(v.top),
-					"width": v.width,
-					"height": v.height,
+					"x": Math.floor(v.left),
+					"y": Math.floor(v.top),
+					"width": Math.floor(v.width),
+					"height": Math.floor(v.height),
 					"pageWidth": $window.innerWidth,
 					"pageHeight": $window.innerHeight,
-					"fill": "rgba(63,81,181,0.8)",
-					transparentCorners: false,
-					hasRotatingPoint: false,
-					"type": 'rect',
-					"regiontype": v.regiontype,
+					"type": v.regiontype,
 					"target": v.target,
 					"options": {
 						"target": (v.type === 'website') ? model : null 
@@ -108,9 +104,34 @@
 			return new fabric.Canvas(id);
 		}
 
+		function displayFormat(data){
+			var x = [];
+			angular.forEach(data, function(v){
+				var y = {
+					"fill": "rgba(63,81,181,0.8)",
+					"transparentCorners": false,
+					"hasRotatingPoint": false,
+					"type": 'rect',
+					"left": v.x,
+					"top": v.y,
+					"options":{
+						"target": v.options.target
+					},
+					"pageWidth": v.pageWidth,
+					"pageHeight": v.pageHeight,
+					"regiontype": v.type,
+					"width": v.width,
+					"height": v.height
+				}
+				x.push(y);
+			})
+			return x;
+		}
+
 		function loadJson(canvas, data){
+			var objects = {"objects": displayFormat(data.objects)};
 			// SavefileResourceGateway.getRegionData().$promise.then(function(res) {
-				canvas.loadFromJSON(data, canvas.renderAll.bind(canvas), function(o, object) {});
+				canvas.loadFromJSON(objects, canvas.renderAll.bind(canvas), function(o, object) {});
 			// });
 		}
 
