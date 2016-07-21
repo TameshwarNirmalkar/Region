@@ -102,9 +102,10 @@
 		};
 
 		$scope.cancelReset = function(){
-			// canvas.clear();
-			canvas.getActiveObject().remove();
-			$scope.isCanvasVisible = false;
+			$scope.isCanvasVisible = false;	
+			if(canvas.relatedTarget.newregion && canvas.relatedTarget.newregion !== undefined){
+				canvas.getActiveObject().remove();
+			}
 		};
 		
 		$scope.setOptionsObject = function(type){

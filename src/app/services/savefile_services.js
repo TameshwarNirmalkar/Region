@@ -46,7 +46,8 @@
 					type: 'rect',
 					regiontype: options.extraoptions.regiontype,
 					target: options.extraoptions.target,
-					elementlabel: options.extraoptions.elementlabel
+					elementlabel: options.extraoptions.elementlabel,
+					newregion: true
 			  });
 			$timeout(function(){
 				region.setOptions(options);
