@@ -146,7 +146,7 @@
 				}).success(function(data, status, headers, config) {
 					$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Save successfull').position('top right') );
 				}).error(function(data, status, headers, config) {
-					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Save successfull').position('top right') );
+					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Error on file save').position('top right') );
 			});
 		}
 

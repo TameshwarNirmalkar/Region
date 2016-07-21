@@ -88,8 +88,6 @@
 			var target = e.target;
 			var sX = target.scaleX;
 			var sY = target.scaleY;
-			// target.width =  Math.floor(target.width*=sX);
-			// target.height = Math.floor(target.height*=sY);
 			target.width =  target.width*=sX;
 			target.height = target.height*=sY;
 			target.scaleX = 1;
