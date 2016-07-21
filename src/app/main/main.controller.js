@@ -2,10 +2,10 @@
 	'use strict';
 	angular
 		.module('main.controller', [])
-		.controller('MainController', ['$scope', '$timeout', '$mdToast', 'CanvasService', MainController]);
+		.controller('MainController', ['$scope', '$timeout', '$mdToast', '$document', 'CanvasService', MainController]);
 
 
-	function MainController($scope, $timeout, $mdToast, CanvasService) {
+	function MainController($scope, $timeout, $mdToast, $document, CanvasService) {
 		var self = this;
 		var canvas = CanvasService.getCanvas('canvasid');
 
@@ -29,6 +29,12 @@
 			$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
 			$scope.activated = false;
 		});
+
+		$document.bind('keydown', function(e) {
+          if(e.which === 46 && canvas.getActiveObject()){
+          	canvas.getActiveObject().remove();
+          }
+        });
 
 		$timeout(function(){
 			$(".widget .carousel").jCarouselLite({
@@ -97,6 +103,7 @@
 
 		$scope.cancelReset = function(){
 			// canvas.clear();
+			canvas.getActiveObject().remove();
 			$scope.isCanvasVisible = false;
 		};
 		
