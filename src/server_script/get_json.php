@@ -5,5 +5,5 @@
 
 	$json 	= file_get_contents("../stored_files/".$fn);
 	
-	echo $json;
+	echo json_decode($json);
 ?>
