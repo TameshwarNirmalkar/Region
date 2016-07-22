@@ -8,7 +8,7 @@
 	function MainController($scope, $timeout, $mdToast, $document, CanvasService) {
 		var self = this;
 		var canvas = CanvasService.getCanvas('canvasid');
-
+		// CanvasService.testGetR("1-regions");
 		$scope.region = CanvasService.getScopeRegion();
 		
 		$scope.regiontypeLabel = "Region Editor";
@@ -22,11 +22,16 @@
 		* load regions from json.
 		*/
 		CanvasService.getRegionData($scope.filename).then(function(res){
-			CanvasService.loadJson(canvas, res.data);
-			$scope.activated = false;
-			$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+			if(res.data != undefined && res.data != ''){
+				CanvasService.loadJson(canvas, res.data);
+				$scope.activated = false;
+				$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+			}else{
+				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+				$scope.activated = false;
+			}
 		}, function (err) {
-			$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+			$mdToast.show( $mdToast.simple().theme("error-toast").textContent('File not found').position('top right').hideDelay(3000) );
 			$scope.activated = false;
 		});
 
@@ -58,9 +63,14 @@
 					var pageid = item.data('pageid');
 					$scope.filename = pageid.match(/\d+/)[0]+'-regions';
 					CanvasService.getRegionData($scope.filename).then(function(res){
-						CanvasService.loadJson(canvas, res.data);
-						$scope.activated = false;
-						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+						if(res.data != undefined && res.data != ''){
+							CanvasService.loadJson(canvas, res.data);
+							$scope.activated = false;
+							$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+						}else{
+							$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+							$scope.activated = false;
+						}					
 					}, function (err) {
 						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
 						$scope.activated = false;
@@ -126,9 +136,15 @@
 			$scope.filename = ind+"-regions";
 			$scope.isCanvasVisible = false;
 			CanvasService.getRegionData($scope.filename).then(function(res){
-				CanvasService.loadJson(canvas, res.data);
-				$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
-				$scope.activated = false;
+				console.log("response: ", res);
+				if(res.data != undefined && res.data != ''){
+					CanvasService.loadJson(canvas, res.data);
+					$scope.activated = false;
+					$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+				}else{
+					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+					$scope.activated = false;
+				}
 			}, function (err) {
 				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
 				$scope.activated = false;

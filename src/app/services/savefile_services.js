@@ -150,8 +150,30 @@
 			});
 		}
 
+		// function testGetR(filename) {
+		// 	var objects = {"filename": filename};
+		// 	console.log( objects );
+		// 	$http({
+		// 			url: "./server_script/get_json.php",
+		// 			method: "POST",
+		// 			headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+		// 			data: 'filedata='+JSON.stringify(objects)
+		// 		}).success(function(data, status, headers, config) {
+		// 			console.log(data);
+		// 		}).error(function(data, status, headers, config) {
+		// 			console.log(status);
+		// 		});
+		// }
+
 		function getRegionData(filename) {
-			return $http.get('./stored_files/'+filename+'.json');
+			// return $http.get('./stored_files/'+filename+'.json');
+			var objects = {"filename": filename};
+			return $http({
+					url: "./server_script/get_json.php",
+					method: "POST",
+					headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+					data: 'filedata='+JSON.stringify(objects)
+				});
 		}
 
 		function scopeRegion(){
