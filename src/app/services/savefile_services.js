@@ -115,6 +115,7 @@
 					"type": 'rect',
 					"left": v.x,
 					"top": v.y,
+					"target": v.target,
 					"options":{
 						"target": v.options.target
 					},
