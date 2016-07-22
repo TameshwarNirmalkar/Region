@@ -105,7 +105,8 @@
 
 		$scope.saveRegion = function(){
 			var json = CanvasService.formateJson(canvas, $scope.region.options.target);
-			CanvasService.saveRegion(json, $scope.filename);
+			CanvasService.saveRegion(json, $scope.filename, canvas);
+			// console.log( canvas.getObjects() );
 		};
 
 		$scope.cancelReset = function(){

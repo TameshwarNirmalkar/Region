@@ -147,7 +147,7 @@
 			// });
 		}
 
-		function saveRegion(data, filename) {
+		function saveRegion(data, filename, canvas) {
 			var objects = {"objects": data,"filename": filename};
 			$http({
 					url: "./server_script/save_json.php",
@@ -156,6 +156,9 @@
 					data: objects
 				}).success(function(data, status, headers, config) {
 					$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Save successfull').position('top right') );
+					angular.forEach(canvas.getObjects(), function(v){
+						v.newregion = false;
+					});
 				}).error(function(data, status, headers, config) {
 					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Error on file save').position('top right') );
 			});
