@@ -8,7 +8,6 @@
 	function MainController($scope, $timeout, $mdToast, $document, CanvasService) {
 		var self = this;
 		var canvas = CanvasService.getCanvas('canvasid');
-		// CanvasService.testGetR("1-regions");
 		$scope.region = CanvasService.getScopeRegion();
 		
 		$scope.regiontypeLabel = "Region Editor";
