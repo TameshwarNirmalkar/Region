@@ -18,10 +18,6 @@
 					top: 60,
 					width: 100,
 					height: 100,
-					fill: 'rgba(63,81,181,0.8)',
-					transparentCorners: false,
-					hasRotatingPoint: false,
-					centeredScaling: false,
 					type: 'rect',
 					regiontype: options.extraoptions.regiontype,
 					target: options.extraoptions.target,
@@ -81,7 +77,9 @@
 		}
 
 		function getCanvas(id){
-			return new fabric.Canvas(id);
+			var cnv = new fabric.Canvas(id);
+			cnv.uniScaleTransform = true;
+			return cnv;
 		}
 
 		function displayFormat(data){
@@ -110,10 +108,8 @@
 		}
 
 		function loadJson(canvas, data){
-			var objects = {"objects": displayFormat(data.objects)};
-			// SavefileResourceGateway.getRegionData().$promise.then(function(res) {
-				canvas.loadFromJSON(objects, canvas.renderAll.bind(canvas), function(o, object) {});
-			// });
+			var objects = {"objects": displayFormat(data)};
+			canvas.loadFromJSON(objects, canvas.renderAll.bind(canvas), function(o, object) {});
 		}
 
 		function saveRegion(data, filename, canvas) {

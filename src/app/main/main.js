@@ -32,6 +32,18 @@
 				ml: false,
 				mr: false
 			});
+			fabric.Object.prototype.set({
+				transparentCorners: false,
+				borderColor: '#fff',
+				cornerColor: 'rgba(63,81,181,1)',
+				cornerStrokeColor: "#fff",
+				cornerStyle: 'rect',
+				cornerSize:10,
+				fill: 'rgba(63,81,181,.6)',
+				hasRotatingPoint: false,
+				centeredScaling: false,
+				uniScaleTransform: true
+			});
 		    var urls = [];
 		    angular.forEach(urls, function(url) {
 		      $templateRequest(url);
