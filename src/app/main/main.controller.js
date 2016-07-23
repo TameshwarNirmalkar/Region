@@ -144,7 +144,6 @@
 			$scope.filename = ind+"-regions";
 			$scope.isCanvasVisible = false;
 			CanvasService.getRegionData($scope.filename).then(function(res){
-				console.log("response: ", res);
 				if(res.data != undefined && res.data != ''){
 					CanvasService.loadJson(canvas, res.data);
 					$scope.activated = false;
