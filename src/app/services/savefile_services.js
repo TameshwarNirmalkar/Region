@@ -53,6 +53,7 @@
 		}
 
 		function formateJson(canvas, model){
+			// console.log( model );
 			//var group = canvas.getActiveGroup();
 			var canvasObject = canvas.getObjects();
 			var jsonArray = [];
@@ -62,12 +63,12 @@
 					"y": Math.floor(v.top),
 					"width": Math.floor(v.width),
 					"height": Math.floor(v.height),
-					"pageWidth": v.pageWidth,
-					"pageHeight": v.pageHeight,
+					"pageWidth": model.pageWidth,
+					"pageHeight": model.pageHeight,
 					"type": v.regiontype,
 					"target": v.target,
 					"options": {
-						"target": (v.type === 'website') ? model : "_blank" 
+						"target": (v.type === 'website') ? ("_"+model.options.target) : "_blank" 
 					}
 				};
 				jsonArray.push(region);
@@ -142,10 +143,6 @@
 
 		function scopeRegion(){
 			return {
-				"left":0,
-				"top":0,
-				"width":100,
-				"height":100,
 				"pageWidth": 450,
 				"pageHeight": 470,
 				"type": "rect",

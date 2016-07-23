@@ -1,4 +1,4 @@
-(function() {
+;(function() {
 	'use strict';
 	angular
 		.module('main.controller', [])
@@ -9,16 +9,20 @@
 		var self = this;
 		var canvas = CanvasService.getCanvas('canvasid');
 
+		// get default scope for regions
 		$scope.region = CanvasService.getScopeRegion();
 		
-		$scope.regiontypeLabel = "Region Editor";
+		// Selectbox field options for website
 		$scope.targetopt = CanvasService.getOptions();
+		$scope.regiontypeLabel = "Region Editor";
 		$scope.regionsimages = null;
 		$scope.isCanvasVisible = false;
 		$scope.activated = true;
 		$scope.filename = "1-regions";
 		$scope.imgpath = './assets/images/1.jpg';
-		canvas.setDimensions({width:$scope.region.pageWidth, height:$scope.region.pageHeight});
+
+ 		// maintain height and width of canvas
+		canvas.setDimensions({width: $scope.region.pageWidth, height: $scope.region.pageHeight});
 
 		CanvasService.getImages().$promise.then(function(res){
 			$scope.regionsimages = res.imageoject;
@@ -101,7 +105,7 @@
 				$scope.isCanvasVisible = false;
 			})
 		});
-
+		
 		canvas.on('object:scaling', function(e){
 			var target = e.target;
 			var sX = target.scaleX;
@@ -113,9 +117,9 @@
 		});
 
 		$scope.saveRegion = function(){
-			var json = CanvasService.formateJson(canvas, $scope.region.options.target);
+			var json = CanvasService.formateJson(canvas, $scope.region);
 			CanvasService.saveRegion(json, $scope.filename, canvas);
-			// console.log( canvas.getObjects() );
+			// console.log( json );
 		};
 
 		$scope.cancelReset = function(){
@@ -161,6 +165,5 @@
 		}
 
 	}
-
 
 })();
