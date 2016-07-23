@@ -33,7 +33,7 @@
 		function getRegionOptions(type){
 			var obj = {
 				"internal": { "extraoptions": {"target": "", "regiontype": "internal" , "elementlabel": "Page Number"} },
-				"website" : {"extraoptions": { "target": "" , "regiontype": "website", "options": "blank", "elementlabel": "Url"} },
+				"website" : {"extraoptions": { "target": "" , "regiontype": "website", "options": "_blank", "elementlabel": "Url"} },
 				"email" : { "extraoptions": { "target": "", "regiontype": "email", "elementlabel": "Email Address"} },
 				"phone" : { "extraoptions": {"target": "", "regiontype": "phone", "elementlabel": "Phone Number"} },
 				"video": { "extraoptions": {"target": "", "regiontype": "video", "elementlabel": "Video Embded Code"} },
@@ -62,12 +62,12 @@
 					"y": Math.floor(v.top),
 					"width": Math.floor(v.width),
 					"height": Math.floor(v.height),
-					"pageWidth": $window.innerWidth,
-					"pageHeight": $window.innerHeight,
+					"pageWidth": v.pageWidth,
+					"pageHeight": v.pageHeight,
 					"type": v.regiontype,
 					"target": v.target,
 					"options": {
-						"target": (v.type === 'website') ? model : null 
+						"target": (v.type === 'website') ? model : "_blank" 
 					}
 				};
 				jsonArray.push(region);
@@ -94,7 +94,7 @@
 					"top": v.y,
 					"target": v.target,
 					"options":{
-						"target": v.options.target
+						"target": v.options.target.replace('_','')
 					},
 					"pageWidth": v.pageWidth,
 					"pageHeight": v.pageHeight,
@@ -146,8 +146,8 @@
 				"top":0,
 				"width":100,
 				"height":100,
-				"pageWidth": $window.innerWidth,
-				"pageHeight": $window.innerHeight,
+				"pageWidth": 450,
+				"pageHeight": 470,
 				"type": "rect",
 				"regiontype": "",
 				"target": "",
@@ -158,7 +158,6 @@
 		}
 
 		return {
-			getRegionData: getRegionData,
 			getImages: getImages,
 			getOptions: getOptions,
 			addRegion: addRegion,

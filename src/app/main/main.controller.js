@@ -8,6 +8,7 @@
 	function MainController($scope, $timeout, $mdToast, $document, CanvasService) {
 		var self = this;
 		var canvas = CanvasService.getCanvas('canvasid');
+
 		$scope.region = CanvasService.getScopeRegion();
 		
 		$scope.regiontypeLabel = "Region Editor";
@@ -17,6 +18,7 @@
 		$scope.activated = true;
 		$scope.filename = "1-regions";
 		$scope.imgpath = './assets/images/1.jpg';
+		canvas.setDimensions({width:$scope.region.pageWidth, height:$scope.region.pageHeight});
 
 		CanvasService.getImages().$promise.then(function(res){
 			$scope.regionsimages = res.imageoject;
