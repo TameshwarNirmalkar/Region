@@ -12,11 +12,17 @@
 		
 		$scope.regiontypeLabel = "Region Editor";
 		$scope.targetopt = CanvasService.getOptions();
-		$scope.regionsimages = CanvasService.getImages();
+		$scope.regionsimages = null;
 		$scope.isCanvasVisible = false;
 		$scope.activated = true;
 		$scope.filename = "1-regions";
 		$scope.imgpath = './assets/images/1.jpg';
+
+		CanvasService.getImages().$promise.then(function(res){
+			$scope.regionsimages = res.imageoject;
+		})
+
+
 		/*
 		* load regions from json.
 		*/

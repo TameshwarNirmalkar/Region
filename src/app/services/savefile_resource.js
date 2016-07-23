@@ -5,8 +5,8 @@
 
 		function SavefileResourceGateway($resource) {
 			
-			var regiongetDataResource = $resource('./app/services/mockupdata.json', {}, {
-				getRegionData: {method: 'GET'}
+			var regiongetDataResource = $resource('./app/services/image_resp.json', {}, {
+				getImageData: {method: 'GET'}
 			});
 			
 			var regionpostRegionData = $resource('./server_script/save_json.php', {param: '@myParam'}, {
@@ -14,7 +14,7 @@
 			});
 
 			return {
-				getRegionData: regiongetDataResource.getRegionData,
+				getImageData: regiongetDataResource.getImageData,
 				postRegionData: regionpostRegionData.postRegionData
 			};
 		}

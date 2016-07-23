@@ -23,12 +23,14 @@
 		function runConfig($templateRequest) {
 			/* *@Set default visiblity controll for fabric object */
 			fabric.Object.prototype.setControlsVisibility({
-				tl: false,
-				tr: false,
-				bl: false,
-				br: false,
-				mt: true, 
-				mb: true
+				tl: true,
+				tr: true,
+				bl: true,
+				br: true,
+				mt: false, 
+				mb: false,
+				ml: false,
+				mr: false
 			});
 		    var urls = [];
 		    angular.forEach(urls, function(url) {

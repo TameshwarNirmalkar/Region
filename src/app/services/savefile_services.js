@@ -5,28 +5,7 @@
 	.factory('CanvasService', ['$timeout', '$window', '$http', '$mdToast', 'SavefileResourceGateway', function($timeout, $window, $http, $mdToast, SavefileResourceGateway) {
 		
 		function getImages(){
-			return [
-					{img: 'assets/images/1.jpg', description: 'Image 1'},
-					{img: 'assets/images/2.jpg', description: 'Image 2'},
-					{img: 'assets/images/2.jpg', description: 'Image 3'},
-					{img: 'assets/images/3.jpg', description: 'Image 4'},
-					{img: 'assets/images/3.jpg', description: 'Image 5'},
-					{img: 'assets/images/7.jpg', description: 'Image 6'},
-					{img: 'assets/images/8.jpg', description: 'Image 7'},
-					{img: 'assets/images/8.jpg', description: 'Image 8'},
-					{img: 'assets/images/9.jpg', description: 'Image 9'},
-					{img: 'assets/images/10.jpg', description: 'Image 10'},
-					{img: 'assets/images/1.jpg', description: 'Image 1'},
-					{img: 'assets/images/2.jpg', description: 'Image 2'},
-					{img: 'assets/images/2.jpg', description: 'Image 3'},
-					{img: 'assets/images/3.jpg', description: 'Image 4'},
-					{img: 'assets/images/3.jpg', description: 'Image 5'},
-					{img: 'assets/images/7.jpg', description: 'Image 6'},
-					{img: 'assets/images/8.jpg', description: 'Image 7'},
-					{img: 'assets/images/8.jpg', description: 'Image 8'},
-					{img: 'assets/images/9.jpg', description: 'Image 9'},
-					{img: 'assets/images/10.jpg', description: 'Image 10'}
-			];
+			return SavefileResourceGateway.getImageData();
 		}
 
 		function getOptions(){
@@ -37,8 +16,8 @@
 			var region = new fabric.Rect({
 					left: 75,
 					top: 60,
-					width: 250,
-					height: 60,
+					width: 100,
+					height: 100,
 					fill: 'rgba(63,81,181,0.8)',
 					transparentCorners: false,
 					hasRotatingPoint: false,
@@ -51,16 +30,6 @@
 			  });
 			$timeout(function(){
 				region.setOptions(options);
-				// region.setControlsVisibility({
-				// 	bl: false,
-				// 	br: false,
-				// 	tl: false,
-				// 	tr: false,
-				// 	mt: true,
-				// 	mb: true,
-				// 	mr: true,
-				// 	ml: true
-				// })
 				canvas.add(region).setActiveObject(region);
 			})
 		}
