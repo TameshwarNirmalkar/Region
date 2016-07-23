@@ -21,7 +21,7 @@
 					type: 'rect',
 					regiontype: options.extraoptions.regiontype,
 					target: options.extraoptions.target,
-					elementlabel: options.extraoptions.elementlabel,
+					// elementlabel: options.extraoptions.elementlabel,
 					newregion: true
 			  });
 			$timeout(function(){
@@ -32,12 +32,12 @@
 
 		function getRegionOptions(type){
 			var obj = {
-				"internal": { "extraoptions": {"target": "", "regiontype": "internal" , "elementlabel": "Page Number"} },
-				"website" : {"extraoptions": { "target": "" , "regiontype": "website", "options": "_blank", "elementlabel": "Url"} },
-				"email" : { "extraoptions": { "target": "", "regiontype": "email", "elementlabel": "Email Address"} },
-				"phone" : { "extraoptions": {"target": "", "regiontype": "phone", "elementlabel": "Phone Number"} },
-				"video": { "extraoptions": {"target": "", "regiontype": "video", "elementlabel": "Video Embded Code"} },
-				"iframe" : { "extraoptions": {"target": "", "regiontype": "iframe", "elementlabel": "Iframe URL"} }
+				"internal": { "extraoptions": {"regiontype": "internal" , "elementlabel": "Page Number"} },
+				"website" : {"extraoptions": {"regiontype": "website", "options": "_blank", "elementlabel": "Url"} },
+				"email" : { "extraoptions": {"regiontype": "email", "elementlabel": "Email Address"} },
+				"phone" : { "extraoptions": {"regiontype": "phone", "elementlabel": "Phone Number"} },
+				"video": { "extraoptions": {"regiontype": "video", "elementlabel": "Video Embded Code"} },
+				"iframe" : { "extraoptions": {"regiontype": "iframe", "elementlabel": "Iframe URL"} }
 			}
 			return obj[type];
 		}
@@ -68,7 +68,7 @@
 					"type": v.regiontype,
 					"target": v.target,
 					"options": {
-						"target": (v.type === 'website') ? ("_"+model.options.target) : "_blank" 
+						"target": (v.type === 'website') ? model.options.target : "_blank" 
 					}
 				};
 				jsonArray.push(region);
@@ -143,8 +143,8 @@
 
 		function scopeRegion(){
 			return {
-				"pageWidth": 450,
-				"pageHeight": 470,
+				"pageWidth": 0,
+				"pageHeight": 0,
 				"type": "rect",
 				"regiontype": "",
 				"target": "",
@@ -154,6 +154,10 @@
 			};
 		}
 
+		function resizeCanvas(canvas, imgwidth, imgheight){
+			// maintain height and width of canvas
+			canvas.setDimensions({width: imgwidth, height: imgheight});
+		}
 		return {
 			getImages: getImages,
 			getOptions: getOptions,
@@ -166,7 +170,8 @@
 			loadJson: loadJson,
 			getScopeRegion: scopeRegion,
 			saveRegion: saveRegion,
-			getRegionData: getRegionData
+			getRegionData: getRegionData,
+			resizeCanvas: resizeCanvas
 		};
 	}])
 

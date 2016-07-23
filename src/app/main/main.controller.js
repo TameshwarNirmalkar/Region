@@ -21,9 +21,6 @@
 		$scope.filename = "1-regions";
 		$scope.imgpath = './assets/images/1.jpg';
 
- 		// maintain height and width of canvas
-		canvas.setDimensions({width: $scope.region.pageWidth, height: $scope.region.pageHeight});
-
 		CanvasService.getImages().$promise.then(function(res){
 			$scope.regionsimages = res.imageoject;
 
@@ -63,8 +60,10 @@
 							$scope.activated = false;
 						});
 					}
-				});
+					});
 			})
+			console.log( angular.element('.mid').width() );
+			CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
 		})
 
 
@@ -105,7 +104,7 @@
 				$scope.isCanvasVisible = false;
 			})
 		});
-		
+
 		canvas.on('object:scaling', function(e){
 			var target = e.target;
 			var sX = target.scaleX;
@@ -132,14 +131,14 @@
 		
 		$scope.setOptionsObject = function(type){
 			var options = CanvasService.getRegionOptions(type);
-			$scope.region["target"] = options.extraoptions.target;
-			$scope.region["regiontype"] = options.extraoptions.regiontype;
+			// $scope.region["target"] = options.extraoptions.target;
+			$scope.region["regiontype"] = type;
 			CanvasService.addRegion(canvas, options);
 		}
 
-		$scope.changeall = function(val){
+		$scope.changeall = function(val, type){
 			if(canvas.getActiveObject()){
-				canvas.getActiveObject().setOptions({"target": val})
+				canvas.getActiveObject().setOptions({"target": val});
 			}
 		};
 
@@ -162,6 +161,9 @@
 				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
 				$scope.activated = false;
 			});
+			$timeout(function(){
+				CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
+			})
 		}
 
 	}
