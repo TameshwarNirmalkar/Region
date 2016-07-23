@@ -5,5 +5,7 @@
 
 	$json 	= file_get_contents("../stored_files/".$fn);
 	
-	echo json_decode($json);
+	// echo json_decode($json);
+	$ojbectsarray = '{"objects":'. $json .'}';
+	echo $ojbectsarray;
 ?>

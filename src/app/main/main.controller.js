@@ -20,6 +20,45 @@
 
 		CanvasService.getImages().$promise.then(function(res){
 			$scope.regionsimages = res.imageoject;
+
+			/* Initialize carousel code*/
+			$timeout(function(){
+				$(".widget .carousel").jCarouselLite({
+					btnNext: ".widget .next",
+					btnPrev: ".widget .prev",
+					speed: 300,
+					circular: false,
+					visible: 10,
+					scroll:10,
+					easing: "easeOutBounce",
+					beforeStart: function(item){
+						$scope.activated = true;
+						canvas.clear();
+					},
+					afterEnd: function(item){
+						// console.log('after: ',item.data('pageid') );
+						$timeout(function(){
+							$scope.imgpath = item.find('img').attr('src');
+						})
+						// CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
+						var pageid = item.data('pageid');
+						$scope.filename = pageid.match(/\d+/)[0]+'-regions';
+						CanvasService.getRegionData($scope.filename).then(function(res){
+							if(res.data != undefined && res.data != ''){
+								CanvasService.loadJson(canvas, res.data);
+								$scope.activated = false;
+								$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+							}else{
+								$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+								$scope.activated = false;
+							}					
+						}, function (err) {
+							$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+							$scope.activated = false;
+						});
+					}
+				});
+			})
 		})
 
 
@@ -45,44 +84,6 @@
           	canvas.getActiveObject().remove();
           }
         });
-
-		$timeout(function(){
-			$(".widget .carousel").jCarouselLite({
-				btnNext: ".widget .next",
-				btnPrev: ".widget .prev",
-				speed: 300,
-				circular: false,
-				visible: 10,
-				scroll:10,
-				easing: "easeOutBounce",
-				beforeStart: function(item){
-					$scope.activated = true;
-					canvas.clear();
-				},
-				afterEnd: function(item){
-					// console.log('after: ',item.data('pageid') );
-					$timeout(function(){
-						$scope.imgpath = item.find('img').attr('src');
-					})
-					// CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
-					var pageid = item.data('pageid');
-					$scope.filename = pageid.match(/\d+/)[0]+'-regions';
-					CanvasService.getRegionData($scope.filename).then(function(res){
-						if(res.data != undefined && res.data != ''){
-							CanvasService.loadJson(canvas, res.data);
-							$scope.activated = false;
-							$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
-						}else{
-							$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-							$scope.activated = false;
-						}					
-					}, function (err) {
-						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-						$scope.activated = false;
-					});
-				}
-			});
-		})
 
 		canvas.on('object:selected', function(e){
 			e.target.bringToFront();
