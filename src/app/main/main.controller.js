@@ -107,20 +107,9 @@
 			})
 		});
 
-		canvas.on('object:scaling', function(e){
-			var target = e.target;
-			var sX = target.scaleX;
-			var sY = target.scaleY;
-			target.width =  target.width*=sX;
-			target.height = target.height*=sY;
-			target.scaleX = 1;
-			target.scaleY = 1;
-		});
-
 		$scope.saveRegion = function(){
 			var formatjson = CanvasService.formateJson(canvas, $scope.region.options.target);
 			CanvasService.saveRegion(formatjson, $scope.filename, canvas);
-			// console.log( json );
 		};
 
 		$scope.cancelReset = function(){
@@ -165,9 +154,9 @@
 				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
 				$scope.activated = false;
 			});
-			// $timeout(function(){
-				// CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
-			// })
+			$timeout(function(){
+				CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
+			})
 		}
 
 	}

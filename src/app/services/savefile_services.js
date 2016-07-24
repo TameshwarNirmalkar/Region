@@ -30,6 +30,16 @@
 					region.setOptions({"options": {"target": regionconfig.options.options}} );
 				}
 				canvas.add(region).setActiveObject(region);
+
+				canvas.on('object:scaling', function(e){
+					var target = e.target;
+					var sX = target.scaleX;
+					var sY = target.scaleY;
+					target.width =  target.width*=sX;
+					target.height = target.height*=sY;
+					target.scaleX = 1;
+					target.scaleY = 1;
+				});
 			})
 		}
 
@@ -97,14 +107,16 @@
 					"left": v.x,
 					"top": v.y,
 					"target": v.target,
-					"options":{
-						"target": v.options.target.replace('_','')
-					},
 					"pageWidth": v.pageWidth,
 					"pageHeight": v.pageHeight,
 					"regiontype": v.type,
 					"width": v.width,
 					"height": v.height
+				}
+				if(v.type === 'website'){
+					y["options"] = {
+						"target": v.options.target.replace('_','')
+					};
 				}
 				x.push(y);
 			})
