@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	angular.module('regionapp', ['ngMaterial', 'ui.router', 'ngResource', 'main.controller'])
+	angular.module('regionapp', ['ngMaterial', 'ngMessages', 'ui.router', 'ngResource', 'main.controller'])
 		.config(['$stateProvider','$urlRouterProvider', '$mdThemingProvider', routeConfig])
 		.run(['$templateRequest', runConfig]);
 		//.controller('MainCntrl' ['$scope', MainCntrl]);

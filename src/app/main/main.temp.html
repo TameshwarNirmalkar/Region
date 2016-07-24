@@ -22,36 +22,53 @@
 			<md-toolbar class="properties-header">
 			    <div class="md-toolbar-tools text-uppercase">{{ regiontypeLabel | uppercase }}</div>
 			 </md-toolbar>
-			<md-content>
-				<md-list>
-					<md-input-container class="md-block" ng-if="regiontypeLabel !='video'">
-						<label>{{ elementlabel }}</label>
-						<input name="one" ng-model="region.target" aria-label="true" ng-keyup="keyPressFunc(region.target)">
-						<div ng-messages="region.one.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
-					</md-input-container>
-					<md-input-container class="md-block" ng-if="regiontypeLabel ==='video'">
-						<label>{{ elementlabel }}</label>
-						<textarea class="video-textarea" ng-model="region.target" md-rows="200" md-maxlength="600" aria-label="true" ng-keyup="keyPressFunc(region.target)"></textarea>
-						<div ng-messages="region.one.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
-					</md-input-container>
-					<md-input-container class="md-block hidden" flex ng-if="regiontypeLabel ==='website'">
-						<label>Target</label>
-						<md-select ng-model="region.options.target">
-				          <md-option ng-repeat="opt in targetopt" value="{{opt.abbrev}}">
-				            {{opt.abbrev}}
-				          </md-option>
-				        </md-select>
-					</md-input-container>
-				</md-list>
-				<div>
-					<md-button class="md-raised md-primary" ng-click="saveRegion()">Save</md-button>
-					<md-button class="md-raised md-primary" ng-click="cancelReset()">Cancel</md-button>
-				</div>
-			</md-content>
+			<form name="regionForm">
+				<md-content>
+					<md-list>
+						<md-input-container class="md-block" ng-if="regiontypeLabel =='internal' || regiontypeLabel =='website' || regiontypeLabel =='iframe'">
+							<label>{{ elementlabel }}</label>
+							<input name="target" type="text" ng-model="region.target" required aria-label="true" ng-keyup="keyPressFunc(region.target)">
+							<div ng-messages="regionForm.target.$error" role="alert">
+								<div ng-message-exp="['required']">Required field.</div>
+							</div>
+						</md-input-container>
+
+						<md-input-container class="md-block" ng-if="regiontypeLabel =='phone'">
+							<label>{{ elementlabel }}</label>
+							<input name="target" type="phone" ng-model="region.target" required aria-label="true" ng-keyup="keyPressFunc(region.target)" minlength="10" maxlength="10" ng-pattern="/^[0-9]{10}$/">
+							<div ng-messages="regionForm.target.$error" role="alert">
+								<div ng-message-exp="['required', 'pattern']">Valid phone number.</div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" ng-if="regiontypeLabel =='email'">
+							<label>{{ elementlabel }}</label>
+							<input name="target" type="email" ng-model="region.target" required aria-label="true" ng-keyup="keyPressFunc(region.target)" ng-pattern="/^.+@.+\..+$/">
+							<div ng-messages="regionForm.target.$error" role="alert">
+								<div ng-message-exp="['required', 'pattern']">Valid email id.</div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block" ng-if="regiontypeLabel ==='video'">
+							<label>{{ elementlabel }}</label>
+							<textarea class="video-textarea" name="target" required ng-model="region.target" md-rows="200" md-maxlength="1000" aria-label="true" md-maxlength="10" ng-keyup="keyPressFunc(region.target)"></textarea>
+							<div ng-messages="regionForm.target.$error">
+								<div ng-message="required">Required field</div>
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block hidden" flex ng-if="regiontypeLabel ==='website'">
+							<label>Target</label>
+							<md-select ng-model="region.options.target">
+					          <md-option ng-repeat="opt in targetopt" value="{{opt.abbrev}}">
+					            {{opt.abbrev}}
+					          </md-option>
+					        </md-select>
+						</md-input-container>
+					</md-list>
+					<div>
+						<md-button class="md-raised md-primary" ng-click="saveRegion()">Save</md-button>
+						<md-button class="md-raised md-primary" ng-click="cancelReset()">Cancel</md-button>
+					</div>
+				</md-content>
+			</form>
 		</div>
 		<md-content flex layout-padding layout="row" md-component-id="center" layout-fill layout-align="top center">
 			<div class="canvasHolder">
