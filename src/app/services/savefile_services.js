@@ -12,32 +12,35 @@
 			return ('blank self').split(' ').map(function (op) { return { abbrev: op }; });
 		}
 
-		function addRegion(canvas, options){
+		function addRegion(canvas, regionconfig){
 			var region = new fabric.Rect({
 					left: 75,
 					top: 60,
 					width: 100,
 					height: 100,
 					type: 'rect',
-					regiontype: options.extraoptions.regiontype,
-					target: options.extraoptions.target,
-					// elementlabel: options.extraoptions.elementlabel,
-					newregion: true
+					regiontype: regionconfig.regiontype,
+					target: "",
+					newregion: true,
+					pageWidth: regionconfig.pageWidth,
+					pageHeight: regionconfig.pageHeight
 			  });
 			$timeout(function(){
-				region.setOptions(options);
+				if(regionconfig.regiontype === 'website'){
+					region.setOptions({"options": {"target": regionconfig.options.options}} );
+				}
 				canvas.add(region).setActiveObject(region);
 			})
 		}
 
 		function getRegionOptions(type){
 			var obj = {
-				"internal": { "extraoptions": {"regiontype": "internal" , "elementlabel": "Page Number"} },
-				"website" : {"extraoptions": {"regiontype": "website", "options": "_blank", "elementlabel": "Url"} },
-				"email" : { "extraoptions": {"regiontype": "email", "elementlabel": "Email Address"} },
-				"phone" : { "extraoptions": {"regiontype": "phone", "elementlabel": "Phone Number"} },
-				"video": { "extraoptions": {"regiontype": "video", "elementlabel": "Video Embded Code"} },
-				"iframe" : { "extraoptions": {"regiontype": "iframe", "elementlabel": "Iframe URL"} }
+				"internal": { "pageHeight": $('.mid').height(), "pageWidth": $('.mid').width(),"regiontype": "internal" ,},
+				"website" : { "pageHeight": $('.mid').height(), "pageWidth": $('.mid').width(),"regiontype": "website", "options": {"target": "_blank"} },
+				"email" : { "pageHeight": $('.mid').height(), "pageWidth": $('.mid').width(),"regiontype": "email"},
+				"phone" : { "pageHeight": $('.mid').height(), "pageWidth": $('.mid').width(),"regiontype": "phone"},
+				"video": { "pageHeight": $('.mid').height(), "pageWidth": $('.mid').width(),"regiontype": "video"},
+				"iframe" : { "pageHeight": $('.mid').height(), "pageWidth": $('.mid').width(),"regiontype": "iframe"}
 			}
 			return obj[type];
 		}
@@ -52,8 +55,7 @@
 			angular.element(".widget .mid img").attr("src", angular.element(item).attr('src') );
 		}
 
-		function formateJson(canvas, model){
-			// console.log( model );
+		function formateJson(canvas, selectedval){
 			//var group = canvas.getActiveGroup();
 			var canvasObject = canvas.getObjects();
 			var jsonArray = [];
@@ -63,17 +65,18 @@
 					"y": Math.floor(v.top),
 					"width": Math.floor(v.width),
 					"height": Math.floor(v.height),
-					"pageWidth": model.pageWidth,
-					"pageHeight": model.pageHeight,
+					"pageWidth": v.pageWidth,
+					"pageHeight": v.pageHeight,
 					"type": v.regiontype,
-					"target": v.target,
-					"options": {
-						"target": (v.type === 'website') ? model.options.target : "_blank" 
-					}
+					"target": v.target
 				};
+				if(v.regiontype === 'website'){
+					region.options = { "target": "_"+selectedval }
+				}
 				jsonArray.push(region);
 				//console.log(canvas.getActiveObject().get('type'));				
 			});
+			// console.log( jsonArray );
 			return jsonArray;
 		}
 

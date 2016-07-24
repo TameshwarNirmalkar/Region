@@ -63,3 +63,4 @@ md-toast.md-error-toast-theme .md-toast-content{
 #jcl-demo .widget img{
     width: auto;
 }
+canvas{display: block; overflow: hidden;}

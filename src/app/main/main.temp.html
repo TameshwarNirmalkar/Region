@@ -26,14 +26,14 @@
 				<md-list>
 					<md-input-container class="md-block" ng-if="regiontypeLabel !='video'">
 						<label>{{ elementlabel }}</label>
-						<input name="one" ng-model="region.target" aria-label="true" ng-keyup="changeall(region.target, region.regiontype)">
+						<input name="one" ng-model="region.target" aria-label="true" ng-keyup="keyPressFunc(region.target)">
 						<div ng-messages="region.one.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
 					</md-input-container>
 					<md-input-container class="md-block" ng-if="regiontypeLabel ==='video'">
 						<label>{{ elementlabel }}</label>
-						<textarea class="video-textarea" ng-model="region.target" md-rows="200" md-maxlength="600" aria-label="true" ng-blur="changeall(region.target)"></textarea>
+						<textarea class="video-textarea" ng-model="region.target" md-rows="200" md-maxlength="600" aria-label="true" ng-keyup="keyPressFunc(region.target)"></textarea>
 						<div ng-messages="region.one.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
@@ -55,7 +55,7 @@
 		</div>
 		<md-content flex layout-padding layout="row" md-component-id="center" layout-fill layout-align="top center">
 			<div class="canvasHolder">
-			<canvas id="canvasid"></canvas>
+			<canvas id="canvasid" width="433" height="542"></canvas>
 				<div id="jcl-demo" class="cntr canvasonImage">
 					<div class="custom-container widget">
 					    <div class="mid">

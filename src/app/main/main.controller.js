@@ -42,6 +42,7 @@
 						// console.log('after: ',item.data('pageid') );
 						$timeout(function(){
 							$scope.imgpath = item.find('img').attr('src');
+							CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
 						})
 						// CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
 						var pageid = item.data('pageid');
@@ -62,8 +63,7 @@
 					}
 					});
 			})
-			console.log( angular.element('.mid').width() );
-			CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
+			// CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
 		})
 
 
@@ -94,9 +94,11 @@
 			e.target.bringToFront();
 			$timeout(function(){
 				$scope.regiontypeLabel = e.target.regiontype;
+				$scope.regiontype = e.target.regiontype; // this is to check on keypress evnet.
 				$scope.region.target = e.target.target;
 				$scope.isCanvasVisible = true;
 			})
+			// console.log(e.target);
 		});
 
 		canvas.on('before:selection:cleared', function(e){
@@ -116,8 +118,8 @@
 		});
 
 		$scope.saveRegion = function(){
-			var json = CanvasService.formateJson(canvas, $scope.region);
-			CanvasService.saveRegion(json, $scope.filename, canvas);
+			var formatjson = CanvasService.formateJson(canvas, $scope.region.options.target);
+			CanvasService.saveRegion(formatjson, $scope.filename, canvas);
 			// console.log( json );
 		};
 
@@ -131,13 +133,15 @@
 		
 		$scope.setOptionsObject = function(type){
 			var options = CanvasService.getRegionOptions(type);
-			// $scope.region["target"] = options.extraoptions.target;
-			$scope.region["regiontype"] = type;
 			CanvasService.addRegion(canvas, options);
 		}
 
-		$scope.changeall = function(val, type){
+		$scope.keyPressFunc = function(val){
 			if(canvas.getActiveObject()){
+				if($scope.regiontype === 'website'){
+					// console.log("Type: ", canvas.getActiveObject());
+					canvas.getActiveObject().setOptions({"options":{"target": $scope.region.options.target} });
+				}
 				canvas.getActiveObject().setOptions({"target": val});
 			}
 		};
@@ -161,9 +165,9 @@
 				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
 				$scope.activated = false;
 			});
-			$timeout(function(){
-				CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
-			})
+			// $timeout(function(){
+				// CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
+			// })
 		}
 
 	}
