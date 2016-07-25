@@ -16,10 +16,11 @@
     left: 58px;
     top: 70px;
     z-index: 11;
+    height: auto!important;
     overflow: hidden;
 }
 .bottom-bar {
-        position: fixed;
+    position: fixed;
     bottom: 0;
     margin: 0 auto;
     left: 0;
@@ -64,3 +65,4 @@ md-toast.md-error-toast-theme .md-toast-content{
     width: auto;
 }
 canvas{display: block; overflow: hidden; border: none;}
+.md-input-container{margin:10px 0px!important; }

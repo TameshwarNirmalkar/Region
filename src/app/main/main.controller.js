@@ -118,6 +118,7 @@
 			if(activeobject.newregion && activeobject.newregion !== undefined){
 				canvas.getActiveObject().remove();
 			}
+			canvas.discardActiveObject();
 		};
 		
 		$scope.setOptionsObject = function(type){
