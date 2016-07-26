@@ -84,19 +84,25 @@
 		</md-content>
 	</section>
 	<section class="bottom-bar">
-		<div id="jcl-demo" layout="column" layout-padding sm-component-id="center" layout-fill layout-align="bottom center">
-			<div class="widget" layout="row">
+		<div id="jcl-demo1" draggable layout="column" layout-padding sm-component-id="center" layout-fill layout-align="bottom center">
+			<div class="widget1" layout="row">
 				<div layout="column" layout-align="center center" class="sm-padding">
-			   	 <span id="left"><a href="#" class="prev"><i class="fa fa-arrow-circle-o-left"></i> </a></span>
+			   	 <span id="left">
+			   	 	<a href="javascript:void(0);" class="prev fa fa-arrow-circle-o-left" style="background-color:#31b0d5; color:#fff; font-size:40px; padding: 3px 10px; border-radius: 3px; text-decoration:none;" ng-click="previousthumb()">
+			   	 	</a>
+			   	 </span>
 			  </div>
 				
-			    <div class="carousel" layout="column" layout-align="center start" layout-padding flex>
-			        <ul>
-				        <li ng-repeat="imgs in regionsimages" data-pageid="page{{ $index+1 }}" ng-click="loadregion($index+1)"><img ng-src="{{ imgs.img }}"></li>
+			    <div class="carousel_1" angular-lazy-load threshold="200" layout="column" layout-align="center start" layout-padding flex>
+			        <ul style="background-color:#fff; border:1px solid #ddd;">
+				        <li style="float:left; padding:5px; list-style:none; cursor:pointer;" ng-repeat="imgs in regionsimages" data-pageid="page{{ imgs.imageid }}" ng-click="loadregion(imgs.imageid)"><img ng-src="{{ imgs.img }}" style="height:40px; width:40px;"></li>
 			        </ul>
 			    </div>
 			    <div layout="column" layout-align="center center" class="sm-padding">
-			    	<span id="right"><a href="#" class="next"><i class="fa fa-arrow-circle-o-right"></i></a></span>
+			    	<span id="right">
+			    		<a href="javascript:void(0);" class="next fa fa-arrow-circle-o-right" style="background-color:#31b0d5; color:#fff; font-size:40px; padding: 3px 10px; border-radius: 3px; text-decoration:none;" ng-click="nextthumb()">
+			    		</a>
+			    	</span>
 			  	</div>
 			    
 			 </div>
