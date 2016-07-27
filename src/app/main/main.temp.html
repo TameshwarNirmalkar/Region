@@ -72,7 +72,7 @@
 		</div>
 		<md-content flex layout-padding layout="row" md-component-id="center" layout-fill layout-align="top center">
 			<div class="canvasHolder">
-			<canvas id="canvasid" width="433" height="542"></canvas>
+			<canvas id="canvasid" width="433" height="542"> </canvas>
 				<div id="jcl-demo" class="cntr canvasonImage">
 					<div class="custom-container widget">
 					    <div class="mid">
@@ -83,13 +83,13 @@
 			</div>
 		</md-content>
 	</section>
-	<section class="bottom-bar">
-		<div id="jcl-demo1" draggable layout="column" layout-padding sm-component-id="center" layout-fill layout-align="bottom center">
+	<section class="bottom-bar" draggable>
+		<div id="jcl-demo1" layout="column" layout-padding sm-component-id="center" layout-fill layout-align="bottom center">
 			<div class="widget1" layout="row">
 				<div layout="column" layout-align="center center" class="sm-padding">
 			   	 <span id="left">
-			   	 	<a href="javascript:void(0);" class="prev fa fa-arrow-circle-o-left" style="background-color:#31b0d5; color:#fff; font-size:40px; padding: 3px 10px; border-radius: 3px; text-decoration:none;" ng-click="previousthumb()">
-			   	 	</a>
+			   	 	<button ng-disabled="initialval<=0" ng-style="(initialval <= 0)?{'background-color':'#ddd'}:{'background-color':'#31b0d5'}" class="prev fa fa-arrow-circle-o-left" style="background-color:#31b0d5; color:#fff; font-size:40px; padding: 3px 10px; border-radius: 3px; border:none;" ng-click="previousthumb()">
+			   	 	</button>
 			   	 </span>
 			  </div>
 				
@@ -100,8 +100,8 @@
 			    </div>
 			    <div layout="column" layout-align="center center" class="sm-padding">
 			    	<span id="right">
-			    		<a href="javascript:void(0);" class="next fa fa-arrow-circle-o-right" style="background-color:#31b0d5; color:#fff; font-size:40px; padding: 3px 10px; border-radius: 3px; text-decoration:none;" ng-click="nextthumb()">
-			    		</a>
+			    		<button ng-disabled="increment > storedImageResources.length" ng-style="(increment > storedImageResources.length)?{'background-color':'#ddd'}:{'background-color':'#31b0d5'}" class="next fa fa-arrow-circle-o-right" style="background-color:#31b0d5; color:#fff; font-size:40px; padding: 3px 10px; border-radius: 3px; border:none;" ng-click="nextthumb()">
+			    		</button>
 			    	</span>
 			  	</div>
 			    

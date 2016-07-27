@@ -21,7 +21,6 @@
 		}
 		/*Run config*/
 		function runConfig($rootScope, $templateRequest) {
-			// $rootScope.$emit('selectiveLoad');
 			/* *@Set default visiblity controll for fabric object */
 			fabric.Object.prototype.setControlsVisibility({
 				tl: true,
