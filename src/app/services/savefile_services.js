@@ -146,7 +146,7 @@
         }
 
         function getRegionData(filename) {
-            return $http.get("./stored_files/"+filename+".json");
+            // return $http.get("./stored_files/"+filename+".json");
             var objects = {"filename": filename};
             return $http({
              url: "./server_script/get_json.php",
