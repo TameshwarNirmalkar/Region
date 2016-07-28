@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	angular.module('regionapp', ['ngMaterial', 'ngMessages', 'ui.router', 'ngResource', 'angular-lazy-loader', 'main.controller'])
+	angular.module('regionapp', ['ngMaterial', 'ngMessages', 'ui.router', 'ngResource', 'main.controller'])
 		.config(['$stateProvider','$urlRouterProvider', '$mdThemingProvider', routeConfig])
 		.run(['$templateRequest', runConfig]);
 		//.controller('MainCntrl' ['$scope', MainCntrl]);
@@ -14,13 +14,13 @@
 			$stateProvider
 		        .state('home', {
 		            url: '/',
-		            templateUrl: 'app/main/main.temp.html',
+		            templateUrl: './app/main/main.temp.html',
 		            controller: 'MainController'
 		        })
 		        
 		}
 		/*Run config*/
-		function runConfig($rootScope, $templateRequest) {
+		function runConfig($templateRequest) {
 			/* *@Set default visiblity controll for fabric object */
 			fabric.Object.prototype.setControlsVisibility({
 				tl: true,

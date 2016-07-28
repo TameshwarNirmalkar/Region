@@ -76,7 +76,7 @@
 				<div id="jcl-demo" class="cntr canvasonImage">
 					<div class="custom-container widget">
 					    <div class="mid">
-					        <img ng-src="{{ imgpath }}" alt="1">
+					        <img ng-src="{{ imgpath }}" alt="1" elresize>
 					    </div>
 					</div>
 				</div>
@@ -95,7 +95,7 @@
 				
 			    <div class="carousel_1" angular-lazy-load threshold="200" layout="column" layout-align="center start" layout-padding flex>
 			        <ul style="background-color:#fff; border:1px solid #ddd;">
-				        <li style="float:left; padding:5px; list-style:none; cursor:pointer;" ng-repeat="imgs in regionsimages" data-pageid="page{{ imgs.imageid }}" ng-click="loadregion(imgs.imageid)"><img ng-src="{{ imgs.img }}" style="height:40px; width:40px;"></li>
+				        <li style="float:left; padding:5px; list-style:none; cursor:pointer;" ng-repeat="imgs in regionsimages" data-pageid="page{{ imgs.imageid }}" ng-click="loadregion(imgs.imageid)"><img ng-src="{{ imgs.img }}" img-preload class="fade" style="height:40px; width:40px;"></li>
 			        </ul>
 			    </div>
 			    <div layout="column" layout-align="center center" class="sm-padding">

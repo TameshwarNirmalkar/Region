@@ -2,10 +2,10 @@
 	'use strict';
 	angular
 		.module('main.controller', [])
-		.controller('MainController', ['$rootScope','$scope', '$timeout', '$mdToast', '$document', 'CanvasService', MainController]);
+		.controller('MainController', ['$scope', '$window', '$timeout', '$mdToast', '$document', 'CanvasService', MainController]);
 
 
-	function MainController($rootScope, $scope, $timeout, $mdToast, $document, CanvasService) {
+	function MainController($scope, $window, $timeout, $mdToast, $document, CanvasService) {
 		var self = this;
 		var canvas = CanvasService.getCanvas('canvasid');
 
@@ -25,64 +25,13 @@
 		$scope.increment = 10;
 		CanvasService.getImages().$promise.then(function(res){
 			$scope.storedImageResources = res.imageoject;
-			// console.log( $scope.storedImageResources.slice(0,10) );
+			console.log( $scope.storedImageResources );
 			$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
 			console.log( $scope.regionsimages );
-			/* Initialize carousel code*/
-			// $timeout(function(){
-			// 	$(".widget .carousel").jCarouselLite({
-			// 		btnNext: ".widget .next",
-			// 		btnPrev: ".widget .prev",
-			// 		speed: 300,
-			// 		circular: false,
-			// 		visible: 10,
-			// 		scroll:10,
-			// 		easing: "easeOutBounce",
-			// 		beforeStart: function(item){
-			// 			$scope.activated = true;
-			// 			canvas.clear();
-			// 		},
-			// 		afterEnd: function(item){
-			// 			// console.log('after: ',item.data('pageid') );
-			// 			$timeout(function(){
-			// 				$scope.imgpath = item.find('img').attr('src');
-			// 				CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
-			// 				console.log( $scope.initialval, ":", $scope.increment );
-
-			// 				$scope.initialval = $scope.increment;
-			// 				$scope.increment = $scope.increment+10;
-							
-							
-			// 				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
-			// 				console.log( $scope.regionsimages );
-			// 			})
-			// 			// CanvasService.afterEnd(angular.element(item).find('img')[0], canvas);
-						
-			// 			var pageid = item.data('pageid');
-			// 			$scope.filename = pageid.match(/\d+/)[0]+'-regions';
-			// 			CanvasService.getRegionData($scope.filename).then(function(res){
-			// 				if(res.data != undefined && res.data != ''){
-			// 					CanvasService.loadJson(canvas, res.data);
-			// 					$scope.activated = false;
-			// 					$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
-			// 				}else{
-			// 					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-			// 					$scope.activated = false;
-			// 				}					
-			// 			}, function (err) {
-			// 				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-			// 				$scope.activated = false;
-			// 			});
-			// 		}
-			// 	});
-			// })
-			
 			$timeout(function(){
 				CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
 			})
 		})
-
-
 		/*
 		* load regions from json.
 		*/
@@ -177,6 +126,7 @@
 		}
 
 		$scope.previousthumb = function(){
+			canvas.clear();
 			if($scope.initialval > 0){
 				$scope.initialval = $scope.initialval - 10;
 				$scope.increment = $scope.increment - 10;
@@ -200,13 +150,13 @@
 			}else{
 				$scope.initialval = $scope.initialval;
 				$scope.increment = $scope.increment;
-				console.log('else');
 				return false;
 			}
 		}
 
 		$scope.nextthumb = function(){
-			if($scope.increment <= $scope.storedImageResources.length ){
+			canvas.clear();
+			if($scope.increment < $scope.storedImageResources.length ){
 				$scope.initialval = $scope.increment;
 				$scope.increment = $scope.increment+10;
 				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
@@ -232,7 +182,32 @@
 				return false;
 			}
 		}
+/*
+		angular.element($window).bind('resize', function(){
+			// var zoom = angular.element('.mid').height();
+			var zoom = '';
+			var wd = angular.element('.mid').width();
+			var ht = angular.element('.mid').height();
+			CanvasService.resizeCanvas(canvas, wd, ht);
+			
+			if (wd < angular.element($window).width() ) {
+			    zoom = angular.element($window).height() / ht;
 
+			    if ((zoom * wd) > angular.element($window).width()) {
+			        zoom = angular.element($window).width() / wd;
+			    }
+
+			} else {
+			    zoom = angular.element($window).width() / wd;
+
+			    if ((zoom * ht) > angular.element($window).height()) {
+			        zoom = angular.element($window).height() / ht;
+			    }
+			}
+			console.log(zoom);
+			canvas.setZoom(zoom);
+		});
+*/
 	}
 
 })();
