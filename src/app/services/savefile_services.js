@@ -55,16 +55,6 @@
             return obj[type];
         }
 
-        function beforeStart(item, canvas){
-            canvas.clear();
-            angular.element(".widget .mid img").attr("src", angular.element(item).find("img").attr("src") );
-        }
-
-        function afterEnd(item, canvas){
-            canvas.clear();
-            angular.element(".widget .mid img").attr("src", angular.element(item).attr("src") );
-        }
-
         function formateJson(canvas, selectedval){
             //var group = canvas.getActiveGroup();
             var canvasObject = canvas.getObjects();
@@ -178,8 +168,6 @@
             getOptions: getOptions,
             addRegion: addRegion,
             getRegionOptions: getRegionOptions,
-            beforeStart: beforeStart,
-            afterEnd: afterEnd,
             formateJson: formateJson,
             getCanvas: getCanvas,
             loadJson: loadJson,
