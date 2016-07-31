@@ -23,7 +23,7 @@
 		$scope.storedImageResources = null;
 		$scope.initialval = 0;
 		$scope.increment = 10;
-
+		// $scope.regionId = null;
 		/*Angular image element for get height and width in future reference*/
 		var angularEle = angular.element('.mid');
 
@@ -135,7 +135,7 @@
 				$scope.initialval = $scope.initialval - 10;
 				$scope.increment = $scope.increment - 10;
 				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
-				// $scope.filename = $scope.initialval+1+'-regions';
+				$scope.filename = $scope.initialval+1+'-regions';
 				// $scope.imgpath = $scope.regionsimages[0].img;
 				// $timeout(function(){
 				// 	CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
@@ -166,7 +166,7 @@
 				$scope.initialval = $scope.increment;
 				$scope.increment = $scope.increment+10;
 				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
-				// $scope.filename = $scope.initialval+1+'-regions';
+				$scope.filename = $scope.initialval+1+'-regions';
 				// $scope.imgpath = $scope.regionsimages[0].img;
 				// $timeout(function(){
 				// 	CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
@@ -191,6 +191,60 @@
 					return false;
 				}
 		}
+
+		$scope.previousRegion = function(filename){
+			var getPath = parseInt(filename.match(/\d+/)[0]) - 1;
+			var filterfile = _.some($scope.regionsimages, function (data) {
+					return JSON.parse(data.imageid) === getPath;
+			});
+			if(filterfile){
+				$scope.filename = getPath+'-regions';
+				$scope.imgpath = "./assets/images/"+getPath+".jpg";
+				CanvasService.getRegionData($scope.filename).then(function(res){
+					if(res.data !== undefined && res.data !== ''){
+						CanvasService.loadJson(canvas, res.data);
+						$scope.activated = false;
+						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+					}else{
+						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+						$scope.activated = false;
+					}					
+				}, function (err) {
+					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+					$scope.activated = false;
+				})
+			}else{
+				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('No page found').position('top right').hideDelay(3000) );	
+				return false;
+			}
+		}
+
+		$scope.nextRegion = function(filename){
+			var getPath = parseInt(filename.match(/\d+/)[0]) + 1;
+			var filterfile = _.some($scope.regionsimages, function (data) {
+					return JSON.parse(data.imageid) === getPath;
+			});
+			if(filterfile){
+				$scope.filename = getPath+'-regions';
+				$scope.imgpath = "./assets/images/"+getPath+".jpg";
+				CanvasService.getRegionData($scope.filename).then(function(res){
+					if(res.data !== undefined && res.data !== ''){
+						CanvasService.loadJson(canvas, res.data);
+						$scope.activated = false;
+						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+					}else{
+						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+						$scope.activated = false;
+					}					
+				}, function (err) {
+					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+					$scope.activated = false;
+				})
+			}else{
+				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('No page found').position('top right').hideDelay(3000) );
+			}
+		}
+
 /*
 		angular.element($window).bind('resize', function(){
 			// var zoom = angular.element('.mid').height();
