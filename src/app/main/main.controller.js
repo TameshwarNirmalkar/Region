@@ -194,10 +194,10 @@
 
 		$scope.previousRegion = function(filename){
 			var getPath = parseInt(filename.match(/\d+/)[0]) - 1;
-			var filterfile = _.some($scope.regionsimages, function (data) {
-					return JSON.parse(data.imageid) === getPath;
-			});
-			if(filterfile){
+			// var filterfile = _.some($scope.regionsimages, function (data) {
+			// 		return JSON.parse(data.imageid) === getPath;
+			// });
+			if(getPath > 0){
 				canvas.clear();
 				$scope.filename = getPath+'-regions';
 				$scope.imgpath = "./assets/images/"+getPath+".jpg";
@@ -218,17 +218,17 @@
 					$scope.activated = false;
 				})
 			}else{
-				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('No page found').position('top right').hideDelay(3000) );	
+				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Below range page limit').position('top right').hideDelay(3000) );	
 				return false;
 			}
 		}
 
 		$scope.nextRegion = function(filename){
 			var getPath = parseInt(filename.match(/\d+/)[0]) + 1;
-			var filterfile = _.some($scope.regionsimages, function (data) {
-					return JSON.parse(data.imageid) === getPath;
-			});
-			if(filterfile){
+			// var filterfile = _.some($scope.regionsimages, function (data) {
+			// 		return JSON.parse(data.imageid) === getPath;
+			// });
+			if(getPath <= $scope.storedImageResources.length){
 				canvas.clear();
 				$scope.filename = getPath+'-regions';
 				$scope.imgpath = "./assets/images/"+getPath+".jpg";
@@ -249,35 +249,14 @@
 					$scope.activated = false;
 				})
 			}else{
-				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('No page found').position('top right').hideDelay(3000) );
+				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Exceeded page limit').position('top right').hideDelay(3000) );
 			}
 		}
 
 		angular.element($window).bind('resize', function(){
-			// var zoom = angular.element('.mid').height();
-			//var zoom = 0;
 			var wd = angular.element('.mid img').width();
 			var ht = angular.element('.mid img').height();
-			//CanvasService.resizeCanvas(canvas, wd, ht);
-
-			$('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
-			
-			/*if (wd < angular.element($window).width() ) {
-			    zoom = angular.element($window).height() / ht;
-
-			    if ((zoom * wd) > angular.element($window).width()) {
-			        zoom = angular.element($window).width() / wd;
-			    }
-
-			} else {
-			    zoom = angular.element($window).width() / wd;
-
-			    if ((zoom * ht) > angular.element($window).height()) {
-			        zoom = angular.element($window).height() / ht;
-			    }
-			}
-			console.log(zoom);
-			canvas.setZoom(zoom);*/
+			angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
 		});
 
 	}
