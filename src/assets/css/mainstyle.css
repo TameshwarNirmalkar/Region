@@ -73,19 +73,19 @@ canvas{display: block; overflow: hidden;}
 .listclass{
     float:left; padding:5px; list-style:none; cursor:pointer;
 }
+.leftBrow{position: fixed;left: 0;}
+.rightBrow{position: fixed;right:0;}
 @media screen and (max-width:1925px){
-    #jcl-demo .mid{height: 78vh;}
+    #jcl-demo .mid{height: 76vh;}
 }
-@media screen and (max-width:1600px){
-    #jcl-demo .mid{height: 66vh;}
-}
-@media screen and (max-width:1367px){
-    #jcl-demo .mid{height: 66vh;}
-}
-@media screen and (max-width:1100px){
-   #jcl-demo .mid{height: 74vh;}
-}
-@media screen and (max-width:800px){
-   #jcl-demo .mid{height: 78vh;width: 100%;}
 
+@media screen and (max-width: 699px) and (min-width: 520px), (min-width: 1800px) {
+   #jcl-demo .mid{height: 76vh;}
+}
+@media screen and (max-width:1280px){
+    #jcl-demo .mid{height: 67vh;}
+}
+
+@media screen and (max-width:959px){
+   #jcl-demo .mid{height: auto;width: 100%;}
 }
