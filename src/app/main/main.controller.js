@@ -25,7 +25,7 @@
 		$scope.increment = 10;
 		// $scope.regionId = null;
 		/*Angular image element for get height and width in future reference*/
-		var angularEle = angular.element('.mid');
+		var angularEle = angular.element('#jcl-demo');
 
 		CanvasService.getImages().$promise.then(function(res){
 			$scope.storedImageResources = res.imageoject;
@@ -201,6 +201,9 @@
 				canvas.clear();
 				$scope.filename = getPath+'-regions';
 				$scope.imgpath = "./assets/images/"+getPath+".jpg";
+				$timeout(function(){
+					CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
+				});
 				CanvasService.getRegionData($scope.filename).then(function(res){
 					if(res.data !== undefined && res.data !== ''){
 						CanvasService.loadJson(canvas, res.data);
@@ -229,6 +232,9 @@
 				canvas.clear();
 				$scope.filename = getPath+'-regions';
 				$scope.imgpath = "./assets/images/"+getPath+".jpg";
+				$timeout(function(){
+					CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
+				},200);
 				CanvasService.getRegionData($scope.filename).then(function(res){
 					if(res.data !== undefined && res.data !== ''){
 						CanvasService.loadJson(canvas, res.data);
@@ -247,10 +253,9 @@
 			}
 		}
 
-/*
 		angular.element($window).bind('resize', function(){
 			// var zoom = angular.element('.mid').height();
-			var zoom = '';
+			var zoom = 0;
 			var wd = angular.element('.mid').width();
 			var ht = angular.element('.mid').height();
 			CanvasService.resizeCanvas(canvas, wd, ht);
@@ -272,7 +277,7 @@
 			console.log(zoom);
 			canvas.setZoom(zoom);
 		});
-*/
+
 	}
 
 })();
