@@ -130,29 +130,29 @@
 		}
 
 		$scope.previousthumb = function(){
-			canvas.clear();
 			if($scope.initialval > 0){
+				canvas.clear();
 				$scope.initialval = $scope.initialval - 10;
 				$scope.increment = $scope.increment - 10;
 				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
 				$scope.filename = $scope.initialval+1+'-regions';
-				// $scope.imgpath = $scope.regionsimages[0].img;
-				// $timeout(function(){
-				// 	CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
-				// },200);
-				// CanvasService.getRegionData($scope.filename).then(function(res){
-				// 	if(res.data != undefined && res.data != ''){
-				// 		CanvasService.loadJson(canvas, res.data);
-				// 		$scope.activated = false;
-				// 		$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
-				// 	}else{
-				// 		$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-				// 		$scope.activated = false;
-				// 	}					
-				// }, function (err) {
-				// 	$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-				// 	$scope.activated = false;
-				// });
+				$scope.imgpath = $scope.regionsimages[0].img;
+				$timeout(function(){
+					CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
+				},200);
+				CanvasService.getRegionData($scope.filename).then(function(res){
+					if(res.data != undefined && res.data != ''){
+						CanvasService.loadJson(canvas, res.data);
+						$scope.activated = false;
+						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+					}else{
+						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+						$scope.activated = false;
+					}					
+				}, function (err) {
+					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+					$scope.activated = false;
+				});
 			}else{
 				$scope.initialval = $scope.initialval;
 				$scope.increment = $scope.increment;
@@ -161,29 +161,29 @@
 		}
 
 		$scope.nextthumb = function(){
-			canvas.clear();
 			if($scope.increment < $scope.storedImageResources.length ){
+				canvas.clear();
 				$scope.initialval = $scope.increment;
 				$scope.increment = $scope.increment+10;
 				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
 				$scope.filename = $scope.initialval+1+'-regions';
-				// $scope.imgpath = $scope.regionsimages[0].img;
-				// $timeout(function(){
-				// 	CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
-				// },200);
-				// CanvasService.getRegionData($scope.filename).then(function(res){
-				// 	if(res.data !== undefined && res.data !== ''){
-				// 		CanvasService.loadJson(canvas, res.data);
-				// 		$scope.activated = false;
-				// 		$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
-				// 	}else{
-				// 		$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-				// 		$scope.activated = false;
-				// 	}					
-				// }, function (err) {
-				// 	$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-				// 	$scope.activated = false;
-				// });
+				$scope.imgpath = $scope.regionsimages[0].img;
+				$timeout(function(){
+					CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
+				},200);
+				CanvasService.getRegionData($scope.filename).then(function(res){
+					if(res.data !== undefined && res.data !== ''){
+						CanvasService.loadJson(canvas, res.data);
+						$scope.activated = false;
+						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+					}else{
+						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+						$scope.activated = false;
+					}					
+				}, function (err) {
+					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+					$scope.activated = false;
+				});
 			}
 			else{
 					$scope.initialval = $scope.initialval;
