@@ -255,12 +255,14 @@
 
 		angular.element($window).bind('resize', function(){
 			// var zoom = angular.element('.mid').height();
-			var zoom = 0;
-			var wd = angular.element('.mid').width();
-			var ht = angular.element('.mid').height();
-			CanvasService.resizeCanvas(canvas, wd, ht);
+			//var zoom = 0;
+			var wd = angular.element('.mid img').width();
+			var ht = angular.element('.mid img').height();
+			//CanvasService.resizeCanvas(canvas, wd, ht);
+
+			$('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
 			
-			if (wd < angular.element($window).width() ) {
+			/*if (wd < angular.element($window).width() ) {
 			    zoom = angular.element($window).height() / ht;
 
 			    if ((zoom * wd) > angular.element($window).width()) {
@@ -275,7 +277,7 @@
 			    }
 			}
 			console.log(zoom);
-			canvas.setZoom(zoom);
+			canvas.setZoom(zoom);*/
 		});
 
 	}
