@@ -36,6 +36,7 @@
     right: 0;
     display: table;
 }
+.buttonArrowStyle{background-color: #31b0d5;color: #fff;font-size: 40px;padding: 3px 10px;border-radius: 3px;border: none;}
 .prev{float: left; background-color:#31b0d5; color:#fff; font-size:40px; padding: 3px 10px; border-radius: 3px; border:none;}
 .next{float: left !important; background-color:#31b0d5; color:#fff; font-size:40px; padding: 3px 10px; border-radius: 3px; border:none;}
 #jcl-demo a.prev, #jcl-demo a.next, #jcl-demo a.go, .jcl-demo a.prev, .jcl-demo a.next{font-size: 24px; padding: 5px; width: 28px;}
