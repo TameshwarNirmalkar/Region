@@ -42,7 +42,7 @@
 #jcl-demo a.prev, #jcl-demo a.next, #jcl-demo a.go, .jcl-demo a.prev, .jcl-demo a.next{font-size: 24px; padding: 5px; width: 28px;}
 .toggle-editor{display: none;}
 /*#jcl-demo{margin: 0 auto;}*/
-#jcl-demo .mid{margin: 0; width: inherit; height: 70vh; box-sizing: content-box;}
+#jcl-demo .mid{margin: 0; width: inherit; height: 90vh; box-sizing: content-box;}
 .carousel{max-width: 90%; padding: 0 !important; margin: 0 auto; float: none; float: left !important;}
 .canvasHolder{margin: 0 auto;}
 .canvasHolder .canvas-container{position: absolute !important;}
@@ -72,4 +72,20 @@ canvas{display: block; overflow: hidden;}
 }
 .listclass{
     float:left; padding:5px; list-style:none; cursor:pointer;
+}
+@media screen and (max-width:1925px){
+    #jcl-demo .mid{height: 78vh;}
+}
+@media screen and (max-width:1600px){
+    #jcl-demo .mid{height: 66vh;}
+}
+@media screen and (max-width:1367px){
+    #jcl-demo .mid{height: 66vh;}
+}
+@media screen and (max-width:1100px){
+   #jcl-demo .mid{height: 74vh;}
+}
+@media screen and (max-width:800px){
+   #jcl-demo .mid{height: 78vh;width: 100%;}
+
 }
