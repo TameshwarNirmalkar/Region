@@ -198,6 +198,7 @@
 					return JSON.parse(data.imageid) === getPath;
 			});
 			if(filterfile){
+				canvas.clear();
 				$scope.filename = getPath+'-regions';
 				$scope.imgpath = "./assets/images/"+getPath+".jpg";
 				CanvasService.getRegionData($scope.filename).then(function(res){
@@ -225,6 +226,7 @@
 					return JSON.parse(data.imageid) === getPath;
 			});
 			if(filterfile){
+				canvas.clear();
 				$scope.filename = getPath+'-regions';
 				$scope.imgpath = "./assets/images/"+getPath+".jpg";
 				CanvasService.getRegionData($scope.filename).then(function(res){
