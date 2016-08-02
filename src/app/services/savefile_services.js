@@ -29,21 +29,11 @@
                     region.setOptions({"options": {"target": regionconfig.options.options}} );
                 }
                 canvas.add(region).setActiveObject(region);
-
-                canvas.on("object:scaling", function(e){
-                    var target = e.target;
-                    var sX = target.scaleX;
-                    var sY = target.scaleY;
-                    target.width =  target.width*=sX;
-                    target.height = target.height*=sY;
-                    target.scaleX = 1;
-                    target.scaleY = 1;
-                });
             })
         }
 
         function getRegionOptions(type){
-            var aobject = angular.element(".mid");
+            var aobject = angular.element("#canvasid");
             var obj = {
                 "internal": { "pageHeight": aobject.height(), "pageWidth": aobject.width(),"regiontype": "internal"},
                 "website" : { "pageHeight": aobject.height(), "pageWidth": aobject.width(),"regiontype": "website", "options": {"target": "_blank"} },
@@ -58,6 +48,8 @@
         function formateJson(canvas, selectedval){
             //var group = canvas.getActiveGroup();
             var canvasObject = canvas.getObjects();
+            // console.log( canvasObject );
+
             var jsonArray = [];
             angular.forEach(canvasObject, function(v,k){
                 var region = {
@@ -76,7 +68,7 @@
                 jsonArray.push(region);
                 // console.log(canvas.getActiveObject().get("type"));                
             });
-            // console.log( jsonArray );
+            
             return jsonArray;
         }
 

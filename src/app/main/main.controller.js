@@ -75,8 +75,19 @@
 			})
 		});
 
+		canvas.on("object:scaling", function(e){
+            var target = e.target;
+            var sX = target.scaleX;
+            var sY = target.scaleY;
+            target.width =  target.width*=sX;
+            target.height = target.height*=sY;
+            target.scaleX = 1;
+            target.scaleY = 1;
+        });
+
 		$scope.saveRegion = function(){
 			var formatjson = CanvasService.formateJson(canvas, $scope.region.options.target);
+			// console.log( formatjson );
 			CanvasService.saveRegion(formatjson, $scope.filename, canvas);
 		};
 
@@ -133,24 +144,24 @@
 				$scope.initialval = $scope.initialval - 10;
 				$scope.increment = $scope.increment - 10;
 				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
-				$scope.filename = $scope.initialval+1+'-regions';
-				$scope.imgpath = $scope.regionsimages[0].img;
-				$timeout(function(){
-					CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
-				},200);
-				CanvasService.getRegionData($scope.filename).then(function(res){
-					if(res.data != undefined && res.data != ''){
-						CanvasService.loadJson(canvas, res.data);
-						$scope.activated = false;
-						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
-					}else{
-						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-						$scope.activated = false;
-					}					
-				}, function (err) {
-					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-					$scope.activated = false;
-				});
+				$scope.filename = $scope.initialval+'-regions';
+				// $scope.imgpath = $scope.regionsimages[0].img;
+				// $timeout(function(){
+				// 	CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
+				// },200);
+				// CanvasService.getRegionData($scope.filename).then(function(res){
+				// 	if(res.data != undefined && res.data != ''){
+				// 		CanvasService.loadJson(canvas, res.data);
+				// 		$scope.activated = false;
+				// 		$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+				// 	}else{
+				// 		$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+				// 		$scope.activated = false;
+				// 	}					
+				// }, function (err) {
+				// 	$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+				// 	$scope.activated = false;
+				// });
 			}else{
 				$scope.initialval = $scope.initialval;
 				$scope.increment = $scope.increment;
@@ -164,24 +175,24 @@
 				$scope.initialval = $scope.increment;
 				$scope.increment = $scope.increment+10;
 				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
-				$scope.filename = $scope.initialval+1+'-regions';
-				$scope.imgpath = $scope.regionsimages[0].img;
-				$timeout(function(){
-					CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
-				},200);
-				CanvasService.getRegionData($scope.filename).then(function(res){
-					if(res.data !== undefined && res.data !== ''){
-						CanvasService.loadJson(canvas, res.data);
-						$scope.activated = false;
-						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
-					}else{
-						$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-						$scope.activated = false;
-					}					
-				}, function (err) {
-					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
-					$scope.activated = false;
-				});
+				$scope.filename = $scope.initialval+'-regions';
+				// $scope.imgpath = $scope.regionsimages[0].img;
+				// $timeout(function(){
+				// 	CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
+				// },200);
+				// CanvasService.getRegionData($scope.filename).then(function(res){
+				// 	if(res.data !== undefined && res.data !== ''){
+				// 		CanvasService.loadJson(canvas, res.data);
+				// 		$scope.activated = false;
+				// 		$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+				// 	}else{
+				// 		$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+				// 		$scope.activated = false;
+				// 	}					
+				// }, function (err) {
+				// 	$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+				// 	$scope.activated = false;
+				// });
 			}
 			else{
 					$scope.initialval = $scope.initialval;
