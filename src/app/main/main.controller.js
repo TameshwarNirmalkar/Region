@@ -25,24 +25,22 @@
 		$scope.increment = 10;
 		// $scope.regionId = null;
 		/*Angular image element for get height and width in future reference*/
-		var angularEle = angular.element('#jcl-demo');
+		var angularEle = angular.element('.mid img');
 
 		CanvasService.getImages().$promise.then(function(res){
 			$scope.storedImageResources = res.imageoject;
 			$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
-			$timeout(function(){
-				CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
-			},200);
 		})
 		/*
 		* load regions from json.
 		*/
 		CanvasService.getRegionData($scope.filename).then(function(res){
-			// $timeout(function(){
-			// 	CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
-			// },200);
 			if(res.data != undefined && res.data != ''){
 				CanvasService.loadJson(canvas, res.data);
+				$timeout(function(){
+					CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
+					angular.element('.canvas-container,canvas').css({width:angularEle.width()+'px', height:angularEle.height()+'px'});
+				},200);
 				$scope.activated = false;
 				$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
 			}else{
