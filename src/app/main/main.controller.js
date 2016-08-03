@@ -306,7 +306,7 @@
 			$timeout(function(){
 				angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
 				//console.log(wd,':',ht);
-			},500);
+			},300);
 		});
 		angular.element(document).ready(function () {
 			var wd = angular.element('.mid img').width();
