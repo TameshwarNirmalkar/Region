@@ -25,8 +25,6 @@
 		$scope.increment = 10;
 		// $scope.regionId = null;
 		/*Angular image element for get height and width in future reference*/
-		var angularEle = angular.element('.mid img');
-
 		CanvasService.getImages().$promise.then(function(res){
 			$scope.storedImageResources = res.imageoject;
 			$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
@@ -37,12 +35,17 @@
 		CanvasService.getRegionData($scope.filename).then(function(res){
 			if(res.data != undefined && res.data != ''){
 				CanvasService.loadJson(canvas, res.data);
-				$timeout(function(){
-					CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
-					angular.element('.canvas-container,canvas').css({width:angularEle.width()+'px', height:angularEle.height()+'px'});
-				},200);
 				$scope.activated = false;
 				$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+				console.log('on load calling data');
+
+				$timeout(function(){
+					var wd = angular.element('.mid img').width();
+		   			var ht = angular.element('.mid img').height();
+					angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
+					console.log(wd,':',ht);
+				},400);
+
 			}else{
 				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
 				$scope.activated = false;
@@ -133,18 +136,21 @@
 				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
 				$scope.activated = false;
 			});
-			$timeout(function(){
-				CanvasService.resizeCanvas(canvas, angular.element('.mid').width(), angular.element('.mid').height());
-			})
 		}
 
 		$scope.previousthumb = function(){
 			if($scope.initialval > 0){
-				canvas.clear();
 				$scope.initialval = $scope.initialval - 10;
 				$scope.increment = $scope.increment - 10;
 				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
 				$scope.filename = $scope.initialval+'-regions';
+
+				var wd = angular.element('.mid img').width();
+		   		var ht = angular.element('.mid img').height();
+				$timeout(function(){
+					angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
+					////////console.log(wd,':',ht);
+				},300);
 				// $scope.imgpath = $scope.regionsimages[0].img;
 				// $timeout(function(){
 				// 	CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
@@ -163,6 +169,7 @@
 				// 	$scope.activated = false;
 				// });
 			}else{
+				canvas.clear();
 				$scope.initialval = $scope.initialval;
 				$scope.increment = $scope.increment;
 				return false;
@@ -171,16 +178,23 @@
 
 		$scope.nextthumb = function(){
 			if($scope.increment < $scope.storedImageResources.length ){
-				canvas.clear();
 				$scope.initialval = $scope.increment;
 				$scope.increment = $scope.increment+10;
 				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
 				$scope.filename = $scope.initialval+'-regions';
+
+				var wd = angular.element('.mid img').width();
+		   		var ht = angular.element('.mid img').height();
+				$timeout(function(){
+					angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
+					//////console.log(wd,':',ht);
+				},300);
+				// canvas.clear();
 				// $scope.imgpath = $scope.regionsimages[0].img;
 				// $timeout(function(){
 				// 	CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
 				// },200);
-				// CanvasService.getRegionData($scope.filename).then(function(res){
+				 // CanvasService.getRegionData($scope.filename).then(function(res){
 				// 	if(res.data !== undefined && res.data !== ''){
 				// 		CanvasService.loadJson(canvas, res.data);
 				// 		$scope.activated = false;
@@ -195,6 +209,7 @@
 				// });
 			}
 			else{
+					canvas.clear();
 					$scope.initialval = $scope.initialval;
 					$scope.increment = $scope.increment;
 					return false;
@@ -202,6 +217,7 @@
 		}
 
 		$scope.previousRegion = function(filename){
+			//alert('callig');
 			var getPath = parseInt(filename.match(/\d+/)[0]) - 1;
 			// var filterfile = _.some($scope.regionsimages, function (data) {
 			// 		return JSON.parse(data.imageid) === getPath;
@@ -210,12 +226,21 @@
 				canvas.clear();
 				$scope.filename = getPath+'-regions';
 				$scope.imgpath = "./assets/images/"+getPath+".jpg";
-				$timeout(function(){
-					CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
-				});
+				// $timeout(function(){
+				// 	// CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
+				// 	angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
+				// });
 				CanvasService.getRegionData($scope.filename).then(function(res){
 					if(res.data !== undefined && res.data !== ''){
 						CanvasService.loadJson(canvas, res.data);
+
+						var wd = angular.element('.mid img').width();
+				   		var ht = angular.element('.mid img').height();
+						$timeout(function(){
+							angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
+							////console.log(wd,':',ht);
+						},300);
+
 						$scope.activated = false;
 						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
 					}else{
@@ -241,12 +266,21 @@
 				canvas.clear();
 				$scope.filename = getPath+'-regions';
 				$scope.imgpath = "./assets/images/"+getPath+".jpg";
-				$timeout(function(){
-					CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
-				},200);
+				// $timeout(function(){
+				// 	// CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
+				// 	angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
+				// },200);
 				CanvasService.getRegionData($scope.filename).then(function(res){
 					if(res.data !== undefined && res.data !== ''){
 						CanvasService.loadJson(canvas, res.data);
+
+						var wd = angular.element('.mid img').width();
+				   		var ht = angular.element('.mid img').height();
+						$timeout(function(){
+							angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
+							//console.log(wd,':',ht);
+						},300);
+
 						$scope.activated = false;
 						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
 					}else{
@@ -263,11 +297,32 @@
 		}
 
 		angular.element($window).bind('resize', function(){
+			/*var angularEle = angular.element('.mid img');
+			angular.element('.canvas-container,canvas').css({width:angularEle.width()+'px', height:angularEle.height()+'px'});
+			console.log(angularEle.width(),':',angularEle.height());*/
+			
 			var wd = angular.element('.mid img').width();
-			var ht = angular.element('.mid img').height();
-			angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
+	   		var ht = angular.element('.mid img').height();
+			$timeout(function(){
+				angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
+				//console.log(wd,':',ht);
+			},500);
 		});
-
+		angular.element(document).ready(function () {
+			var wd = angular.element('.mid img').width();
+	   		var ht = angular.element('.mid img').height();
+			$timeout(function(){
+				angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
+				console.log(wd,':',ht);
+			},400);
+			
+		});
+		/*angular.element($window).bind('load', function(){
+			var angularEle = angular.element('.mid img');
+			angular.element('.canvas-container,canvas').css({width:angularEle.width()+'px', height:angularEle.height()+'px'});
+			console.log(angularEle.width(),':',angularEle.height());
+		});*/
 	}
 
 })();
+
