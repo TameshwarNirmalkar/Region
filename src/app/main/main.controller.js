@@ -19,7 +19,7 @@
 		$scope.isCanvasVisible = false;
 		$scope.activated = true;
 		$scope.filename = "page1";
-		$scope.imgpath = './assets/images/page1.jpg';
+		$scope.imgpath = './assets/images/page/page1.jpg';
 		$scope.storedImageResources = null;
 		$scope.initialval = 0;
 		$scope.increment = 10;
@@ -121,7 +121,9 @@
 			canvas.clear();
 			$scope.activated = true;
 			$scope.imgpath = this.imgs.img;
-			$scope.filename = ind+"-regions";
+			//$scope.filename = ind+"-regions";
+			$scope.filename = "page"+ind;
+			console.log('file get ',$scope.filename);
 			$scope.isCanvasVisible = false;
 			CanvasService.getRegionData($scope.filename).then(function(res){
 				if(res.data != undefined && res.data != ''){
@@ -225,7 +227,7 @@
 			if(getPath > 0){
 				canvas.clear();
 				$scope.filename = 'page'+getPath;
-				$scope.imgpath = "./assets/images/page"+getPath+".jpg";
+				$scope.imgpath = "./assets/images/page/page"+getPath+".jpg";
 				// $timeout(function(){
 				// 	// CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
 				// 	angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
@@ -265,7 +267,7 @@
 			if(getPath <= $scope.storedImageResources.length){
 				canvas.clear();
 				$scope.filename = getPath+'-regions';
-				$scope.imgpath = "./assets/images/page"+getPath+".jpg";
+				$scope.imgpath = "./assets/images/page/page"+getPath+".jpg";
 				// $timeout(function(){
 				// 	// CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
 				// 	angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
