@@ -5,16 +5,21 @@
 
 		function SavefileResourceGateway($resource) {
 			
-			var regiongetDataResource = $resource('./app/services/image_resp.json', {}, {
-				getImageData: {method: 'GET'}
+			var pageImageResource = $resource('./app/services/image_resp.json', {}, {
+				getPageImages: {method: 'GET'}
 			});
 			
+			var thumbImageResource = $resource('./app/services/thumb_resp.json', {}, {
+				getThumbImages: {method: 'GET'}
+			});
+
 			var regionpostRegionData = $resource('./server_script/save_json.php', {param: '@myParam'}, {
 				postRegionData: {method: 'POST'}
 			});
 
 			return {
-				getImageData: regiongetDataResource.getImageData,
+				getPageImages: pageImageResource.getPageImages,
+				getThumbImages: thumbImageResource.getThumbImages,
 				postRegionData: regionpostRegionData.postRegionData
 			};
 		}

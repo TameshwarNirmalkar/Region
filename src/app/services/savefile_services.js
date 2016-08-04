@@ -3,8 +3,12 @@
     angular.module("regionapp")
     .factory("CanvasService", ["$timeout", "$window", "$http", "$mdToast", "SavefileResourceGateway", function($timeout, $window, $http, $mdToast, SavefileResourceGateway) {
         
-        function getImages(){
-            return SavefileResourceGateway.getImageData();
+        function getPageImages(){
+            return SavefileResourceGateway.getPageImages();
+        }
+
+        function getThumbImages(){
+            return SavefileResourceGateway.getThumbImages();
         }
 
         function getOptions(){
@@ -156,7 +160,7 @@
             canvas.setDimensions({width: imgwidth, height: imgheight});
         }
         return {
-            getImages: getImages,
+            getPageImages: getPageImages,
             getOptions: getOptions,
             addRegion: addRegion,
             getRegionOptions: getRegionOptions,
@@ -166,7 +170,8 @@
             getScopeRegion: scopeRegion,
             saveRegion: saveRegion,
             getRegionData: getRegionData,
-            resizeCanvas: resizeCanvas
+            resizeCanvas: resizeCanvas,
+            getThumbImages: getThumbImages
         };
     }])
 

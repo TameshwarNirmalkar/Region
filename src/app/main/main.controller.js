@@ -15,29 +15,43 @@
 		// Selectbox field options for website
 		$scope.targetopt = CanvasService.getOptions();
 		$scope.regiontypeLabel = "Region Editor";
-		$scope.regionsimages = null;
 		$scope.isCanvasVisible = false;
 		$scope.activated = true;
 		$scope.filename = "page1";
-		$scope.imgpath = './assets/images/page/page1.jpg';
-		$scope.storedImageResources = null;
+		$scope.imgpath = '';
+		$scope.regionsimages = null;
+		$scope.thumbImages = null;
 		$scope.initialval = 0;
 		$scope.increment = 10;
-		// $scope.regionId = null;
-		/*Angular image element for get height and width in future reference*/
-		CanvasService.getImages().$promise.then(function(res){
-			$scope.storedImageResources = res.imageoject;
-			$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
+		
+		/* 
+		* Get Page Images from service 
+		*/
+		CanvasService.getPageImages().$promise.then(function(res){
+			$scope.pageImages = res.imageoject;
+			$scope.imgpath = res.imageoject[0].img;
+			console.log( 'Page Ready', res.imageoject[0].img );
+			let wdht = angular.element('.mid img');
+			$timeout(function(){
+				angular.element('.canvas-container,canvas').css({width:wdht.width()+'px', height:wdht.height()+'px'});
+			},300);
+		})
+		/* 
+		* Get Thumbnails Images from service
+		*/
+		CanvasService.getThumbImages().$promise.then(function(res){
+			$scope.thumbImages = res.thumbimageobject;
+			$scope.regionsimages = $scope.thumbImages.slice($scope.initialval, $scope.increment);
 		})
 		/*
-		* load regions from json.
+		* load regions from service.
 		*/
 		CanvasService.getRegionData($scope.filename).then(function(res){
 			if(res.data != undefined && res.data != ''){
 				CanvasService.loadJson(canvas, res.data);
 				$scope.activated = false;
 				$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
-				console.log('on load calling data');
+				// console.log('on load calling data');
 
 				$timeout(function(){
 					var wd = angular.element('.mid img').width();
@@ -117,13 +131,16 @@
 			}
 		};
 
+		/*
+		* Load region when you click on small thumbnails.
+		*/
 		$scope.loadregion = function(ind){
 			canvas.clear();
 			$scope.activated = true;
-			$scope.imgpath = this.imgs.img;
-			//$scope.filename = ind+"-regions";
+			// let pageImg = _.where($scope.pageImages, {"imageid": ind});
+			$scope.imgpath = $scope.pageImages[ind-1].img;
 			$scope.filename = "page"+ind;
-			console.log('file get ',$scope.filename);
+			// $scope.filename = "page"+ind;
 			$scope.isCanvasVisible = false;
 			CanvasService.getRegionData($scope.filename).then(function(res){
 				if(res.data != undefined && res.data != ''){
@@ -144,14 +161,13 @@
 			if($scope.initialval > 0){
 				$scope.initialval = $scope.initialval - 10;
 				$scope.increment = $scope.increment - 10;
-				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
-				$scope.filename = $scope.initialval+'-regions';
+				$scope.regionsimages = $scope.thumbImages.slice($scope.initialval, $scope.increment);
+				$scope.filename = 'page'+$scope.initialval;
 
 				var wd = angular.element('.mid img').width();
 		   		var ht = angular.element('.mid img').height();
 				$timeout(function(){
 					angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
-					////////console.log(wd,':',ht);
 				},300);
 				// $scope.imgpath = $scope.regionsimages[0].img;
 				// $timeout(function(){
@@ -179,12 +195,11 @@
 		}
 
 		$scope.nextthumb = function(){
-			if($scope.increment < $scope.storedImageResources.length ){
+			if($scope.increment < $scope.thumbImages.length ){
 				$scope.initialval = $scope.increment;
 				$scope.increment = $scope.increment+10;
-				$scope.regionsimages = $scope.storedImageResources.slice($scope.initialval, $scope.increment);
-				$scope.filename = $scope.initialval+'-regions';
-
+				$scope.regionsimages = $scope.thumbImages.slice($scope.initialval, $scope.increment);
+				$scope.filename = 'page'+$scope.initialval;
 				var wd = angular.element('.mid img').width();
 		   		var ht = angular.element('.mid img').height();
 				$timeout(function(){
@@ -219,28 +234,19 @@
 		}
 
 		$scope.previousRegion = function(filename){
-			//alert('callig');
-			var getPath = parseInt(filename.match(/\d+/)[0]) - 1;
-			// var filterfile = _.some($scope.regionsimages, function (data) {
-			// 		return JSON.parse(data.imageid) === getPath;
-			// });
+			let getPath = parseInt(filename.match(/\d+/)[0]) - 1;
 			if(getPath > 0){
 				canvas.clear();
 				$scope.filename = 'page'+getPath;
-				$scope.imgpath = "./assets/images/page/page"+getPath+".jpg";
-				// $timeout(function(){
-				// 	// CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
-				// 	angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
-				// });
+				$scope.imgpath = $scope.pageImages[getPath-1].img; // getPath-1: Due to array starts from 0;
 				CanvasService.getRegionData($scope.filename).then(function(res){
 					if(res.data !== undefined && res.data !== ''){
 						CanvasService.loadJson(canvas, res.data);
 
-						var wd = angular.element('.mid img').width();
-				   		var ht = angular.element('.mid img').height();
+						let wd = angular.element('.mid img').width();
+				   		let ht = angular.element('.mid img').height();
 						$timeout(function(){
 							angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
-							////console.log(wd,':',ht);
 						},300);
 
 						$scope.activated = false;
@@ -260,29 +266,19 @@
 		}
 
 		$scope.nextRegion = function(filename){
-			var getPath = parseInt(filename.match(/\d+/)[0]) + 1;
-			// var filterfile = _.some($scope.regionsimages, function (data) {
-			// 		return JSON.parse(data.imageid) === getPath;
-			// });
-			if(getPath <= $scope.storedImageResources.length){
+			let getPath = parseInt(filename.match(/\d+/)[0]) + 1;
+			if(getPath <= $scope.pageImages.length){
 				canvas.clear();
-				$scope.filename = getPath+'-regions';
-				$scope.imgpath = "./assets/images/page/page"+getPath+".jpg";
-				// $timeout(function(){
-				// 	// CanvasService.resizeCanvas(canvas, angularEle.width(), angularEle.height());
-				// 	angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
-				// },200);
+				$scope.filename = 'page'+getPath;
+				$scope.imgpath = $scope.pageImages[getPath-1].img; // getPath-1: Due to array starts from 0
 				CanvasService.getRegionData($scope.filename).then(function(res){
 					if(res.data !== undefined && res.data !== ''){
 						CanvasService.loadJson(canvas, res.data);
-
-						var wd = angular.element('.mid img').width();
-				   		var ht = angular.element('.mid img').height();
+						let wdht = angular.element('.mid img');
+				   		// var ht = angular.element('.mid img').height();
 						$timeout(function(){
-							angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
-							//console.log(wd,':',ht);
+							angular.element('.canvas-container,canvas').css({width:wdht.width()+'px', height:wdht.height()+'px'});
 						},300);
-
 						$scope.activated = false;
 						$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
 					}else{
@@ -299,31 +295,12 @@
 		}
 
 		angular.element($window).bind('resize', function(){
-			/*var angularEle = angular.element('.mid img');
-			angular.element('.canvas-container,canvas').css({width:angularEle.width()+'px', height:angularEle.height()+'px'});
-			console.log(angularEle.width(),':',angularEle.height());*/
-			
-			var wd = angular.element('.mid img').width();
-	   		var ht = angular.element('.mid img').height();
+			let wdht = angular.element('.mid img');
+	   		// var ht = angular.element('.mid img').height();
 			$timeout(function(){
-				angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
-				//console.log(wd,':',ht);
+				angular.element('.canvas-container,canvas').css({width:wdht.width()+'px', height:wdht.height()+'px'});
 			},300);
 		});
-		angular.element(document).ready(function () {
-			var wd = angular.element('.mid img').width();
-	   		var ht = angular.element('.mid img').height();
-			$timeout(function(){
-				angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
-				console.log(wd,':',ht);
-			},400);
-			
-		});
-		/*angular.element($window).bind('load', function(){
-			var angularEle = angular.element('.mid img');
-			angular.element('.canvas-container,canvas').css({width:angularEle.width()+'px', height:angularEle.height()+'px'});
-			console.log(angularEle.width(),':',angularEle.height());
-		});*/
 	}
 
 })();
