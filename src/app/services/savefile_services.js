@@ -52,8 +52,7 @@
         function formateJson(canvas, selectedval){
             //var group = canvas.getActiveGroup();
             var canvasObject = canvas.getObjects();
-            // console.log( canvasObject );
-
+            var angularObj = angular.element('.mid img');
             var jsonArray = [];
             angular.forEach(canvasObject, function(v,k){
                 var region = {
@@ -61,8 +60,8 @@
                     "y": Math.floor(v.top),
                     "width": Math.floor(v.width),
                     "height": Math.floor(v.height),
-                    "pageWidth": v.pageWidth,
-                    "pageHeight": v.pageHeight,
+                    "pageWidth": angularObj.width(),
+                    "pageHeight": angularObj.height(),
                     "type": v.regiontype,
                     "target": v.target
                 };
