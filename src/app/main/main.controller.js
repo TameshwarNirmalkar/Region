@@ -71,6 +71,11 @@
 
 		$document.bind('keydown', function(e) {
 		  if(e.which === 46 && canvas.getActiveObject()){
+		  	console.log( canvas.getActiveObject().newregion );
+			if(!canvas.getActiveObject().newregion){
+				var formatjson = CanvasService.formateJson(canvas, $scope.region.options.target);
+				CanvasService.saveRegion(formatjson, $scope.filename, canvas);
+			}
 			canvas.getActiveObject().remove();
 		  }
 		});
@@ -297,6 +302,14 @@
 		angular.element($window).bind('resize', function(){
 			let wdht = angular.element('.mid img');
 	   		// var ht = angular.element('.mid img').height();
+	   		var originalState = angular.element($window).width();
+			if(originalState < $window.screen.width){
+				console.log( 'resize decreasing...' );
+				// resizeCan(canvas);
+			}else{
+				// resizeCan(canvas);
+				console.log( 'resize increasing...' );
+			}
 			$timeout(function(){
 				angular.element('.canvas-container,canvas').css({width:wdht.width()+'px', height:wdht.height()+'px'});
 			},300);
