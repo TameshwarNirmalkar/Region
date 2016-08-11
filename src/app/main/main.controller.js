@@ -50,18 +50,21 @@
 			if(res.data != undefined && res.data != ''){
 				CanvasService.loadJson(canvas, res.data);
 				$scope.activated = false;
-				$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
-				// console.log('on load calling data');
+				if(res.data.length > 0){
+					$mdToast.show( $mdToast.simple().theme("success-toast").textContent('Filled Canvas').position('top right').hideDelay(3000) );
+					console.log('on load calling data', res.data.length);
+				}else{
+					$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );					
+				}
 
 				$timeout(function(){
 					var wd = angular.element('.mid img').width();
 		   			var ht = angular.element('.mid img').height();
 					angular.element('.canvas-container,canvas').css({width:wd+'px', height:ht+'px'});
-					console.log(wd,':',ht);
 				},400);
 
 			}else{
-				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('Empty Canvas').position('top right').hideDelay(3000) );
+				$mdToast.show( $mdToast.simple().theme("error-toast").textContent('File not found').position('top right').hideDelay(3000) );
 				$scope.activated = false;
 			}
 		}, function (err) {
@@ -71,12 +74,13 @@
 
 		$document.bind('keydown', function(e) {
 		  if(e.which === 46 && canvas.getActiveObject()){
-		  	console.log( canvas.getActiveObject().newregion );
-			if(!canvas.getActiveObject().newregion){
+		  	canvas.getActiveObject().remove();
+			if(canvas.getObjects().length > 0){
 				var formatjson = CanvasService.formateJson(canvas, $scope.region.options.target);
 				CanvasService.saveRegion(formatjson, $scope.filename, canvas);
+			}else{
+				CanvasService.saveRegion("", $scope.filename, canvas);
 			}
-			canvas.getActiveObject().remove();
 		  }
 		});
 
